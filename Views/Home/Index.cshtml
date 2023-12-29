@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "City Films";
+}
+
+<keep-alive>
+    <component v-bind:is="page.currentComponent"> <slot></slot></component>
+</keep-alive>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            vApp = new Vue({
+                el: '#app',
+                data: {
+                    page: new pageModel()
+                },
+            })
+            window.onhashchange = function () {
+                pageLoad();
+            };
+            pageLoad();
+        });
+
+        function pageLoad() {
+            var aurl = window.location.hash;
+
+            if (aurl === '' || aurl === hashValue.login) {
+                vApp.page.currentComponent = 'home-component'; document.title = "Home";
+            }
+        }
+
+    </script>
+}

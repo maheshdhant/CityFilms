@@ -5,7 +5,6 @@ function getYear() {
     document.querySelector("#displayYear").innerHTML = currentYear;
 }
 
-getYear();
 
 //  owl carousel script
 $(".owl-carousel").owlCarousel({

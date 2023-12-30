@@ -11,13 +11,14 @@ Vue.component('home-component',
                 template: res,
                 data: function () {
                     return {
-
+                        
                     };
                 },
                 methods: {
+
                 },
                 mounted: function () {
-
+                    getYear()
                 },
             })
         })

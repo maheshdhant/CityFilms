@@ -1,7 +1,18 @@
+using CityFlims.Entity;
+using CityFlims.Services.Control.AdminServices;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// DbContext configuration
+builder.Services.AddDbContext<CityfilmsDataContext>(options =>
+options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+// Services configuration
+builder.Services.AddScoped<IAdminServices, AdminServices>();
 
 var app = builder.Build();
 

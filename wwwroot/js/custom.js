@@ -25,3 +25,31 @@ $(".owl-carousel").owlCarousel({
 });
 
 //    end owl carousel script 
+
+function getRequest(url) {
+    return $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json",
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ":" + errorThrown);
+        }
+    });
+}
+
+function postRequest(url, data) {
+    if ((typeof data) == "object") {
+        data = JSON.stringify(data)
+    }
+    return $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: data,
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ":" + errorThrown);
+        }
+    });
+}

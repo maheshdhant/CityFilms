@@ -23,8 +23,11 @@
         function pageLoad() {
             var aurl = window.location.hash;
 
-            if (aurl === '' || aurl === hashValue.login) {
+            if (aurl === '' || aurl === hashValue.home) {
                 vApp.page.currentComponent = 'home-component'; document.title = "Home";
+            }
+            else if (aurl === hashValue.adminDashboard) {
+                vApp.page.currentComponent = 'admin-dashboard-component'; document.title = "Admin";
             }
         }
 

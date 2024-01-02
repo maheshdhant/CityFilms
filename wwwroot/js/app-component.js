@@ -14,6 +14,7 @@ class imageModel {
     constructor() {
         this.imageName = '';
         this.imageLocation = '';
+        this.imageFile = '';
     }
 }
 
@@ -57,7 +58,25 @@ Vue.component('admin-dashboard-component',
                         response.done(function (response) {
                             currentObj.page.imageList = response
                         })
+                    },
+                    handleFileUpload(event) {
+                        let currentObj = this;
+                        // Get the selected file from the input
+                        currentObj.page.imageList[0].imageFile = event.target.files[0];
+                        debugger
+                    },
+                    uploadImage: function () {
+                        let currentObj = this;
+                        if (!currentObj.page.imageList[0].imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
 
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append('file', currentObj.page.imageList[0].imageFile);
+                        debugger
+                        postRequest(apiControlAdminUrl.addImage, currentObj.page.imageList[0])
                     }
                 },
                 mounted: function () {

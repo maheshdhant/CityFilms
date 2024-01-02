@@ -7,7 +7,7 @@ var htmlControlAdminUrl = {
 var apiControlAdminBaseUrl = apiBaseUrl + "control/admin/"
 var apiControlAdminUrl = {
     imageList: apiControlAdminBaseUrl + "images-list",
-    addImage: apiControlAdminBaseUrl + "add-image"
+    addImage: apiControlAdminBaseUrl + "add-images"
 }
 
 

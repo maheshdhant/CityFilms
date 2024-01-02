@@ -1,7 +1,14 @@
-﻿<div class="container align-content-center" >
+﻿<div class="container text-center align-content-center" >
     <ul>
         <li v-for="(item, index) in page.imageList" :key="index">
             {{ item.imageName }}
         </li>
     </ul>
+    <div>
+        Upload Image:
+        <div>
+            <input type="file" ref="fileInput" @change="handleFileUpload" />
+            <button @click="uploadImage">Upload</button>
+        </div>
+    </div>
 </div>

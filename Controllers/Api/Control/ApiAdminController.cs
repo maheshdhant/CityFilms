@@ -3,6 +3,7 @@ using CityFlims.Models;
 using CityFlims.Services.Control.AdminServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CityFlims.Controllers.Api.Control
 {
@@ -21,6 +22,12 @@ namespace CityFlims.Controllers.Api.Control
         {
             var serviceResponse = await _actionServices.GetImages();
             return serviceResponse;
+        }
+
+        [HttpGet("add-images")]
+        public async Task AddImages(ImageModel image)
+        {
+            _actionServices.AddImages(image);
         }
     }
 }

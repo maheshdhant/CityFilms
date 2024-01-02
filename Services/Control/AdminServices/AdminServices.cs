@@ -16,7 +16,6 @@ namespace CityFlims.Services.Control.AdminServices
 
             var imageList = await _context.Images.Select(x => new ImageModel()
             {
-                ImageId = x.ImageId,
                 ImageName = x.ImageName,
                 ImageLocation = x.ImageLocation,
             }).ToListAsync();
@@ -26,7 +25,7 @@ namespace CityFlims.Services.Control.AdminServices
 
         public void AddImage(ImageModel image)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CityFlims.Controllers.Api.Control
 {
-    [Route("api/[controller]")]
+    [Route("api/control/admin")]
     [ApiController]
     public class ApiAdminController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace CityFlims.Controllers.Api.Control
             _actionServices = actionServices;
         }
 
-        [HttpGet("image-list")]
+        [HttpGet("images-list")]
         public async Task<IEnumerable<ImageModel>> GetImages()
         {
             var serviceResponse = await _actionServices.GetImages();

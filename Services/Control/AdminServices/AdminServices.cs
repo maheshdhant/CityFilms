@@ -1,5 +1,6 @@
 ﻿using CityFlims.Entity;
 using CityFlims.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,12 +25,9 @@ namespace CityFlims.Services.Control.AdminServices
             return imageList;
         }
 
-        public async Task AddImages(ImageModel image)
+        public async Task<IActionResult> AddImages(IFormFile image)
         {
-            
-            await _context.SaveChangesAsync();
-
-            var fileName = image.ImageFile.Name + Path.GetExtension(image.ImageFile.FileName);
+            var fileName = image.Name + Path.GetExtension(image.FileName);
 
             // Define the path to save the uploaded image
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
@@ -39,11 +37,13 @@ namespace CityFlims.Services.Control.AdminServices
                 ImageName = fileName,
             };
             _context.Add(imageDetails);
+            await _context.SaveChangesAsync();
             // Save the image to the specified path
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await image.ImageFile.CopyToAsync(stream);
+                await image.CopyToAsync(stream);
             }
+            return (IActionResult)Results.Created(filePath, image);
         }
     }
 }

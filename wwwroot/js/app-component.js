@@ -48,6 +48,7 @@ Vue.component('admin-dashboard-component',
                 data: function () {
                     return {
                         page: new adminDashboardModel(),
+                        selectedFile: null,
                     };
                 },
                 methods: {
@@ -75,8 +76,8 @@ Vue.component('admin-dashboard-component',
                         // Create a FormData object to send the file
                         const formData = new FormData();
                         formData.append('file', currentObj.page.imageList[0].imageFile);
-                        debugger
-                        postRequest(apiControlAdminUrl.addImage, currentObj.page.imageList[0])
+                        postRequest(apiControlAdminUrl.addImage, formData)
+                        
                     }
                 },
                 mounted: function () {

@@ -6,6 +6,6 @@ namespace CityFlims.Services.Control.AdminServices
     public interface IAdminServices
     {
         Task<IEnumerable<ImageModel>> GetImages();
-        Task AddImages(ImageModel image);
+        Task<IActionResult> AddImages(IFormFile image);
     }
 }

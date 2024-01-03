@@ -24,10 +24,11 @@ namespace CityFlims.Controllers.Api.Control
             return serviceResponse;
         }
 
-        [HttpGet("add-images")]
-        public async Task AddImages(ImageModel image)
+        [HttpPost("add-images")]
+        public async Task<IActionResult> AddImages([FromForm] IFormFile image)
         {
-            _actionServices.AddImages(image);
+            var serviceResponse = await _actionServices.AddImages(image);
+            return Ok(serviceResponse);
         }
     }
 }

@@ -6,9 +6,23 @@
     </ul>
     <div>
         Upload Image:
-        <div>
-            <input type="file" ref="fileInput" @change="handleFileUpload" />
-            <button @click="uploadImage">Upload</button>
+        <form :id="'file-form-Document_aa'">
+            <div class="col-sm-12 mt-2">
+
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <input class="form-control" type="file" id="formFileMultiple" name="File" accept="jpg/*" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <div class="col col-md-12 mt-3">
+            <div class="form-group float-end">
+                <button v-on:click="uploadImage()" class="btn btn-success font-size-14 px-15" type="button" title="Add photo."><i class="icon-create"></i>Add Photo</button>
+            </div>
         </div>
     </div>
 </div>

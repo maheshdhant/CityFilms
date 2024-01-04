@@ -1,11 +1,12 @@
 ﻿using CityFlims.Models;
+using CityFlims.Models.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CityFlims.Services.Control.AdminServices
 {
     public interface IAdminServices
     {
-        Task<IEnumerable<ImageModel>> GetImages();
-        Task<IActionResult> AddImages(IFormFile image);
+        Task<ServiceResponse<dynamic>> GetImages();
+        Task<ServiceResponse<dynamic>> AddImages(IFormFile image);
     }
 }

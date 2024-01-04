@@ -18,10 +18,10 @@ namespace CityFlims.Controllers.Api.Control
         }
 
         [HttpGet("images-list")]
-        public async Task<IEnumerable<ImageModel>> GetImages()
+        public async Task<IActionResult> GetImages()
         {
             var serviceResponse = await _actionServices.GetImages();
-            return serviceResponse;
+            return Ok(serviceResponse);
         }
 
         [HttpPost("add-images")]

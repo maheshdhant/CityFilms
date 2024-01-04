@@ -1,5 +1,6 @@
 ﻿using CityFlims.Entity;
 using CityFlims.Models;
+using CityFlims.Models.Response;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,7 @@ namespace CityFlims.Services.Control.AdminServices
         {
             _context = context;
         }
-        public async Task<IEnumerable<ImageModel>> GetImages()
+        public async Task<ServiceResponse<dynamic>> GetImages()
         {
 
             var imageList = await _context.Images.Select(x => new ImageModel()
@@ -22,10 +23,13 @@ namespace CityFlims.Services.Control.AdminServices
                 ImageLocation = x.ImageLocation,
             }).ToListAsync();
 
-            return imageList;
+            return new ServiceResponse<dynamic>()
+            {
+                Data = imageList
+            };
         }
 
-        public async Task<IActionResult> AddImages(IFormFile image)
+        public async Task<ServiceResponse<dynamic>> AddImages(IFormFile image)
         {
             var fileName = image.Name + Path.GetExtension(image.FileName);
 
@@ -43,7 +47,10 @@ namespace CityFlims.Services.Control.AdminServices
             {
                 await image.CopyToAsync(stream);
             }
-            return (IActionResult)Results.Created(filePath, image);
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Upload successfully!"
+            };
         }
     }
 }

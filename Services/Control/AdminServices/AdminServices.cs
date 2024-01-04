@@ -29,9 +29,9 @@ namespace CityFlims.Services.Control.AdminServices
             };
         }
 
-        public async Task<ServiceResponse<dynamic>> AddImages(IFormFile image)
+        public async Task<ServiceResponse<dynamic>> AddImages(ImageModel model)
         {
-            var fileName = image.Name + Path.GetExtension(image.FileName);
+            var fileName = model.ImageFile.Name + Path.GetExtension(model.ImageFile.FileName);
 
             // Define the path to save the uploaded image
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
@@ -45,7 +45,7 @@ namespace CityFlims.Services.Control.AdminServices
             // Save the image to the specified path
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await image.CopyToAsync(stream);
+                await model.ImageFile.CopyToAsync(stream);
             }
             return new ServiceResponse<dynamic>()
             {

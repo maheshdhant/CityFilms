@@ -48,7 +48,21 @@ function postRequest(url, data) {
         enctype: 'multipart/form-data',
         data: data,
         error: function (jqXHR, textStatus, errorThrown) {
-            alert(textStatus + ":" + errorThrown);
+            alert(textStatus + ": " + errorThrown);
+        }
+    });
+}
+
+function postFileRequest(url, data) {
+    return $.ajax({
+        url: url,
+        type: "POST",
+        enctype: 'multipart/form-data',
+        data: data,
+        processData: false,
+        contentType: false,
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ": " + errorThrown);
         }
     });
 }

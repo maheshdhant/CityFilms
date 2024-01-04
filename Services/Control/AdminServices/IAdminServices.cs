@@ -7,6 +7,6 @@ namespace CityFlims.Services.Control.AdminServices
     public interface IAdminServices
     {
         Task<ServiceResponse<dynamic>> GetImages();
-        Task<ServiceResponse<dynamic>> AddImages(IFormFile image);
+        Task<ServiceResponse<dynamic>> AddImages(ImageModel model);
     }
 }

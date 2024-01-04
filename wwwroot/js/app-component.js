@@ -7,6 +7,7 @@ class pageModel {
 class adminDashboardModel {
     constructor() {
         this.imageList = [new imageModel()];
+        this.image = new imageModel();
     }
 }
 
@@ -14,7 +15,7 @@ class imageModel {
     constructor() {
         this.imageName = '';
         this.imageLocation = '';
-        this.imageFile = '';
+        this.imageFile = null;            ;
     }
 }
 
@@ -77,11 +78,18 @@ Vue.component('admin-dashboard-component',
                         const formData = new FormData();
                         formData.append('file', currentObj.page.imageList[0].imageFile);
                         postRequest(apiControlAdminUrl.addImage, formData)
-                        
+                    },
+                    addRecord: function () {
+                        let currentObj = this;
+                        var form1 = $('#file-form-Document_aa')[0];
+                        var formData = new FormData(form1);
+                        formData.append("image", currentObj.page.image);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData);
+                        debugger
                     }
                 },
                 mounted: function () {
-                    
+                    this.getImageList();
                 },
             })
         })

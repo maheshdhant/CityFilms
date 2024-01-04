@@ -25,9 +25,9 @@ namespace CityFlims.Controllers.Api.Control
         }
 
         [HttpPost("add-images")]
-        public async Task<IActionResult> AddImages([FromForm] IFormFile image)
+        public async Task<IActionResult> AddImages(ImageModel model)
         {
-            var serviceResponse = await _actionServices.AddImages(image);
+            var serviceResponse = await _actionServices.AddImages(model);
             return Ok(serviceResponse);
         }
     }

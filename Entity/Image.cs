@@ -10,4 +10,8 @@ public partial class Image
     public string? ImageName { get; set; }
 
     public string? ImageLocation { get; set; }
+
+    public int? ImageTypeId { get; set; }
+
+    public virtual ImageType? ImageType { get; set; }
 }

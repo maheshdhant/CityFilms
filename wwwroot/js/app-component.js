@@ -64,20 +64,20 @@ Vue.component('admin-dashboard-component',
                     handleFileUpload(event) {
                         let currentObj = this;
                         // Get the selected file from the input
-                        currentObj.page.imageList[0].imageFile = event.target.files[0];
+                        currentObj.page.image.imageFile = event.target.files[0];
                         debugger
                     },
                     uploadImage: function () {
                         let currentObj = this;
-                        if (!currentObj.page.imageList[0].imageFile) {
+                        if (!currentObj.page.image.imageFile) {
                             alert('Please select a file.');
                             return;
                         }
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        formData.append('file', currentObj.page.imageList[0].imageFile);
-                        postRequest(apiControlAdminUrl.addImage, formData)
+                        formData.append('ImageFile', currentObj.page.image.imageFile); 
+                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData)
                     },
                     addRecord: function () {
                         let currentObj = this;
@@ -89,7 +89,7 @@ Vue.component('admin-dashboard-component',
                     }
                 },
                 mounted: function () {
-                    this.getImageList();
+                    //this.getImageList();
                 },
             })
         })

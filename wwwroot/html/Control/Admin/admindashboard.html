@@ -6,10 +6,10 @@
     </ul>
     <div>
         Upload Image:
-        <form method="post" enctype="multipart/form-data" action="/api/control/admin/add-images">
-            <input type="file" name="image" />
-            <input type="submit" value="Upload" />
-        </form>
+        <div>
+            <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+            <button @click="uploadImage">Upload Imagee</button>
+        </div>
     </div>
     <!--<div class="col-sm-2">
         <label id="label">Upload file : </label>

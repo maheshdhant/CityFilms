@@ -1,4 +1,6 @@
-﻿namespace CityFlims.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace CityFlims.Models
 {
     public class ImageModel
     {

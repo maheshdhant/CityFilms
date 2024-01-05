@@ -1,7 +1,6 @@
 ﻿using CityFlims.Entity;
 using CityFlims.Models;
 using CityFlims.Services.Control.AdminServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -25,7 +24,7 @@ namespace CityFlims.Controllers.Api.Control
         }
 
         [HttpPost("add-images")]
-        public async Task<IActionResult> AddImages(ImageModel model)
+        public async Task<IActionResult> AddImages([FromForm] ImageModel model)
         {
             var serviceResponse = await _actionServices.AddImages(model);
             return Ok(serviceResponse);

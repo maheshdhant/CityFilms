@@ -31,7 +31,7 @@ namespace CityFlims.Services.Control.AdminServices
 
         public async Task<ServiceResponse<dynamic>> AddImages(ImageModel model)
         {
-            var fileName = model.ImageFile.Name + Path.GetExtension(model.ImageFile.FileName);
+            var fileName = model.ImageFile.FileName;
 
             // Define the path to save the uploaded image
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);

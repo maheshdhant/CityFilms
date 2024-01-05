@@ -6,7 +6,7 @@ class pageModel {
 
 class adminDashboardModel {
     constructor() {
-        this.imageList = [new imageModel()];
+        this.logoLocation = '';
         this.image = new imageModel();
     }
 }
@@ -15,7 +15,8 @@ class imageModel {
     constructor() {
         this.imageName = '';
         this.imageLocation = '';
-        this.imageFile = null;            ;
+        this.imageFile = null;
+        this.imageTypeId = '';
     }
 }
 
@@ -58,7 +59,7 @@ Vue.component('admin-dashboard-component',
                         var response = getRequest(apiControlAdminUrl.imageList);
 
                         response.done(function (response) {
-                            currentObj.page.imageList = response
+                            currentObj.page.imageList = response.data
                         })
                     },
                     handleFileUpload(event) {
@@ -66,6 +67,21 @@ Vue.component('admin-dashboard-component',
                         // Get the selected file from the input
                         currentObj.page.image.imageFile = event.target.files[0];
                         debugger
+                    },
+
+                    uploadLogo: function () {
+                        let currentObj = this;
+                        currentObj.page.image.imageTypeId = 1;
+                        if (!currentObj.page.image.imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
+
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append('ImageFile', currentObj.page.image.imageFile);
+                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData)
                     },
                     uploadImage: function () {
                         let currentObj = this;
@@ -79,17 +95,10 @@ Vue.component('admin-dashboard-component',
                         formData.append('ImageFile', currentObj.page.image.imageFile); 
                         var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData)
                     },
-                    addRecord: function () {
-                        let currentObj = this;
-                        var form1 = $('#file-form-Document_aa')[0];
-                        var formData = new FormData(form1);
-                        formData.append("image", currentObj.page.image);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData);
-                        debugger
-                    }
+
                 },
                 mounted: function () {
-                    //this.getImageList();
+                    this.getImageList();
                 },
             })
         })

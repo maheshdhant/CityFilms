@@ -17,31 +17,36 @@ namespace CityFlims.Services.Control.AdminServices
         public async Task<ServiceResponse<dynamic>> GetImages()
         {
 
-            var imageList = await _context.Images.Select(x => new ImageModel()
+            var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 1).Select(x => new ImageModel()
             {
-                ImageName = x.ImageName,
                 ImageLocation = x.ImageLocation,
-            }).ToListAsync();
+            }).FirstOrDefaultAsync();
 
             return new ServiceResponse<dynamic>()
             {
-                Data = imageList
+                Data = logoLocation
             };
         }
 
         public async Task<ServiceResponse<dynamic>> AddImages(ImageModel model)
         {
             var fileName = model.ImageFile.FileName;
+            var filePath = "";
 
-            // Define the path to save the uploaded image
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", fileName);
-            var imageDetails = new Image
+            if (model.ImageTypeId == 1)
             {
-                ImageLocation = filePath,
-                ImageName = fileName,
-            };
-            _context.Add(imageDetails);
-            await _context.SaveChangesAsync();
+                // Define the path to save the uploaded image
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "images", "logo", fileName);
+                var imageDetails = new Image
+                {
+                    ImageLocation = filePath,
+                    ImageName = fileName,
+                    ImageTypeId = model.ImageTypeId,
+                };
+                _context.Add(imageDetails);
+                await _context.SaveChangesAsync();
+
+            }
             // Save the image to the specified path
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

@@ -7,5 +7,6 @@ namespace CityFlims.Models
         public string? ImageName { get; set; }
         public string? ImageLocation { get; set; }
         public IFormFile? ImageFile { get; set; }
+        public int? ImageTypeId { get; set; }
     }
 }

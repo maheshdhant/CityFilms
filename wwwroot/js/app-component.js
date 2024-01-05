@@ -81,7 +81,7 @@ Vue.component('admin-dashboard-component',
                         const formData = new FormData();
                         formData.append('ImageFile', currentObj.page.image.imageFile);
                         formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData)
+                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
                     uploadImage: function () {
                         let currentObj = this;
@@ -92,8 +92,8 @@ Vue.component('admin-dashboard-component',
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        formData.append('ImageFile', currentObj.page.image.imageFile); 
-                        var actionRequest = postFileRequest(apiControlAdminUrl.addImage, formData)
+                        formData.append('ImageFile', currentObj.page.image.imageFile);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
 
                 },

@@ -23,10 +23,10 @@ namespace CityFlims.Controllers.Api.Control
             return Ok(serviceResponse);
         }
 
-        [HttpPost("add-images")]
+        [HttpPost("upload-images")]
         public async Task<IActionResult> AddImages([FromForm] ImageModel model)
         {
-            var serviceResponse = await _actionServices.AddImages(model);
+            var serviceResponse = await _actionServices.UploadImages(model);
             return Ok(serviceResponse);
         }
     }

@@ -28,13 +28,14 @@ namespace CityFlims.Services.Control.AdminServices
             };
         }
 
-        public async Task<ServiceResponse<dynamic>> AddImages(ImageModel model)
+        public async Task<ServiceResponse<dynamic>> UploadImages(ImageModel model)
         {
             var fileName = model.ImageFile.FileName;
             var filePath = "";
 
             if (model.ImageTypeId == 1)
             {
+                fileName = "logo.jpg";
                 // Define the path to save the uploaded image
                 filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "images", "logo", fileName);
                 var imageDetails = new Image
@@ -45,8 +46,12 @@ namespace CityFlims.Services.Control.AdminServices
                 };
                 _context.Add(imageDetails);
                 await _context.SaveChangesAsync();
-
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
             }
+
             // Save the image to the specified path
             using (var stream = new FileStream(filePath, FileMode.Create))
             {

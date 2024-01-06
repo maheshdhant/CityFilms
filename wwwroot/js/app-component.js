@@ -33,7 +33,25 @@ Vue.component('home-component',
                 methods: {
                     goToAdmin: function () {
                         window.location = "/#admin/dashboard";
-                    }
+                    },
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#services";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    },
                 },
                 mounted: function () {
                     getYear()
@@ -83,6 +101,7 @@ Vue.component('admin-dashboard-component',
                         formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
+
                     uploadImage: function () {
                         let currentObj = this;
                         if (!currentObj.page.image.imageFile) {
@@ -100,6 +119,121 @@ Vue.component('admin-dashboard-component',
                 mounted: function () {
                     this.getImageList();
                 },
+            })
+        })
+    })
+
+Vue.component('partners-component',
+    function (resolve, reject) {
+        $.get(htmlUrl.partners).then(function (res) {
+            resolve({
+                template: res,
+                data: function () {
+                    return {
+
+                    };
+                },
+                methods: {
+
+                },
+                mounted: function () {
+
+                },
+                created: function () {
+
+                }
+            })
+        })
+    })
+
+Vue.component('about-component',
+    function (resolve, reject) {
+        $.get(htmlUrl.about).then(function (res) {
+            resolve({
+                template: res,
+                data: function () {
+                    return {
+
+                    };
+                },
+                methods: {
+
+                },
+                mounted: function () {
+
+                },
+                created: function () {
+
+                }
+            })
+        })
+    })
+
+Vue.component('services-component',
+    function (resolve, reject) {
+        $.get(htmlUrl.services).then(function (res) {
+            resolve({
+                template: res,
+                data: function () {
+                    return {
+
+                    };
+                },
+                methods: {
+
+                },
+                mounted: function () {
+
+                },
+                created: function () {
+
+                }
+            })
+        })
+    })
+
+Vue.component('contact-component',
+    function (resolve, reject) {
+        $.get(htmlUrl.contact).then(function (res) {
+            resolve({
+                template: res,
+                data: function () {
+                    return {
+
+                    };
+                },
+                methods: {
+
+                },
+                mounted: function () {
+
+                },
+                created: function () {
+
+                }
+            })
+        })
+    })
+
+Vue.component('booking-component',
+    function (resolve, reject) {
+        $.get(htmlUrl.booking).then(function (res) {
+            resolve({
+                template: res,
+                data: function () {
+                    return {
+
+                    };
+                },
+                methods: {
+
+                },
+                mounted: function () {
+
+                },
+                created: function () {
+
+                }
             })
         })
     })

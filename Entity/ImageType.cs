@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CityFlims.Entity;
+namespace CityFilms.Entity;
 
 public partial class ImageType
 {

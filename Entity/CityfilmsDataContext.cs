@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace CityFlims.Entity;
+namespace CityFilms.Entity;
 
 public partial class CityfilmsDataContext : DbContext
 {
@@ -27,6 +27,7 @@ public partial class CityfilmsDataContext : DbContext
     {
         modelBuilder.Entity<Image>(entity =>
         {
+            entity.Property(e => e.DateUpdated).HasColumnType("datetime");
             entity.Property(e => e.ImageLocation).HasMaxLength(500);
             entity.Property(e => e.ImageName).HasMaxLength(500);
 

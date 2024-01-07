@@ -11,27 +11,11 @@
             <button @click="uploadLogo">Upload Image</button>
         </div>
     </div>
-    <!--<div class="col-sm-2">
-        <label id="label">Upload file : </label>
-    </div>
-    <div class="col-sm-4">
-        <div class="">
-            <form :id="'file-form-Document_aa'">
-
-                <div class="col-sm-12">
-                    <div class="mb-3">
-                        <input class="form-control" type="file" id="formFileMultiple" name="File" accept="image/*" />
-                    </div>
-
-                </div>
-            </form>
-
-
+    <div style="background-color:darkgoldenrod">
+        Background Cover:
+        <div>
+            <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+            <button @click="uploadBackgroundCover">Upload Image</button>
         </div>
     </div>
-    <div class="col col-md-12 mt-3">
-        <div class="form-group float-end">
-            <button v-on:click="addRecord()" class="btn btn-success font-size-14 px-15" type="button" title="Add record."><i class="icon-create"></i>Add </button>
-        </div>
-    </div>-->
 </div>

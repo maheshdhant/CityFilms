@@ -1,11 +1,11 @@
-﻿using CityFlims.Entity;
-using CityFlims.Models;
-using CityFlims.Models.Response;
+﻿using CityFilms.Entity;
+using CityFilms.Models;
+using CityFilms.Models.Response;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace CityFlims.Services.Control.AdminServices
+namespace CityFilms.Services.Control.AdminServices
 {
     public class AdminServices:IAdminServices
     {
@@ -33,6 +33,7 @@ namespace CityFlims.Services.Control.AdminServices
             var fileName = model.ImageFile.FileName;
             var filePath = "";
 
+            //for logo
             if (model.ImageTypeId == 1)
             {
                 fileName = "logo.jpg";
@@ -43,20 +44,58 @@ namespace CityFlims.Services.Control.AdminServices
                     ImageLocation = filePath,
                     ImageName = fileName,
                     ImageTypeId = model.ImageTypeId,
+                    DateUpdated = DateTime.Now,
                 };
-                _context.Add(imageDetails);
-                await _context.SaveChangesAsync();
+                var logoInDb = await _context.Images.Where(x => x.ImageTypeId == 1).Select(x => new ImageModel()
+                {
+                    ImageLocation = x.ImageLocation,
+                }).ToListAsync();
+                if (logoInDb.Count() == 0)
+                {
+                    _context.Images.Add(imageDetails);
+                    await _context.SaveChangesAsync();
+                }
+                
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
                 }
+
+                // Save the image to the specified path
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ImageFile.CopyToAsync(stream);
+                }
+            }
+            // for background cover
+            if (model.ImageTypeId == 2)
+            {
+                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "images", "background", fileName);
+                
+                // creates directory if does not exists
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                // Save the image to the specified path
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.ImageFile.CopyToAsync(stream);
+                }
+
+                // save image details to database
+                var imageDetails = new Image
+                {
+                    ImageLocation = filePath,
+                    ImageName = fileName,
+                    ImageTypeId = model.ImageTypeId,
+                    DateUpdated = DateTime.Now,
+                };
+                _context.Images.Add(imageDetails);
+                await _context.SaveChangesAsync();
+
             }
 
-            // Save the image to the specified path
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await model.ImageFile.CopyToAsync(stream);
-            }
             return new ServiceResponse<dynamic>()
             {
                 Data = "Upload successfully!"

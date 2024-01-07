@@ -102,6 +102,21 @@ Vue.component('admin-dashboard-component',
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
 
+                    uploadBackgroundCover: function () {
+                        let currentObj = this;
+                        currentObj.page.image.imageTypeId = 2;
+                        if (!currentObj.page.image.imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
+
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append('ImageFile', currentObj.page.image.imageFile);
+                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
+                    },
+
                     uploadImage: function () {
                         let currentObj = this;
                         if (!currentObj.page.image.imageFile) {

@@ -1,5 +1,5 @@
-using CityFlims.Entity;
-using CityFlims.Services.Control.AdminServices;
+using CityFilms.Entity;
+using CityFilms.Services.Control.AdminServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

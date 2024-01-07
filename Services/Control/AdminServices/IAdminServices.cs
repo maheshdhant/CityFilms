@@ -1,8 +1,8 @@
-﻿using CityFlims.Models;
-using CityFlims.Models.Response;
+﻿using CityFilms.Models;
+using CityFilms.Models.Response;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CityFlims.Services.Control.AdminServices
+namespace CityFilms.Services.Control.AdminServices
 {
     public interface IAdminServices
     {

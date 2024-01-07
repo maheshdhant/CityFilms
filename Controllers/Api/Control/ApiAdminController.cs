@@ -1,10 +1,10 @@
-﻿using CityFlims.Entity;
-using CityFlims.Models;
-using CityFlims.Services.Control.AdminServices;
+﻿using CityFilms.Entity;
+using CityFilms.Models;
+using CityFilms.Services.Control.AdminServices;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace CityFlims.Controllers.Api.Control
+namespace CityFilms.Controllers.Api.Control
 {
     [Route("api/control/admin")]
     [ApiController]

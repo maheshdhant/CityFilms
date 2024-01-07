@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace CityFlims.Models
+namespace CityFilms.Models
 {
     public class ImageModel
     {

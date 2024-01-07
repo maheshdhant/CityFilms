@@ -1,9 +1,9 @@
-﻿using CityFlims.Entity;
-using CityFlims.Models;
+﻿using CityFilms.Entity;
+using CityFilms.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CityFlims.Controllers
+namespace CityFilms.Controllers
 {
     public class HomeController : Controller
     {

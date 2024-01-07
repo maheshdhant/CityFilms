@@ -1,4 +1,4 @@
-namespace CityFlims.Models
+namespace CityFilms.Models
 {
     public class ErrorViewModel
     {

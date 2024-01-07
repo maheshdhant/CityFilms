@@ -1,4 +1,4 @@
-﻿namespace CityFlims.Models.Response
+﻿namespace CityFilms.Models.Response
 {
     public class ServiceResponse<T>
     {

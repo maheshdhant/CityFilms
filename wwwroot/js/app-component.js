@@ -6,7 +6,7 @@ class pageModel {
 
 class adminDashboardModel {
     constructor() {
-        this.logoLocation = '';
+        this.imageList = [new imageModel()]
         this.image = new imageModel();
     }
 }

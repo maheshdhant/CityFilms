@@ -17,10 +17,10 @@ namespace CityFilms.Services.Control.AdminServices
         public async Task<ServiceResponse<dynamic>> GetImages()
         {
 
-            var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 1).Select(x => new ImageModel()
+            var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 2).OrderBy(x => x.DateUpdated).Select(x => new ImageModel()
             {
                 ImageLocation = x.ImageLocation,
-            }).FirstOrDefaultAsync();
+            }).ToListAsync();
 
             return new ServiceResponse<dynamic>()
             {
@@ -38,7 +38,7 @@ namespace CityFilms.Services.Control.AdminServices
             {
                 fileName = "logo.jpg";
                 // Define the path to save the uploaded image
-                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "images", "logo", fileName);
+                filePath = Path.Combine("wwwroot", "uploads", "images", "logo", fileName);
                 var imageDetails = new Image
                 {
                     ImageLocation = filePath,
@@ -70,14 +70,14 @@ namespace CityFilms.Services.Control.AdminServices
             // for background cover
             if (model.ImageTypeId == 2)
             {
-                filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "images", "background", fileName);
-                
+                filePath = Path.Combine("wwwroot", "uploads", "images", "background");
                 // creates directory if does not exists
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
                 }
                 // Save the image to the specified path
+                filePath = Path.Combine(filePath, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(stream);

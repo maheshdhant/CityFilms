@@ -41,7 +41,7 @@ namespace CityFilms.Services.Control.AdminServices
                 filePath = Path.Combine("wwwroot", "uploads", "images", "logo", fileName);
                 var imageDetails = new Image
                 {
-                    ImageLocation = filePath,
+                    ImageLocation = Path.Combine("..", "uploads", "images", "logo", fileName),
                     ImageName = fileName,
                     ImageTypeId = model.ImageTypeId,
                     DateUpdated = DateTime.Now,
@@ -77,12 +77,12 @@ namespace CityFilms.Services.Control.AdminServices
                     Directory.CreateDirectory(filePath);
                 }
                 // Save the image to the specified path
-                filePath = Path.Combine(filePath, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(stream);
                 }
 
+                filePath = Path.Combine(Path.Combine("..", "uploads", "images", "background"), fileName);
                 // save image details to database
                 var imageDetails = new Image
                 {

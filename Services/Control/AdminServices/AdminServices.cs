@@ -17,7 +17,7 @@ namespace CityFilms.Services.Control.AdminServices
         public async Task<ServiceResponse<dynamic>> GetImages()
         {
 
-            var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 2).OrderBy(x => x.DateUpdated).Select(x => new ImageModel()
+            var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 2 || x.ImageTypeId == 1).OrderBy(x => x.DateUpdated).Select(x => new ImageModel()
             {
                 ImageLocation = x.ImageLocation,
             }).ToListAsync();
@@ -77,6 +77,7 @@ namespace CityFilms.Services.Control.AdminServices
                     Directory.CreateDirectory(filePath);
                 }
                 // Save the image to the specified path
+                filePath = Path.Combine("wwwroot", "uploads", "images", "background", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await model.ImageFile.CopyToAsync(stream);

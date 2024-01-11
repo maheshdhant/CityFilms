@@ -130,6 +130,9 @@ Vue.component('admin-dashboard-component',
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
 
+                    handleBackgroundSelect: function (index) {
+                        this.selectedFile = this.page.imageList[index];
+                    }
                 },
                 mounted: function () {
                     this.getImageList();

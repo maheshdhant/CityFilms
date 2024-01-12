@@ -27,80 +27,135 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = logoLocation
             };
         }
+        public async Task<ServiceResponse<dynamic>> GetBackgroundImages()
+        {
+
+            var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
+            {
+                ImageLocation = x.ImageLocation,
+            }).ToListAsync();
+
+            return new ServiceResponse<dynamic>()
+            {
+                Data = backgroundImages
+            };
+        }
 
         public async Task<ServiceResponse<dynamic>> UploadImages(ImageModel model)
         {
             var fileName = model.ImageFile.FileName;
             var filePath = "";
 
-            //for logo
-            if (model.ImageTypeId == 1)
+            if (model.ImageFile != null)
             {
-                fileName = "logo.jpg";
-                // Define the path to save the uploaded image
-                filePath = Path.Combine("wwwroot", "uploads", "images", "logo", fileName);
-                var imageDetails = new Image
+                //for logo
+                if (model.ImageTypeId == 1)
                 {
-                    ImageLocation = Path.Combine("..", "uploads", "images", "logo", fileName),
-                    ImageName = fileName,
-                    ImageTypeId = model.ImageTypeId,
-                    DateUpdated = DateTime.Now,
-                };
-                var logoInDb = await _context.Images.Where(x => x.ImageTypeId == 1).Select(x => new ImageModel()
+                    fileName = "logo.jpg";
+                    // Define the path to save the uploaded image
+                    filePath = Path.Combine("wwwroot", "uploads", "images", "logo", fileName);
+                    var imageDetails = new Image
+                    {
+                        ImageLocation = Path.Combine("..", "uploads", "images", "logo", fileName),
+                        ImageName = fileName,
+                        ImageTypeId = model.ImageTypeId,
+                        DateUpdated = DateTime.Now,
+                    };
+                    var logoInDb = await _context.Images.Where(x => x.ImageTypeId == 1).Select(x => new ImageModel()
+                    {
+                        ImageLocation = x.ImageLocation,
+                    }).ToListAsync();
+                    if (logoInDb.Count() == 0)
+                    {
+                        _context.Images.Add(imageDetails);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
+                    // Save the image to the specified path
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+                    return new ServiceResponse<dynamic>()
+                    {
+                        Data = "Upload successfull!"
+                    };
+                }
+                // for background cover
+                if (model.ImageTypeId == 2)
                 {
-                    ImageLocation = x.ImageLocation,
-                }).ToListAsync();
-                if (logoInDb.Count() == 0)
-                {
+                    filePath = Path.Combine("wwwroot", "uploads", "images", "background");
+
+                    // creates directory if does not exists
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    filePath = Path.Combine("wwwroot", "uploads", "images", "background", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await model.ImageFile.CopyToAsync(stream);
+                    }
+
+                    // save image details to database
+                    filePath = Path.Combine(Path.Combine("..", "uploads", "images", "background"), fileName);
+                    var imageDetails = new Image
+                    {
+                        ImageLocation = filePath,
+                        ImageName = fileName,
+                        ImageTypeId = model.ImageTypeId,
+                        DateUpdated = DateTime.Now,
+                    };
                     _context.Images.Add(imageDetails);
                     await _context.SaveChangesAsync();
-                }
-                
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
 
-                // Save the image to the specified path
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.ImageFile.CopyToAsync(stream);
+                    var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
+                    {
+                        ImageLocation = x.ImageLocation,
+                    }).ToListAsync();
+
+                    return new ServiceResponse<dynamic>()
+                    {
+                        Data = backgroundImages
+                    };
                 }
             }
-            // for background cover
-            if (model.ImageTypeId == 2)
-            {
-                filePath = Path.Combine("wwwroot", "uploads", "images", "background");
-                // creates directory if does not exists
-                if (!Directory.Exists(filePath))
-                {
-                    Directory.CreateDirectory(filePath);
-                }
-                // Save the image to the specified path
-                filePath = Path.Combine("wwwroot", "uploads", "images", "background", fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await model.ImageFile.CopyToAsync(stream);
-                }
-
-                filePath = Path.Combine(Path.Combine("..", "uploads", "images", "background"), fileName);
-                // save image details to database
-                var imageDetails = new Image
-                {
-                    ImageLocation = filePath,
-                    ImageName = fileName,
-                    ImageTypeId = model.ImageTypeId,
-                    DateUpdated = DateTime.Now,
-                };
-                _context.Images.Add(imageDetails);
-                await _context.SaveChangesAsync();
-
-            }
-
             return new ServiceResponse<dynamic>()
             {
-                Data = "Upload successfully!"
+                Data = "Upload failed!"
             };
         }
+
+        public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int? imageId)
+        {
+            var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();
+            if (imgToRemove != null)
+            {
+                _context.Images.RemoveRange(imgToRemove);
+                await _context.SaveChangesAsync();
+            }
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Background image deleted!"
+            };
+        }
+        //public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int[]? imageIds)
+        //{
+        //    var imgToDis = await _context.Images.Where(x => x.ImageId == imageIds[0]).Select.FirstOrDefaultAsync();
+        //    if (imgToRemove != null)
+        //    {
+        //        _context.Images.RemoveRange(imgToRemove);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    return new ServiceResponse<dynamic>()
+        //    {
+        //        Data = "Background image deleted!"
+        //    };
+        //}
     }
 }

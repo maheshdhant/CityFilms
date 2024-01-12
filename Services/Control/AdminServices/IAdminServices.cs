@@ -7,6 +7,7 @@ namespace CityFilms.Services.Control.AdminServices
     public interface IAdminServices
     {
         Task<ServiceResponse<dynamic>> GetImages();
+        Task<ServiceResponse<dynamic>> GetBackgroundImages();
         Task<ServiceResponse<dynamic>> UploadImages(ImageModel model);
     }
 }

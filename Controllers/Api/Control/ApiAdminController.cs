@@ -23,6 +23,13 @@ namespace CityFilms.Controllers.Api.Control
             return Ok(serviceResponse);
         }
 
+        [HttpGet("backgroundImages-list")]
+        public async Task<IActionResult> GetBackgroundImages()
+        {
+            var serviceResponse = await _actionServices.GetBackgroundImages();
+            return Ok(serviceResponse);
+        }
+
         [HttpPost("upload-images")]
         public async Task<IActionResult> AddImages([FromForm] ImageModel model)
         {

@@ -15,5 +15,7 @@ public partial class Image
 
     public DateTime? DateUpdated { get; set; }
 
+    public bool? IsSelected { get; set; }
+
     public virtual ImageType? ImageType { get; set; }
 }

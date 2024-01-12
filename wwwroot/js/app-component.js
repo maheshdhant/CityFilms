@@ -74,7 +74,7 @@ Vue.component('admin-dashboard-component',
                 methods: {
                     getImageList: function () {
                         let currentObj = this;
-                        var response = getRequest(apiControlAdminUrl.imageList);
+                        var response = getRequest(apiControlAdminUrl.backgroundImageList);
 
                         response.done(function (response) {
                             currentObj.page.imageList = response.data
@@ -84,8 +84,20 @@ Vue.component('admin-dashboard-component',
                         let currentObj = this;
                         // Get the selected file from the input
                         currentObj.page.image.imageFile = event.target.files[0];
-                        debugger
                     },
+
+                    //uploadImage: function () {
+                    //    let currentObj = this;
+                    //    if (!currentObj.page.image.imageFile) {
+                    //        alert('Please select a file.');
+                    //        return;
+                    //    }
+
+                    //    // Create a FormData object to send the file
+                    //    const formData = new FormData();
+                    //    formData.append('ImageFile', currentObj.page.image.imageFile);
+                    //    var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
+                    //},
 
                     uploadLogo: function () {
                         let currentObj = this;
@@ -115,23 +127,14 @@ Vue.component('admin-dashboard-component',
                         formData.append('ImageFile', currentObj.page.image.imageFile);
                         formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
+                        actionRequest.done(function (response) {
+                            currentObj.page.imageList = response.data
+                        })
                     },
 
-                    uploadImage: function () {
-                        let currentObj = this;
-                        if (!currentObj.page.image.imageFile) {
-                            alert('Please select a file.');
-                            return;
-                        }
-
-                        // Create a FormData object to send the file
-                        const formData = new FormData();
-                        formData.append('ImageFile', currentObj.page.image.imageFile);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
-                    },
-
-                    handleBackgroundSelect: function (index) {
+                    handleSelect: function (index) {
                         this.selectedFile = this.page.imageList[index];
+
                     }
                 },
                 mounted: function () {

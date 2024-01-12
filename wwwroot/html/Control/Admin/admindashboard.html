@@ -19,7 +19,7 @@
         </div>
         Select Background Cover:
         <div v-for="(image, index) in page.imageList" :key="index">
-            <img :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
+            <img @click="handleSelect(index)" :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
         </div>
 
     </div>

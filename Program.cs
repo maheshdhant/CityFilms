@@ -1,5 +1,6 @@
 using CityFilms.Entity;
 using CityFilms.Services.Control.AdminServices;
+using CityFilms.Services.Control.HomeServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 // Services configuration
 builder.Services.AddScoped<IAdminServices, AdminServices>();
+builder.Services.AddScoped<IHomeServices, HomeServices>();
 
 var app = builder.Build();
 

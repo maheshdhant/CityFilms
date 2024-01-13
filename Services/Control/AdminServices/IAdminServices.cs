@@ -9,5 +9,7 @@ namespace CityFilms.Services.Control.AdminServices
         Task<ServiceResponse<dynamic>> GetImages();
         Task<ServiceResponse<dynamic>> GetBackgroundImages();
         Task<ServiceResponse<dynamic>> UploadImages(ImageModel model);
+        Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId);
+        Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id);
     }
 }

@@ -29,10 +29,11 @@ namespace CityFilms.Services.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> GetBackgroundImages()
         {
-
             var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
             {
                 ImageLocation = x.ImageLocation,
+                ImageId = x.ImageId,
+                IsSelected = x.IsSelected,
             }).ToListAsync();
 
             return new ServiceResponse<dynamic>()
@@ -131,7 +132,7 @@ namespace CityFilms.Services.Control.AdminServices
             };
         }
 
-        public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int? imageId)
+        public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId)
         {
             var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();
             if (imgToRemove != null)
@@ -144,18 +145,27 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = "Background image deleted!"
             };
         }
-        //public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int[]? imageIds)
-        //{
-        //    var imgToDis = await _context.Images.Where(x => x.ImageId == imageIds[0]).Select.FirstOrDefaultAsync();
-        //    if (imgToRemove != null)
-        //    {
-        //        _context.Images.RemoveRange(imgToRemove);
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    return new ServiceResponse<dynamic>()
-        //    {
-        //        Data = "Background image deleted!"
-        //    };
-        //}
+        public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id)
+        {
+            // deselect previous background
+            var imgToDeselect = await _context.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
+            if (imgToDeselect != null)
+            {
+                imgToDeselect.IsSelected = false;
+                await _context.SaveChangesAsync();
+            }
+
+            // select background
+            var imgToSelect = await _context.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
+            if (imgToDeselect != null)
+            {
+                imgToDeselect.IsSelected = true;
+                await _context.SaveChangesAsync();
+            }
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Background image updated!"
+            };
+        }
     }
 }

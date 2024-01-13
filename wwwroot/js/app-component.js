@@ -4,6 +4,11 @@ class pageModel {
     }
 }
 
+class homeModel {
+    constructor() {
+        this.currentBackground = '';
+    }
+}
 class adminDashboardModel {
     constructor() {
         this.imageList = [new imageModel()]
@@ -13,10 +18,12 @@ class adminDashboardModel {
 
 class imageModel {
     constructor() {
+        this.imageId = '';
         this.imageName = '';
         this.imageLocation = '';
         this.imageFile = null;
         this.imageTypeId = '';
+        this.isSelected = false;            ;
     }
 }
 
@@ -27,7 +34,7 @@ Vue.component('home-component',
                 template: res,
                 data: function () {
                     return {
-                        
+                        page: new homeModel()
                     };
                 },
                 methods: {
@@ -52,9 +59,17 @@ Vue.component('home-component',
                     goToBooking: function () {
                         window.location = "/#booking";
                     },
+                    getCurrentBackground: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.currentBackground);
+                        actionRequest.done(function (response) {
+                            currentObj.page.currentBackground = response.data.imageLocation;
+                        })
+                    }
                 },
                 mounted: function () {
-                    getYear()
+                    getYear(),
+                    this.getCurrentBackground();
                 },
             })
         })
@@ -68,15 +83,17 @@ Vue.component('admin-dashboard-component',
                 data: function () {
                     return {
                         page: new adminDashboardModel(),
-                        selectedFile: null,
                     };
                 },
                 methods: {
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
                     getImageList: function () {
                         let currentObj = this;
-                        var response = getRequest(apiControlAdminUrl.backgroundImageList);
+                        var actionRequest = getRequest(apiControlAdminUrl.backgroundImageList);
 
-                        response.done(function (response) {
+                        actionRequest.done(function (response) {
                             currentObj.page.imageList = response.data
                         })
                     },
@@ -133,8 +150,9 @@ Vue.component('admin-dashboard-component',
                     },
 
                     handleSelect: function (index) {
-                        this.selectedFile = this.page.imageList[index];
-
+                        let currentObj = this;
+                        var newSelectedBg = currentObj.page.imageList[index];
+                        var actionRequest = postRequest(apiControlAdminUrl.selectBackground, newSelectedBg.imageId)
                     }
                 },
                 mounted: function () {

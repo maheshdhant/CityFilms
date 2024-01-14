@@ -152,6 +152,7 @@ namespace CityFilms.Services.Control.AdminServices
             if (imgToDeselect != null)
             {
                 imgToDeselect.IsSelected = false;
+                _context.Images.UpdateRange(imgToDeselect);
                 await _context.SaveChangesAsync();
             }
 
@@ -159,7 +160,8 @@ namespace CityFilms.Services.Control.AdminServices
             var imgToSelect = await _context.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
             if (imgToDeselect != null)
             {
-                imgToDeselect.IsSelected = true;
+                imgToSelect.IsSelected = true;
+                _context.Images.UpdateRange(imgToSelect);
                 await _context.SaveChangesAsync();
             }
             return new ServiceResponse<dynamic>()

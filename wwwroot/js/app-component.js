@@ -152,7 +152,7 @@ Vue.component('admin-dashboard-component',
                     handleSelect: function (index) {
                         let currentObj = this;
                         var newSelectedBg = currentObj.page.imageList[index];
-                        var actionRequest = postRequest(apiControlAdminUrl.selectBackground, newSelectedBg.imageId)
+                        var actionRequest = postRequest(apiControlAdminUrl.selectBackground + newSelectedBg.imageId)
                     }
                 },
                 mounted: function () {

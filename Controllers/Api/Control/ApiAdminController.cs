@@ -36,7 +36,7 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.UploadImages(model);
             return Ok(serviceResponse);
         }
-        [HttpPost("select-bg-image")]
+        [HttpPost("select-bg-image/{Id}")]
         public async Task<IActionResult> SelectBackgroundImage(int Id)
         {
             var serviceResponse = await _actionServices.SelectBackgroundImage(Id);

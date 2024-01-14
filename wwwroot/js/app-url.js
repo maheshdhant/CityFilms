@@ -16,7 +16,7 @@ var apiControlAdminUrl = {
     imageList: apiControlAdminBaseUrl + "images-list",
     backgroundImageList: apiControlAdminBaseUrl + "backgroundImages-list",
     uploadImage: apiControlAdminBaseUrl + "upload-images",
-    selectBackground: apiControlAdminBaseUrl + "select-bg-image",
+    selectBackground: apiControlAdminBaseUrl + "select-bg-image/",
 }
 var apiControlHomeBaseUrl = apiBaseUrl + "control/home/"
 var apiControlHomeUrl = {

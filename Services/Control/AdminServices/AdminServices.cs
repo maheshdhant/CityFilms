@@ -147,22 +147,25 @@ namespace CityFilms.Services.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id)
         {
+            using var ent = new CityfilmsDataContext();
+            Image obj = new Image();
+            
             // deselect previous background
-            var imgToDeselect = await _context.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
-            if (imgToDeselect != null)
+            obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
+            if (obj != null)
             {
-                imgToDeselect.IsSelected = false;
-                _context.Images.UpdateRange(imgToDeselect);
-                await _context.SaveChangesAsync();
+                obj.IsSelected = false;
+                //_context.Images.UpdateRange(imgToDeselect);
+                await ent.SaveChangesAsync();
             }
 
             // select background
-            var imgToSelect = await _context.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
-            if (imgToDeselect != null)
+            obj= await ent.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
+            if (obj != null)
             {
-                imgToSelect.IsSelected = true;
-                _context.Images.UpdateRange(imgToSelect);
-                await _context.SaveChangesAsync();
+                obj.IsSelected = true;
+                //_context.Images.UpdateRange(imgToSelect);
+                await ent.SaveChangesAsync();
             }
             return new ServiceResponse<dynamic>()
             {

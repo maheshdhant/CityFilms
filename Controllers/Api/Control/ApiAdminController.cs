@@ -42,5 +42,11 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.SelectBackgroundImage(Id);
             return Ok(serviceResponse);
         }
+        [HttpPost("delete-bg-image/{Id}")]
+        public async Task<IActionResult> DeleteBackgroundImage(int Id)
+        {
+            var serviceResponse = await _actionServices.DeleteBackgroundImage(Id);
+            return Ok(serviceResponse);
+        }
     }
 }

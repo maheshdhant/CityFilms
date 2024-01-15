@@ -16,11 +16,13 @@
         Upload Background Cover:
         <div>
             <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
-            <button @click="uploadBackgroundCover">Upload Image</button>
+            <button @click="uploadBackgroundImage">Upload Image</button>
         </div>
         Select Background Cover:
         <div v-for="(image, index) in page.imageList" :key="index">
-            <img @click="handleSelect(index)" :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
+            <img :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
+            <button @click="deleteBackgroundImage(index)">Delete Image</button>
+            <button @click="handleSelect(index)">Select Background</button>
         </div>
 
     </div>

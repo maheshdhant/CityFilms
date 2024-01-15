@@ -111,6 +111,7 @@ namespace CityFilms.Services.Control.AdminServices
                         ImageName = fileName,
                         ImageTypeId = model.ImageTypeId,
                         DateUpdated = DateTime.Now,
+                        IsSelected = false,
                     };
                     _context.Images.Add(imageDetails);
                     await _context.SaveChangesAsync();
@@ -118,6 +119,8 @@ namespace CityFilms.Services.Control.AdminServices
                     var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
                     {
                         ImageLocation = x.ImageLocation,
+                        ImageId = x.ImageId,
+                        IsSelected = x.IsSelected,
                     }).ToListAsync();
 
                     return new ServiceResponse<dynamic>()
@@ -137,12 +140,34 @@ namespace CityFilms.Services.Control.AdminServices
             var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();
             if (imgToRemove != null)
             {
-                _context.Images.RemoveRange(imgToRemove);
-                await _context.SaveChangesAsync();
+                if(imgToRemove.IsSelected != true)
+                {
+                    if (imgToRemove.ImageName != null)
+                    {
+                        var filePath = Path.Combine("wwwroot", "uploads", "images", "background", imgToRemove.ImageName); ;
+                        System.IO.File.Delete(filePath);
+                    }
+                    _context.Images.RemoveRange(imgToRemove);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    return new ServiceResponse<dynamic>()
+                    {
+                        Data = "Current background image cannot be deleted!"
+                    };
+                }
             }
+            var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
+            {
+                ImageLocation = x.ImageLocation,
+                ImageId = x.ImageId,
+                IsSelected = x.IsSelected,
+            }).ToListAsync();
+
             return new ServiceResponse<dynamic>()
             {
-                Data = "Background image deleted!"
+                Data = backgroundImages
             };
         }
         public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id)
@@ -155,7 +180,6 @@ namespace CityFilms.Services.Control.AdminServices
             if (obj != null)
             {
                 obj.IsSelected = false;
-                //_context.Images.UpdateRange(imgToDeselect);
                 await ent.SaveChangesAsync();
             }
 
@@ -163,13 +187,29 @@ namespace CityFilms.Services.Control.AdminServices
             obj= await ent.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
             if (obj != null)
             {
-                obj.IsSelected = true;
-                //_context.Images.UpdateRange(imgToSelect);
-                await ent.SaveChangesAsync();
+                if(obj.IsSelected != true)
+                {
+                    obj.IsSelected = true;
+                    await ent.SaveChangesAsync();
+                }
+                else
+                {
+                    return new ServiceResponse<dynamic>()
+                    {
+                        Data = "Already selected!"
+                    };
+                }
             }
+            var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
+            {
+                ImageLocation = x.ImageLocation,
+                ImageId = x.ImageId,
+                IsSelected = x.IsSelected,
+            }).ToListAsync();
+
             return new ServiceResponse<dynamic>()
             {
-                Data = "Background image updated!"
+                Data = backgroundImages
             };
         }
     }

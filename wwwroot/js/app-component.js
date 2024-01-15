@@ -131,7 +131,7 @@ Vue.component('admin-dashboard-component',
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
 
-                    uploadBackgroundCover: function () {
+                    uploadBackgroundImage: function () {
                         let currentObj = this;
                         currentObj.page.image.imageTypeId = 2;
                         if (!currentObj.page.image.imageFile) {
@@ -153,6 +153,14 @@ Vue.component('admin-dashboard-component',
                         let currentObj = this;
                         var newSelectedBg = currentObj.page.imageList[index];
                         var actionRequest = postRequest(apiControlAdminUrl.selectBackground + newSelectedBg.imageId)
+                    },
+                    deleteBackgroundImage: function (index) {
+                        let currentObj = this;
+                        var imgToDelete = currentObj.page.imageList[index];
+                        var actionRequest = postRequest(apiControlAdminUrl.deleteBackground + imgToDelete.imageId)
+                        actionRequest.done(function (response) {
+                            currentObj.page.imageList = response.data
+                        })
                     }
                 },
                 mounted: function () {

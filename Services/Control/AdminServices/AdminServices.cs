@@ -41,7 +41,6 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = backgroundImages
             };
         }
-
         public async Task<ServiceResponse<dynamic>> UploadImages(ImageModel model)
         {
             var fileName = model.ImageFile.FileName;
@@ -134,7 +133,6 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = "Upload failed!"
             };
         }
-
         public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId)
         {
             var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();

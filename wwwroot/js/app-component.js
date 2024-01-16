@@ -13,6 +13,7 @@ class adminDashboardModel {
     constructor() {
         this.imageList = [new imageModel()]
         this.image = new imageModel();
+        this.partner = new partnerModel();
     }
 }
 
@@ -24,6 +25,17 @@ class imageModel {
         this.imageFile = null;
         this.imageTypeId = '';
         this.isSelected = false;            ;
+    }
+}
+
+class partnerModel {
+    constructor() {
+        this.partnerId = '';
+        this.partnerName = '';
+        this.partnerDescription = '';
+        this.partnerPhone = '';
+        this.partnerEmail = '';
+        this.partnerImage = null;
     }
 }
 
@@ -148,7 +160,20 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.imageList = response.data
                         })
                     },
+                    uploadPartnerInfo: function () {
+                        let currentObj = this;
+                        currentObj.page.image.imageTypeId = 3;
+                        if (!currentObj.page.image.imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
 
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append('ImageFile', currentObj.page.image.imageFile);
+                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadPartnerLogo, formData)
+                    },
                     handleSelect: function (index) {
                         let currentObj = this;
                         var newSelectedBg = currentObj.page.imageList[index];

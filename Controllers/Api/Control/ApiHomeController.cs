@@ -15,8 +15,14 @@ namespace CityFilms.Controllers.Api.Control
         {
             _actionServices = actionServices;
         }
-        
-            [HttpGet("current-bg")]
+        [HttpGet("company-logo")]
+        public async Task<IActionResult> GetCompanyLogo()
+        {
+            var serviceResponse = await _actionServices.GetCompanyLogo();
+            return Ok(serviceResponse);
+        }
+
+        [HttpGet("current-bg")]
         public async Task<IActionResult> GetCurrentBackground()
         {
             var serviceResponse = await _actionServices.GetCurrentBackground();

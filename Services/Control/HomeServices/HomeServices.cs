@@ -12,7 +12,15 @@ namespace CityFilms.Services.Control.HomeServices
         {
             _context = context;
         }
+        public async Task<ServiceResponse<dynamic>> GetCompanyLogo()
+        {
+            var logoLocation = "../uploads/images/logo/logo.jpg";
 
+            return new ServiceResponse<dynamic>()
+            {
+                Data = logoLocation
+            };
+        }
         public async Task<ServiceResponse<dynamic>> GetCurrentBackground()
         {
             var bgImage = await _context.Images.Where(x => x.ImageTypeId == 2 && x.IsSelected == true).Select(x => new ImageModel() { ImageLocation = x.ImageLocation}).FirstOrDefaultAsync();

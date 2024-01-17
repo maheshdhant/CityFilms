@@ -7,6 +7,7 @@ class pageModel {
 class homeModel {
     constructor() {
         this.currentBackground = '';
+        this.logoLocation = '';
     }
 }
 class adminDashboardModel {
@@ -35,7 +36,8 @@ class partnerModel {
         this.partnerDescription = '';
         this.partnerPhone = '';
         this.partnerEmail = '';
-        this.partnerImage = null;
+        this.partnerWebsite = '';
+        this.partnerImage = new imageModel();
     }
 }
 
@@ -71,6 +73,13 @@ Vue.component('home-component',
                     goToBooking: function () {
                         window.location = "/#booking";
                     },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                     getCurrentBackground: function () {
                         var currentObj = this;
                         var actionRequest = getRequest(apiControlHomeUrl.currentBackground);
@@ -81,6 +90,7 @@ Vue.component('home-component',
                 },
                 mounted: function () {
                     getYear(),
+                    this.getCompanyLogo();
                     this.getCurrentBackground();
                 },
             })
@@ -170,6 +180,7 @@ Vue.component('admin-dashboard-component',
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
+                        currentObj.page.partner.partnerImage = currentObj.page.image;
                         formData.append('ImageFile', currentObj.page.image.imageFile);
                         formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadPartnerLogo, formData)
@@ -206,7 +217,9 @@ Vue.component('partners-component',
                     };
                 },
                 methods: {
-
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
                 },
                 mounted: function () {
 

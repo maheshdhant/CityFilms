@@ -23,6 +23,7 @@ var apiControlAdminUrl = {
 var apiControlHomeBaseUrl = apiBaseUrl + "control/home/"
 var apiControlHomeUrl = {
     currentBackground: apiControlHomeBaseUrl + "current-bg",
+    logo: apiControlHomeBaseUrl + "company-logo",
 }
 
 

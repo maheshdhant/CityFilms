@@ -18,4 +18,6 @@ public partial class Image
     public bool? IsSelected { get; set; }
 
     public virtual ImageType? ImageType { get; set; }
+
+    public virtual ICollection<Partner> Partners { get; set; } = new List<Partner>();
 }

@@ -7,6 +7,7 @@
         public string? PartnerDescription { get; set;}
         public string? PartnerPhone { get; set;}
         public string? PartnerEmail { get; set;}
+        public string? PartnerWebsite { get; set;}
         public ImageModel? PartnerImage { get; set; }
     }
 }

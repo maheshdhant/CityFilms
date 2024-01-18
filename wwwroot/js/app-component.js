@@ -37,7 +37,7 @@ class partnerModel {
         this.partnerPhone = '';
         this.partnerEmail = '';
         this.partnerWebsite = '';
-        this.partnerImage = new imageModel();
+        this.partnerImage = null;
     }
 }
 
@@ -181,9 +181,13 @@ Vue.component('admin-dashboard-component',
                         // Create a FormData object to send the file
                         const formData = new FormData();
                         currentObj.page.partner.partnerImage = currentObj.page.image;
-                        formData.append('ImageFile', currentObj.page.image.imageFile);
-                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadPartnerLogo, formData)
+                        formData.append('PartnerImage', currentObj.page.partner.partnerImage);
+                        formData.append('PartnerName', currentObj.page.partner.partnerName);
+                        formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
+                        formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
+                        formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
+                        formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.partnerInfoUpload, formData)
                     },
                     handleSelect: function (index) {
                         let currentObj = this;

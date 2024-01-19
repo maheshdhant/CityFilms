@@ -210,5 +210,15 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = backgroundImages
             };
         }
+        public async Task<ServiceResponse<dynamic>> UploadPartnerInfo(PartnerModel model)
+        {
+            using var ent = new CityfilmsDataContext();
+            Partner obj = new Partner();
+
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Partner's Info Uploaded Successfully!",
+            };
+        }
     }
 }

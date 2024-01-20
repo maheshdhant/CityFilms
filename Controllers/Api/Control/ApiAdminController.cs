@@ -48,10 +48,10 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.DeleteBackgroundImage(Id);
             return Ok(serviceResponse);
         }
-        [HttpPost("upload-partner-info")]
-        public async Task<IActionResult> UploadPartnerInfo([FromForm]PartnerModel model)
+        [HttpPost("add-partner-info")]
+        public async Task<IActionResult> AddPartnerInfo([FromForm]PartnerModel model)
         {
-            var serviceResponse = await _actionServices.UploadPartnerInfo(model);
+            var serviceResponse = await _actionServices.AddPartnerInfo(model);
             return Ok(serviceResponse);
         }
     }

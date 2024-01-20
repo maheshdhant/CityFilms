@@ -210,10 +210,47 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = backgroundImages
             };
         }
-        public async Task<ServiceResponse<dynamic>> UploadPartnerInfo(PartnerModel model)
+        public async Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model)
         {
-            using var ent = new CityfilmsDataContext();
-            Partner obj = new Partner();
+            var fileName = model.PartnerImage.ImageFile.FileName;
+            var filePath = "";
+            filePath = Path.Combine("wwwroot", "uploads", "images", "partners");
+
+            // creates directory if does not exists
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            filePath = Path.Combine("wwwroot", "uploads", "images", "partners", fileName);
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await model.PartnerImage.ImageFile.CopyToAsync(stream);
+            }
+
+            // save image details to database
+            filePath = Path.Combine(Path.Combine("..", "uploads", "images", "partners"), fileName);
+            var partnerImageDetails = new Image
+            {
+                ImageLocation = filePath,
+                ImageName = fileName,
+                ImageTypeId = model.PartnerImage.ImageTypeId,
+                DateUpdated = DateTime.Now,
+                IsSelected = false,
+            };
+            _context.Images.Add(partnerImageDetails);
+            await _context.SaveChangesAsync();
+
+            var partnerDetail = new Partner
+            {
+                PartnerImageId = partnerImageDetails.ImageId,
+                PartnerName = model.PartnerName,
+                PartnerEmail = model.PartnerEmail,
+                PartnerPhone = model.PartnerPhone,
+                ParnterDescription = model.PartnerDescription,
+                PartnerWebsite = model.PartnerWebsite,
+            };
+            _context.Partners.Add(partnerDetail);
+            await _context.SaveChangesAsync();
 
             return new ServiceResponse<dynamic>()
             {

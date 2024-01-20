@@ -26,12 +26,35 @@
         </div>
 
     </div>
-    <!--<div>
+    <div>
         New Partners Profile Entry:
         <div>
-            Upload Partners Logo:
-            <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
-            <button @click="uploadPartnerLogo">Upload Image</button>
+            <div class="form-row">
+                Upload Partners Logo:
+                <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+            </div>
+            <div class="form-row">
+                <label for="partnername">Partner Name:</label>
+                <input type="text" name="partnername" v-model="page.partner.parnterName" placeholder="Partner's Name">
+            </div>
+            <div class="form-row">
+                <label for="partneremail">Partner's Email:</label>
+                <input type="text" name="partneremail" v-model="page.partner.partnerEmail" placeholder="Partner's Email">
+            </div>
+            <div class="form-row">
+                <label for="partnerphone">Partner's Phone:</label>
+                <input type="text" name="partnerphone" v-model="page.partner.partnerPhone" placeholder="Partner's Phone">
+            </div>
+            <div class="form-row">
+                <label for="partnerdescription">Partner's Description:</label>
+                <textarea type="text" name="partnerdescription" v-model="page.partner.partnerDescription" placeholder="Partner's Description"></textarea>
+            </div>
+            <div class="form-row">
+                <label for="partnerwebsite">Partner's Website:</label>
+                <input type="text" name="partnerwebsite" v-model="page.partner.partnerWebsite" placeholder="Partner's Website">
+            </div>
+
+            <button @click="uploadPartnerInfo">Save Info</button>
         </div>
-    </div>-->
+    </div>
 </div>

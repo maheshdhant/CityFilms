@@ -187,7 +187,7 @@ Vue.component('admin-dashboard-component',
                         formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
                         formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
                         formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.partnerInfoUpload, formData)
+                        var actionRequest = postFileRequest(apiControlAdminUrl.addPartnerInfo, formData)
                     },
                     handleSelect: function (index) {
                         let currentObj = this;

@@ -212,7 +212,7 @@ namespace CityFilms.Services.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model)
         {
-            var fileName = model.PartnerImage.ImageFile.FileName;
+            var fileName = model.PartnerImage.FileName;
             var filePath = "";
             filePath = Path.Combine("wwwroot", "uploads", "images", "partners");
 
@@ -224,7 +224,7 @@ namespace CityFilms.Services.Control.AdminServices
             filePath = Path.Combine("wwwroot", "uploads", "images", "partners", fileName);
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                await model.PartnerImage.ImageFile.CopyToAsync(stream);
+                await model.PartnerImage.CopyToAsync(stream);
             }
 
             // save image details to database
@@ -233,7 +233,7 @@ namespace CityFilms.Services.Control.AdminServices
             {
                 ImageLocation = filePath,
                 ImageName = fileName,
-                ImageTypeId = model.PartnerImage.ImageTypeId,
+                ImageTypeId = 3,
                 DateUpdated = DateTime.Now,
                 IsSelected = false,
             };

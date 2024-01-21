@@ -37,7 +37,7 @@ class partnerModel {
         this.partnerPhone = '';
         this.partnerEmail = '';
         this.partnerWebsite = '';
-        this.partnerImage = null;
+        this.partnerImage = new imageModel();
     }
 }
 
@@ -180,8 +180,8 @@ Vue.component('admin-dashboard-component',
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        currentObj.page.partner.partnerImage = currentObj.page.image;
-                        formData.append('PartnerImage', currentObj.page.partner.partnerImage);
+                        currentObj.page.partner.partnerImage.imageFile = currentObj.page.image.imageFile;
+                        formData.append("PartnerImage", currentObj.page.partner.partnerImage.imageFile);
                         formData.append('PartnerName', currentObj.page.partner.partnerName);
                         formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
                         formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);

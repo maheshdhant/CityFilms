@@ -8,6 +8,8 @@
         public string? PartnerPhone { get; set;}
         public string? PartnerEmail { get; set;}
         public string? PartnerWebsite { get; set;}
+        public int? PartnerImageId { get; set; }
+        public int? PartnerImageLocation{ get; set; }
         public IFormFile? PartnerImage { get; set; }
     }
 }

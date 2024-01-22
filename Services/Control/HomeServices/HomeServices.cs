@@ -36,6 +36,7 @@ namespace CityFilms.Services.Control.HomeServices
             {
                 PartnerName = x.PartnerName,
                 PartnerDescription = x.PartnerDescription,
+                PartnerWebsite = x.PartnerWebsite,
                 PartnerImageId = x.PartnerImageId,
             }).ToListAsync();
             var partnerImage = await _context.Images.Where(x => x.ImageId == partnerInfo.PartnerImageId).Select(x => x.ImageLocation).FirstOrDefaultAsync();

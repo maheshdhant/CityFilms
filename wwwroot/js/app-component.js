@@ -8,6 +8,7 @@ class homeModel {
     constructor() {
         this.currentBackground = '';
         this.logoLocation = '';
+        this.partnerInfo = [new partnerModel()];
     }
 }
 class adminDashboardModel {
@@ -38,6 +39,7 @@ class partnerModel {
         this.partnerEmail = '';
         this.partnerWebsite = '';
         this.partnerImage = new imageModel();
+        this.partnerImageLocation = '';
     }
 }
 
@@ -86,6 +88,13 @@ Vue.component('home-component',
                         actionRequest.done(function (response) {
                             currentObj.page.currentBackground = response.data.imageLocation;
                         })
+                    },
+                    getPartnerInfo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.partnerInfo)
+                        actionRequest.done(function (response) {
+                            currentObj.page.partnerModel
+                        })
                     }
                 },
                 mounted: function () {
@@ -124,20 +133,6 @@ Vue.component('admin-dashboard-component',
                         // Get the selected file from the input
                         currentObj.page.image.imageFile = event.target.files[0];
                     },
-
-                    //uploadImage: function () {
-                    //    let currentObj = this;
-                    //    if (!currentObj.page.image.imageFile) {
-                    //        alert('Please select a file.');
-                    //        return;
-                    //    }
-
-                    //    // Create a FormData object to send the file
-                    //    const formData = new FormData();
-                    //    formData.append('ImageFile', currentObj.page.image.imageFile);
-                    //    var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
-                    //},
-
                     uploadLogo: function () {
                         let currentObj = this;
                         currentObj.page.image.imageTypeId = 1;

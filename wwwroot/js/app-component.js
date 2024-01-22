@@ -13,7 +13,7 @@ class homeModel {
 }
 class adminDashboardModel {
     constructor() {
-        this.imageList = [new imageModel()]
+        this.imageList = [new imageModel()];
         this.image = new imageModel();
         this.partner = new partnerModel();
     }
@@ -26,7 +26,7 @@ class imageModel {
         this.imageLocation = '';
         this.imageFile = null;
         this.imageTypeId = '';
-        this.isSelected = false;            ;
+        this.isSelected = false;
     }
 }
 
@@ -101,6 +101,8 @@ Vue.component('home-component',
                     getYear(),
                     this.getCompanyLogo();
                     this.getCurrentBackground();
+                    this.getPartnerInfo();
+
                 },
             })
         })
@@ -183,6 +185,9 @@ Vue.component('admin-dashboard-component',
                         formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
                         formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
                         var actionRequest = postFileRequest(apiControlAdminUrl.addPartnerInfo, formData)
+                        actionRequest.done(function(response){
+                            currentObj.page.partner = new partnerModel();
+                        })
                     },
                     handleSelect: function (index) {
                         let currentObj = this;

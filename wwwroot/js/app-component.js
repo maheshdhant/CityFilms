@@ -93,7 +93,7 @@ Vue.component('home-component',
                         var currentObj = this;
                         var actionRequest = getRequest(apiControlHomeUrl.partnerInfo)
                         actionRequest.done(function (response) {
-                            currentObj.page.partnerModel
+                            currentObj.page.partnerInfo = response.data
                         })
                     }
                 },

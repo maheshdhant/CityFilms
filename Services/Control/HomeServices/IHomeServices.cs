@@ -7,5 +7,6 @@ namespace CityFilms.Services.Control.HomeServices
     {
         Task<ServiceResponse<dynamic>> GetCompanyLogo();
         Task<ServiceResponse<dynamic>> GetCurrentBackground();
+        Task<ServiceResponse<dynamic>> GetPartnerInfo();
     }
 }

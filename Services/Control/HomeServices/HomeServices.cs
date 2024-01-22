@@ -29,5 +29,22 @@ namespace CityFilms.Services.Control.HomeServices
                 Data = bgImage,
             };
         }
+        public async Task<ServiceResponse<dynamic>> GetPartnerInfo()
+        {
+            PartnerModel model = new PartnerModel();
+            var partnerInfo = await _context.Partners.Include(x => x.Images).Select(x => new PartnerModel
+            {
+                PartnerName = x.PartnerName,
+                PartnerDescription = x.PartnerDescription,
+                PartnerImageId = x.PartnerImageId,
+            }).ToListAsync();
+            var partnerImage = await _context.Images.Where(x => x.ImageId == partnerInfo.PartnerImageId).Select(x => x.ImageLocation).FirstOrDefaultAsync();
+            model = partnerInfo;
+            model.PartnerImageLocation = partnerImage;
+            return new ServiceResponse<dynamic>()
+            {
+                Data = model,
+            };
+        }
     }
 }

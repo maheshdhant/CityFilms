@@ -28,5 +28,11 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.GetCurrentBackground();
             return Ok(serviceResponse);
         }
+        [HttpGet("partner-info")]
+        public async Task<IActionResult> GetPartnerInfo()
+        {
+            var serviceResponse = await _actionServices.GetPartnerInfo();
+            return Ok(serviceResponse);
+        }
     }
 }  

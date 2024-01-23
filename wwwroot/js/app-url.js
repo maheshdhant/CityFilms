@@ -7,6 +7,10 @@ var htmlUrl = {
     sercices: htmlBaseUrl + "sercice.html",
     booking: htmlBaseUrl + "booknow.html"
 }
+var htmlPublicBaseUrl = htmlBaseUrl + "public/";
+var htmlPublicUrl = {
+    headernav: htmlPublicBaseUrl + "headernav.html"
+}
 var htmlControlAdminBaseUrl = htmlBaseUrl + "control/admin/";
 var htmlControlAdminUrl = {
     adminDashboard: htmlControlAdminBaseUrl + "admindashboard.html"

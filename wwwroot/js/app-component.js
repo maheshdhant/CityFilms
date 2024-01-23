@@ -1,13 +1,16 @@
 class pageModel {
     constructor() {
         this.currentComponent = 'home-component';
+        this.logoLocation = '';
     }
 }
 
-class homeModel {
+class homeModel extends pageModel {
     constructor() {
+        super({
+
+        });
         this.currentBackground = '';
-        this.logoLocation = '';
         this.partnerInfo = [new partnerModel()];
     }
 }

@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 *.jpg
 *.png
+/appsettings.Development.json
+/Entity/CityfilmsDataContext.cs

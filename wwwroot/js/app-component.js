@@ -70,7 +70,7 @@ Vue.component('home-component',
                         window.location = "/#about";
                     },
                     goToServices: function () {
-                        window.location = "/#services";
+                        window.location = "/#service";
                     },
                     goToContactUs: function () {
                         window.location = "/#contact";
@@ -224,9 +224,24 @@ Vue.component('partners-component',
                     };
                 },
                 methods: {
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
                     goToPartners: function () {
                         window.location = "/#partners";
                     },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#service";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    }
                 },
                 mounted: function () {
 
@@ -249,7 +264,24 @@ Vue.component('about-component',
                     };
                 },
                 methods: {
-
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#service";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    }
                 },
                 mounted: function () {
 
@@ -261,9 +293,9 @@ Vue.component('about-component',
         })
     })
 
-Vue.component('services-component',
+Vue.component('service-component',
     function (resolve, reject) {
-        $.get(htmlUrl.services).then(function (res) {
+        $.get(htmlUrl.service).then(function (res) {
             resolve({
                 template: res,
                 data: function () {
@@ -272,7 +304,24 @@ Vue.component('services-component',
                     };
                 },
                 methods: {
-
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#service";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    }
                 },
                 mounted: function () {
 
@@ -295,7 +344,24 @@ Vue.component('contact-component',
                     };
                 },
                 methods: {
-
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#service";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    }
                 },
                 mounted: function () {
 
@@ -318,7 +384,24 @@ Vue.component('booking-component',
                     };
                 },
                 methods: {
-
+                    goToHome: function () {
+                        window.location = "/#index";
+                    },
+                    goToPartners: function () {
+                        window.location = "/#partners";
+                    },
+                    goToAboutUs: function () {
+                        window.location = "/#about";
+                    },
+                    goToServices: function () {
+                        window.location = "/#service";
+                    },
+                    goToContactUs: function () {
+                        window.location = "/#contact";
+                    },
+                    goToBooking: function () {
+                        window.location = "/#booking";
+                    }
                 },
                 mounted: function () {
 

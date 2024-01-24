@@ -4,12 +4,12 @@ var htmlUrl = {
     partners: htmlBaseUrl + "partner.html",
     about: htmlBaseUrl + "about.html",
     contact: htmlBaseUrl + "contact.html",
-    sercices: htmlBaseUrl + "sercice.html",
+    service: htmlBaseUrl + "service.html",
     booking: htmlBaseUrl + "booknow.html"
 }
 var htmlPublicBaseUrl = htmlBaseUrl + "public/";
 var htmlPublicUrl = {
-    headernav: htmlPublicBaseUrl + "headernav.html"
+    
 }
 var htmlControlAdminBaseUrl = htmlBaseUrl + "control/admin/";
 var htmlControlAdminUrl = {
@@ -38,7 +38,7 @@ var hashValue = {
     home: "#index",
     partners: "#partners",
     about: "#about",
-    services: "#services",
+    service: "#service",
     contact: "#contact",
     booking: "#booking",
     adminDashboard: "#admin/dashboard",

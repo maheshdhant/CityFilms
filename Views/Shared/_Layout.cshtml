@@ -22,7 +22,6 @@
 </head>
 <body>
     <div id="app">
-        <header-nav-component :page="page"></header-nav-component>
         <main role="main">
             @RenderBody()
         </main>
@@ -41,41 +40,6 @@
     <script src="~/js/app-component.js"></script>
     <script src="~/js/app-url.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script>
-        $(document).ready(function () {
-            Vue.component('header-nav-component', function (resolve, reject) {
-                $.get(htmlPublicUrl.headernav).then(function (res) {
-                    resolve({
-                        template: res, props:['page'],
-                    })
-                })
-            })
-        })
-        function goToAdmin() {
-            window.location = "/#admin/dashboard";
-        }
-        function goToHome() {
-            window.location = "/#index";
-
-        }
-        function goToPartners() {
-            window.location = "/#partners";
-        }
-        function goToAboutUs() {
-            window.location = "/#about";
-        }
-        function goToServices() {
-            window.location = "/#services";
-
-        }
-        function goToContactUs() {
-            window.location = "/#contact";
-
-        }
-        function goToBooking () {
-            window.location = "/#booking";
-        }
-        
-    </script>
+    
 </body>
 </html>

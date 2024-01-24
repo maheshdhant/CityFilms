@@ -56,5 +56,48 @@
 
             <button @click="uploadPartnerInfo">Save Info</button>
         </div>
+        Manage partner info:
+        <div>
+            <div v-for="partner in page.partnerInfo">
+                <img :src="partner.partnerImageLocation" alt="partner.partnerName" data-bs-toggle="modal" data-bs-target="#myFinalLetterSubmitModal">
+                <div class="modal" id="myFinalLetterSubmitModal">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header " style="background-color: #057e89;">
+                                <h4 class="modal-title text-light"> Edit partner info:  </h4>
+                                <button type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal" id="closeBtnModal"></button>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="d-grid col-sm-4 mb-2">
+                                            <button class="btn btn-success btn-sm"
+                                                    id="btn"
+                                                    type="button">
+                                                Submit
+                                            </button>
+                                        </div>
+                                        <div class="d-grid col-sm-4 mb-2">
+                                            <button type="button"
+                                                    class="btn btn-danger btn-sm"
+                                                    id="closeLetterBtnModal"
+                                                    data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </div>
 </div>

@@ -10,7 +10,6 @@ class homeModel extends pageModel {
         super({
 
         });
-        this.currentBackground = '';
         this.partnerInfo = [new partnerModel()];
     }
 }
@@ -19,6 +18,7 @@ class adminDashboardModel {
         this.imageList = [new imageModel()];
         this.image = new imageModel();
         this.partner = new partnerModel();
+        this.partnerInfo = [new partnerModel()];
     }
 }
 
@@ -204,10 +204,18 @@ Vue.component('admin-dashboard-component',
                         actionRequest.done(function (response) {
                             currentObj.page.imageList = response.data
                         })
+                    },
+                    getPartnerInfo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.partnerInfo)
+                        actionRequest.done(function (response) {
+                            currentObj.page.partnerInfo = response.data
+                        })
                     }
                 },
                 mounted: function () {
                     this.getImageList();
+                    this.getPartnerInfo();
                 },
             })
         })

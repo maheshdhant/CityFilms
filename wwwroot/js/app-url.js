@@ -23,6 +23,8 @@ var apiControlAdminUrl = {
     selectBackground: apiControlAdminBaseUrl + "select-bg-image/",
     deleteBackground: apiControlAdminBaseUrl + "delete-bg-image/",
     addPartnerInfo: apiControlAdminBaseUrl + "add-partner-info/",
+    getPartnerInfo: apiControlAdminBaseUrl + "get-partner-info/",
+    editPartnerInfo: apiControlAdminBaseUrl + "edit-partner-info/",
 }
 
 var apiControlHomeBaseUrl = apiBaseUrl + "control/home/"

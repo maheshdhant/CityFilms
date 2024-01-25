@@ -16,7 +16,8 @@ class homeModel extends pageModel {
 class adminDashboardModel {
     constructor() {
         this.imageList = [new imageModel()];
-        this.image = new imageModel();
+        this.logo = new imageModel();
+        this.background = new imageModel();
         this.partner = new partnerModel();
         this.partnerInfo = [new partnerModel()];
     }
@@ -133,63 +134,51 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.imageList = response.data
                         })
                     },
-                    handleFileUpload(event) {
+                    handleLogoUpload(event) {
                         let currentObj = this;
                         // Get the selected file from the input
-                        currentObj.page.image.imageFile = event.target.files[0];
+                        currentObj.page.logo.imageFile = event.target.files[0];
+                    },
+                    handleBackgroundUpload(event) {
+                        let currentObj = this;
+                        // Get the selected file from the input
+                        currentObj.page.background.imageFile = event.target.files[0];
+                    },
+                    handlePartnerImageUpload(event) {
+                        let currentObj = this;
+                        // Get the selected file from the input
+                        currentObj.page.partner.partnerImage.imageFile = event.target.files[0];
                     },
                     uploadLogo: function () {
                         let currentObj = this;
-                        currentObj.page.image.imageTypeId = 1;
-                        if (!currentObj.page.image.imageFile) {
+                        currentObj.page.logo.imageTypeId = 1;
+                        if (!currentObj.page.logo.imageFile) {
                             alert('Please select a file.');
                             return;
                         }
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        formData.append('ImageFile', currentObj.page.image.imageFile);
-                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
+                        formData.append('ImageFile', currentObj.page.logo.imageFile);
+                        formData.append('ImageTypeId', currentObj.page.logo.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
 
                     uploadBackgroundImage: function () {
                         let currentObj = this;
-                        currentObj.page.image.imageTypeId = 2;
-                        if (!currentObj.page.image.imageFile) {
+                        currentObj.page.background.imageTypeId = 2;
+                        if (!currentObj.page.background.imageFile) {
                             alert('Please select a file.');
                             return;
                         }
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        formData.append('ImageFile', currentObj.page.image.imageFile);
-                        formData.append('ImageTypeId', currentObj.page.image.imageTypeId);
+                        formData.append('ImageFile', currentObj.page.background.imageFile);
+                        formData.append('ImageTypeId', currentObj.page.background.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                         actionRequest.done(function (response) {
                             currentObj.page.imageList = response.data
-                        })
-                    },
-                    uploadPartnerInfo: function () {
-                        let currentObj = this;
-                        currentObj.page.image.imageTypeId = 3;
-                        if (!currentObj.page.image.imageFile) {
-                            alert('Please select a file.');
-                            return;
-                        }
-
-                        // Create a FormData object to send the file
-                        const formData = new FormData();
-                        currentObj.page.partner.partnerImage.imageFile = currentObj.page.image.imageFile;
-                        formData.append("PartnerImage", currentObj.page.partner.partnerImage.imageFile);
-                        formData.append('PartnerName', currentObj.page.partner.partnerName);
-                        formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
-                        formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
-                        formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
-                        formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.addPartnerInfo, formData)
-                        actionRequest.done(function(response){
-                            currentObj.page.partner = new partnerModel();
                         })
                     },
                     handleSelect: function (index) {
@@ -205,11 +194,57 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.imageList = response.data
                         })
                     },
+                    uploadPartnerInfo: function () {
+                        let currentObj = this;
+                        currentObj.page.partner.partnerImage.imageTypeId = 3;
+                        if (!currentObj.page.partner.partnerImage.imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
+
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append("PartnerImage", currentObj.page.partner.partnerImage.imageFile);
+                        formData.append('PartnerName', currentObj.page.partner.partnerName);
+                        formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
+                        formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
+                        formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
+                        formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
+                        var actionRequest = postFileRequest(apiControlAdminUrl.addPartnerInfo, formData)
+                        actionRequest.done(function (response) {
+                            currentObj.page.partner.partnerImage.imageFile = null;
+                            currentObj.page.partner = new partnerModel();
+                        })
+                    },
                     getPartnerInfo: function () {
-                        var currentObj = this;
-                        var actionRequest = getRequest(apiControlHomeUrl.partnerInfo)
+                        let currentObj = this;
+                        var actionRequest = getRequest(apiControlAdminUrl.getPartnerInfo)
                         actionRequest.done(function (response) {
                             currentObj.page.partnerInfo = response.data
+                        })
+                    },
+                    updatePartnerInfo: function (id) {
+                        var currentObj = this;
+                        if (!currentObj.page.partner.partnerImage.imageFile) {
+                            alert('Please select a file.');
+                            return;
+                        }
+
+                        // Create a FormData object to send the file
+                        const formData = new FormData();
+                        formData.append("PartnerImage", currentObj.page.partner.partnerImage.imageFile);
+                        formData.append('PartnerName', currentObj.page.partner.partnerName);
+                        formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
+                        formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
+                        formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
+                        formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
+                        formData.append('PartnerId', id);
+                        debugger
+                        var actionRequest = postFileRequest(apiControlAdminUrl.editPartnerInfo, formData)
+                        actionRequest.done(function (response) {
+                            currentObj.page.partnerInfo = response.data
+                            currentObj.page.partner.partnerImage.imageFile = null;
+                            currentObj.page.partner = new partnerModel();
                         })
                     }
                 },

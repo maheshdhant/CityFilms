@@ -12,5 +12,7 @@ namespace CityFilms.Services.Control.AdminServices
         Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId);
         Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id);
         Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model);
+        Task<ServiceResponse<dynamic>> GetPartnerInfo();
+        Task<ServiceResponse<dynamic>> EditPartnerInfo(PartnerModel model);
     }
 }

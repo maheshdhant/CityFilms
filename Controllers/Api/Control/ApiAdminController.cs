@@ -54,5 +54,17 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.AddPartnerInfo(model);
             return Ok(serviceResponse);
         }
+        [HttpGet("get-partner-info")]
+        public async Task<IActionResult> GetPartnerInfo()
+        {
+            var serviceResponse = await _actionServices.GetPartnerInfo();
+            return Ok(serviceResponse);
+        }
+        [HttpPost("edit-partner-info")]
+        public async Task<IActionResult> EditPartnerInfo([FromForm] PartnerModel model)
+        {
+            var serviceResponse = await _actionServices.EditPartnerInfo(model);
+            return Ok(serviceResponse);
+        }
     }
 }

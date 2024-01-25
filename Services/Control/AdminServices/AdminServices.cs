@@ -257,5 +257,89 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = "Partner's Info Uploaded Successfully!",
             };
         }
+        public async Task<ServiceResponse<dynamic>> GetPartnerInfo()
+        {
+            using var ent = new CityfilmsDataContext();
+            List<PartnerModel> model = new List<PartnerModel>();
+            var partnerInfo = await ent.Partners.Include(x => x.PartnerImage).Select(x => new PartnerModel
+            {
+                PartnerId = x.PartnerId,
+                PartnerName = x.PartnerName,
+                PartnerDescription = x.ParnterDescription,
+                PartnerWebsite = x.PartnerWebsite,
+                PartnerPhone= x.PartnerPhone,
+                PartnerEmail = x.PartnerEmail,
+                PartnerImageId = x.PartnerImageId,
+                PartnerImageLocation = x.PartnerImage.ImageLocation,
+            }).ToListAsync();
+            model = partnerInfo;
+            return new ServiceResponse<dynamic>()
+            {
+                Data = model,
+            };
+        }
+        public async Task<ServiceResponse<dynamic>> EditPartnerInfo(PartnerModel model)
+        {
+            using var ent = new CityfilmsDataContext();
+
+            var partnerId = model.PartnerId;
+            var fileName = model.PartnerImage.FileName;
+            var filePath = "";
+
+            Image obj = new Image();
+
+            if (model.PartnerImage != null)
+            {
+                filePath = Path.Combine("wwwroot", "uploads", "images", "partners");
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                filePath = Path.Combine("wwwroot", "uploads", "images", "partners", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await model.PartnerImage.CopyToAsync(stream);
+                }
+
+                obj = await ent.Images.Where(x => x.ImageId == model.PartnerImageId).FirstOrDefaultAsync();
+                if (obj != null)
+                {
+                    obj.DateUpdated = DateTime.Now;
+                    obj.ImageLocation = Path.Combine("wwwroot", "uploads", "images", "partners", fileName);
+                    obj.ImageName = fileName;
+                    await ent.SaveChangesAsync();
+                }
+            }
+
+            Partner partner = new Partner();
+            partner = await ent.Partners.Where(x => x.PartnerId == model.PartnerId).FirstOrDefaultAsync();
+            if(partner != null)
+            {
+                partner.PartnerName = model.PartnerName;
+                partner.PartnerEmail = model.PartnerEmail;
+                partner.PartnerPhone = model.PartnerPhone;
+                partner.ParnterDescription = model.PartnerDescription;
+                partner.PartnerWebsite = model.PartnerWebsite;
+            await _context.SaveChangesAsync();
+            };
+
+            List<PartnerModel> partnerInfo = new List<PartnerModel>();
+            partnerInfo = await ent.Partners.Include(x => x.PartnerImage).Select(x => new PartnerModel
+            {
+                PartnerId = x.PartnerId,
+                PartnerName = x.PartnerName,
+                PartnerDescription = x.ParnterDescription,
+                PartnerWebsite = x.PartnerWebsite,
+                PartnerPhone = x.PartnerPhone,
+                PartnerEmail = x.PartnerEmail,
+                PartnerImageId = x.PartnerImageId,
+                PartnerImageLocation = x.PartnerImage.ImageLocation,
+            }).ToListAsync();
+            return new ServiceResponse<dynamic>()
+            {
+                Data = partnerInfo,
+            };
+        }
     }
 }

@@ -8,14 +8,14 @@
     <div>
         Change Logo:
         <div>
-            <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+            <input id="logo" type="file" ref="fileInput" @change="handleLogoUpload" accept="image/*">
             <button @click="uploadLogo">Upload Image</button>
         </div>
     </div>
     <div style="background-color:darkgoldenrod">
         Upload Background Cover:
         <div>
-            <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+            <input id="background" type="file" ref="fileInput" @change="handleBackgroundUpload" accept="image/*">
             <button @click="uploadBackgroundImage">Upload Image</button>
         </div>
         Select Background Cover:
@@ -31,72 +31,84 @@
         <div>
             <div class="form-row">
                 Upload Partners Logo:
-                <input type="file" ref="fileInput" @change="handleFileUpload" accept="image/*">
+                <input id="partnerimage" type="file" ref="fileInput" @change="handlePartnerImageUpload" accept="image/*">
             </div>
             <div class="form-row">
                 <label for="partnername">Partner Name:</label>
-                <input type="text" name="partnername" v-model="page.partner.partnerName" placeholder="Partner's Name">
+                <input id="partnername" type="text" name="partnername" v-model="page.partner.partnerName" placeholder="Partner's Name" required>
             </div>
             <div class="form-row">
                 <label for="partneremail">Partner's Email:</label>
-                <input type="text" name="partneremail" v-model="page.partner.partnerEmail" placeholder="Partner's Email">
+                <input id="partneremail" type="email" name="partneremail" v-model="page.partner.partnerEmail" placeholder="Partner's Email">
             </div>
             <div class="form-row">
                 <label for="partnerphone">Partner's Phone:</label>
-                <input type="text" name="partnerphone" v-model="page.partner.partnerPhone" placeholder="Partner's Phone">
+                <input id="partnerphone" type="text" name="partnerphone" v-model="page.partner.partnerPhone" placeholder="Partner's Phone">
             </div>
             <div class="form-row">
                 <label for="partnerdescription">Partner's Description:</label>
-                <textarea type="text" name="partnerdescription" v-model="page.partner.partnerDescription" placeholder="Partner's Description"></textarea>
+                <textarea id="partnerdescription" type="text" name="partnerdescription" v-model="page.partner.partnerDescription" placeholder="Partner's Description" required></textarea>
             </div>
             <div class="form-row">
                 <label for="partnerwebsite">Partner's Website:</label>
-                <input type="text" name="partnerwebsite" v-model="page.partner.partnerWebsite" placeholder="Partner's Website">
+                <input id="partnerwebsite" type="text" name="partnerwebsite" v-model="page.partner.partnerWebsite" placeholder="Partner's Website" required>
             </div>
 
             <button @click="uploadPartnerInfo">Save Info</button>
         </div>
         Manage partner info:
         <div>
-            <div v-for="partner in page.partnerInfo">
-                <img :src="partner.partnerImageLocation" alt="partner.partnerName" data-bs-toggle="modal" data-bs-target="#myFinalLetterSubmitModal">
-                <div class="modal" id="myFinalLetterSubmitModal">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div v-for="partner in page.partnerInfo" class="image-container">
+                <button type="button" class="btn btn-primary border-white bg-transparent" data-toggle="modal" data-target="#exampleModal"><img :src="partner.partnerImageLocation" alt="partner.partnerName" ></button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header " style="background-color: #057e89;">
-                                <h4 class="modal-title text-light"> Edit partner info:  </h4>
-                                <button type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal" id="closeBtnModal"></button>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="d-grid col-sm-4 mb-2">
-                                            <button class="btn btn-success btn-sm"
-                                                    id="btn"
-                                                    type="button">
-                                                Submit
-                                            </button>
-                                        </div>
-                                        <div class="d-grid col-sm-4 mb-2">
-                                            <button type="button"
-                                                    class="btn btn-danger btn-sm"
-                                                    id="closeLetterBtnModal"
-                                                    data-bs-dismiss="modal">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
+
+                            <div class="modal-body bg-dark">
+
+                                <div class="form-row">
+                                    Update Partners Logo:
+                                    <input id="partnerimage" type="file" ref="fileInput" @change="handlePartnerImageUpload" accept="image/*">
+                                </div>
+                                <div class="row-cols-3"><img :src="partner.partnerImageLocation" alt="partner.partnerName" class="bg-dark"></div>
+                                <div class="row-cols-3">
+                                    <label for="partnername">Partner Name:</label>
+                                    <input type="text" v-model="partner.partnerName" required/>
+                                </div>
+                                <div class="row-cols-3">
+                                    <label for="partnerdescription">Partner's Description:</label>
+                                    <textarea type="text" name="partnerdescription" v-model="partner.partnerDescription" placeholder="Partner's Description" required></textarea>
+                                </div>
+                                <div class="row-cols-3">
+                                    Partner Website: <input type="text" v-model="partner.partnerWebsite" required/>
+                                </div>
+                                <div class="row-cols-3">
+                                    Partner Phone: <input type="text" v-model="partner.partnerPhone" />
+                                </div>
+                                <div class="row-cols-3">
+                                    Partner Email: <input type="text" v-model="partner.partnerEmail" />
                                 </div>
                             </div>
-
-
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="updatePartnerInfo(partner.partnerId)">Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <!-- Add additional buttons as needed -->
+                            </div>
+                            </div>
                     </div>
                 </div>
             </div>
+
+            
+
+            <!-- Modal -->
             
         </div>
     </div>

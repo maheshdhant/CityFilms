@@ -1,0 +1,16 @@
+﻿
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+    .image-container img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        transition: filter 0.3s ease;
+    }
+
+    .image-container:hover img {
+        filter: invert(1);
+    }

@@ -58,9 +58,8 @@
         </div>
         Manage partner info:
         <div>
-            <div v-for="partner in page.partnerInfo" class="image-container">
-                <button type="button" class="btn btn-primary border-white bg-transparent" data-toggle="modal" data-target="#exampleModal"><img :src="partner.partnerImageLocation" alt="partner.partnerName" ></button>
-
+            <div v-for="(partner, index) in page.partnerInfo" :key="partner.partnerId" class="image-container">
+                <button type="button" class="btn btn-primary border-white bg-transparent" data-toggle="modal" data-target="#exampleModal" @click="loadModal(partner)"><img :src="partner.partnerImageLocation" alt="partner.partnerName"></button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -75,33 +74,33 @@
 
                                 <div class="form-row">
                                     Update Partners Logo:
-                                    <input id="partnerimage" type="file" ref="fileInput" @change="handlePartnerImageUpload" accept="image/*">
+                                    <input id="partnerimage" type="file" ref="fileInput" @change="handlePartnerImageUpdate" accept="image/*">
                                 </div>
-                                <div class="row-cols-3"><img :src="partner.partnerImageLocation" alt="partner.partnerName" class="bg-dark"></div>
+                                <div class="row-cols-3"><img :src="page.selectedPartner.partnerImageLocation" alt="partner.partnerName" class="bg-dark"></div>
                                 <div class="row-cols-3">
                                     <label for="partnername">Partner Name:</label>
-                                    <input type="text" v-model="partner.partnerName" required/>
+                                    <input type="text" v-model="page.selectedPartner.partnerName" required />
                                 </div>
                                 <div class="row-cols-3">
                                     <label for="partnerdescription">Partner's Description:</label>
-                                    <textarea type="text" name="partnerdescription" v-model="partner.partnerDescription" placeholder="Partner's Description" required></textarea>
+                                    <textarea type="text" name="partnerdescription" v-model="page.selectedPartner.partnerDescription" placeholder="Partner's Description" required></textarea>
                                 </div>
                                 <div class="row-cols-3">
-                                    Partner Website: <input type="text" v-model="partner.partnerWebsite" required/>
+                                    Partner Website: <input type="text" v-model="page.selectedPartner.partnerWebsite" required />
                                 </div>
                                 <div class="row-cols-3">
-                                    Partner Phone: <input type="text" v-model="partner.partnerPhone" />
+                                    Partner Phone: <input type="text" v-model="page.selectedPartner.partnerPhone" />
                                 </div>
                                 <div class="row-cols-3">
-                                    Partner Email: <input type="text" v-model="partner.partnerEmail" />
+                                    Partner Email: <input type="text" v-model="page.selectedPartner.partnerEmail" />
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="updatePartnerInfo(partner.partnerId)">Update</button>
+                                <button type="button" class="btn btn-success" data-dismiss="modal" @click="updatePartnerInfo(page.selectedPartner.partnerId)">Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <!-- Add additional buttons as needed -->
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

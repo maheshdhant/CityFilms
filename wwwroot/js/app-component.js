@@ -20,6 +20,7 @@ class adminDashboardModel {
         this.background = new imageModel();
         this.partner = new partnerModel();
         this.partnerInfo = [new partnerModel()];
+        this.selectedPartner = new partnerModel();
     }
 }
 
@@ -149,6 +150,11 @@ Vue.component('admin-dashboard-component',
                         // Get the selected file from the input
                         currentObj.page.partner.partnerImage.imageFile = event.target.files[0];
                     },
+                    handlePartnerImageUpdate(event) {
+                        let currentObj = this;
+                        // Get the selected file from the input
+                        currentObj.page.selectedPartner.partnerImage.imageFile = event.target.files[0];
+                    },
                     uploadLogo: function () {
                         let currentObj = this;
                         currentObj.page.logo.imageTypeId = 1;
@@ -163,7 +169,6 @@ Vue.component('admin-dashboard-component',
                         formData.append('ImageTypeId', currentObj.page.logo.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                     },
-
                     uploadBackgroundImage: function () {
                         let currentObj = this;
                         currentObj.page.background.imageTypeId = 2;
@@ -223,21 +228,27 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.partnerInfo = response.data
                         })
                     },
+                    loadModal: function (partner) {
+                        var currentObj = this;
+                        currentObj.page.selectedPartner.partnerImageLocation = partner.partnerImageLocation
+                        currentObj.page.selectedPartner.partnerName = partner.partnerName
+                        currentObj.page.selectedPartner.partnerDescription = partner.partnerDescription
+                        currentObj.page.selectedPartner.partnerPhone = partner.partnerPhone
+                        currentObj.page.selectedPartner.partnerEmail = partner.partnerEmail
+                        currentObj.page.selectedPartner.partnerWebsite = partner.partnerWebsite
+                        currentObj.page.selectedPartner.partnerId = partner.partnerId
+                    },
                     updatePartnerInfo: function (id) {
                         var currentObj = this;
-                        if (!currentObj.page.partner.partnerImage.imageFile) {
-                            alert('Please select a file.');
-                            return;
-                        }
 
                         // Create a FormData object to send the file
                         const formData = new FormData();
-                        formData.append("PartnerImage", currentObj.page.partner.partnerImage.imageFile);
-                        formData.append('PartnerName', currentObj.page.partner.partnerName);
-                        formData.append('PartnerDescription', currentObj.page.partner.partnerDescription);
-                        formData.append('PartnerPhone', currentObj.page.partner.partnerPhone);
-                        formData.append('PartnerEmail', currentObj.page.partner.partnerEmail);
-                        formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
+                        formData.append("PartnerImage", currentObj.page.selectedPartner.partnerImage.imageFile);
+                        formData.append('PartnerName', currentObj.page.selectedPartner.partnerName);
+                        formData.append('PartnerDescription', currentObj.page.selectedPartner.partnerDescription);
+                        formData.append('PartnerPhone', currentObj.page.selectedPartner.partnerPhone);
+                        formData.append('PartnerEmail', currentObj.page.selectedPartner.partnerEmail);
+                        formData.append('PartnerWebsite', currentObj.page.selectedPartner.partnerWebsite);
                         formData.append('PartnerId', id);
                         debugger
                         var actionRequest = postFileRequest(apiControlAdminUrl.editPartnerInfo, formData)
@@ -245,6 +256,8 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.partnerInfo = response.data
                             currentObj.page.partner.partnerImage.imageFile = null;
                             currentObj.page.partner = new partnerModel();
+                            currentObj.page.selectedPartner = new partnerModel();
+                            currentObj.page.selectedPartner.partnerImage.imageFile = null
                         })
                     }
                 },

@@ -14,3 +14,7 @@
     .image-container:hover img {
         filter: invert(1);
     }
+
+.image-box:hover{
+    background-color: gray;
+}

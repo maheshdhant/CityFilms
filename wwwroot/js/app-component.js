@@ -190,6 +190,9 @@ Vue.component('admin-dashboard-component',
                         let currentObj = this;
                         var newSelectedBg = currentObj.page.imageList[index];
                         var actionRequest = postRequest(apiControlAdminUrl.selectBackground + newSelectedBg.imageId)
+                        actionRequest.done(function () {
+
+                        });
                     },
                     deleteBackgroundImage: function (index) {
                         let currentObj = this;

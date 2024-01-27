@@ -12,21 +12,28 @@
             <button @click="uploadLogo">Upload Image</button>
         </div>
     </div>
-    <div style="background-color:darkgoldenrod">
+    <div>
         Upload Background Cover:
         <div>
             <input id="background" type="file" ref="fileInput" @change="handleBackgroundUpload" accept="image/*">
             <button @click="uploadBackgroundImage">Upload Image</button>
         </div>
-        Select Background Cover:
-        <div v-for="(image, index) in page.imageList" :key="index">
-            <img :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
-            <button @click="deleteBackgroundImage(index)">Delete Image</button>
-            <button @click="handleSelect(index)">Select Background</button>
-        </div>
-
     </div>
-    <div>
+
+    <div class="container mt-3" style="background-color:darkgoldenrod">
+      
+        Select Background Cover:
+        <div class="row">
+            <div class="col-sm-6 image-box" v-for="(image, index) in page.imageList" :key="index">
+                <img :src="image.imageLocation" alt="Gallery Image" style="width: 200px; height: 200px; object-fit: cover; margin: 5px;">
+                <button class="btn btn-danger" @click="deleteBackgroundImage(index)">Delete Image</button>
+                <button class="btn btn-success" @click="handleSelect(index)">Select Background</button>
+            </div>
+
+        </div>
+        
+    </div>
+    <div class="mt-2 mb-2">
         New Partners Profile Entry:
         <div>
             <div class="form-row">
@@ -57,9 +64,11 @@
             <button @click="uploadPartnerInfo">Save Info</button>
         </div>
         Manage partner info:
-        <div>
-            <div v-for="(partner, index) in page.partnerInfo" :key="partner.partnerId" class="image-container">
+        <div class="row">
+            <div v-for="(partner, index) in page.partnerInfo" :key="partner.partnerId" class="image-container col-sm-4">
                 <button type="button" class="btn btn-primary border-white bg-transparent" data-toggle="modal" data-target="#exampleModal" @click="loadModal(partner)"><img :src="partner.partnerImageLocation" alt="partner.partnerName"></button>
+
+                <!-- Modal Popup -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">

@@ -15,6 +15,8 @@ public partial class CityfilmsDataContext : DbContext
     {
     }
 
+    public virtual DbSet<CompanyProfile> CompanyProfiles { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<ImageType> ImageTypes { get; set; }
@@ -27,6 +29,29 @@ public partial class CityfilmsDataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CompanyProfile>(entity =>
+        {
+            entity.HasKey(e => e.CompanyProfileId).HasName("PK__CompanyP__0B8C9D497A89F59D");
+
+            entity.ToTable("CompanyProfile");
+
+            entity.Property(e => e.CompanyAddress)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.CompanyMail)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.CompanyName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.CompanyPhone)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.CompanyTagline)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Image>(entity =>
         {
             entity.Property(e => e.DateUpdated).HasColumnType("datetime");

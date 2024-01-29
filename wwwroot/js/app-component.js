@@ -21,9 +21,18 @@ class adminDashboardModel {
         this.partner = new partnerModel();
         this.partnerInfo = [new partnerModel()];
         this.selectedPartner = new partnerModel();
+        this.companyProfile = new companyProfileModel();
     }
 }
-
+class companyProfileModel{
+    constructor(){
+        this.companyName = 'Company Name';
+        this.companyAddress= 'Company Address';
+        this.companyMail = 'Company Mail';
+        this.companyPhone = 'Company Phone';
+        this.companyTagline = 'Company Tagline';
+    }
+}
 class imageModel {
     constructor() {
         this.imageId = '';
@@ -262,6 +271,10 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.selectedPartner = new partnerModel();
                             currentObj.page.selectedPartner.partnerImage.imageFile = null
                         })
+                    },
+                    updateCompanyProfile: function () {
+                        var currentObj = this;
+                        var actionRequest = postRequest(apiControlAdminUrl.updateCompanyProfile, currentObj.page.companyProfile)
                     }
                 },
                 mounted: function () {

@@ -14,6 +14,7 @@ namespace CityFilms.Services.Control.AdminServices
         Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model);
         Task<ServiceResponse<dynamic>> GetPartnerInfo();
         Task<ServiceResponse<dynamic>> EditPartnerInfo(PartnerModel model);
+        Task<ServiceResponse<dynamic>> GetCompanyProfile();
         Task<ServiceResponse<dynamic>> EditCompanyProfile(CompanyProfileModel model);
     }
 }

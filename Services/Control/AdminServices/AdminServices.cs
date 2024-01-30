@@ -4,6 +4,7 @@ using CityFilms.Models.Response;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace CityFilms.Services.Control.AdminServices
 {
@@ -342,5 +343,54 @@ namespace CityFilms.Services.Control.AdminServices
                 Data = partnerInfo,
             };
         }
+
+        public async Task<ServiceResponse<dynamic>> GetCompanyProfile()
+        {
+            using var ent = new CityfilmsDataContext();
+            CompanyProfile profile = new CompanyProfile();
+            profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
+            if (profile != null)
+            {
+                return new ServiceResponse<dynamic>()
+                {
+                    Data = profile,
+                };
+            }
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Company Profile not set!",
+            };
+        }
+        public async Task<ServiceResponse<dynamic>> EditCompanyProfile(CompanyProfileModel model)
+        {
+            using var ent = new CityfilmsDataContext();
+            CompanyProfile profile = new CompanyProfile();
+            profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
+            if (profile == null)
+            {
+                CompanyProfile newProfile = new CompanyProfile();
+                newProfile.CompanyName = model.CompanyName;
+                newProfile.CompanyPhone = model.CompanyPhone;
+                newProfile.CompanyMail = model.CompanyMail;
+                newProfile.CompanyAddress = model.CompanyAddress;
+                newProfile.CompanyTagline = model.CompanyTagline;
+                ent.CompanyProfiles.Add(newProfile);
+                await ent.SaveChangesAsync();
+            }
+            else
+            {
+                profile.CompanyName = model.CompanyName;
+                profile.CompanyPhone = model.CompanyPhone;
+                profile.CompanyMail = model.CompanyMail;
+                profile.CompanyAddress = model.CompanyAddress;
+                profile.CompanyTagline = model.CompanyTagline;
+                await ent.SaveChangesAsync();
+            }
+            return new ServiceResponse<dynamic>()
+            {
+                Data = profile,
+            };
+        }
+
     }
 }

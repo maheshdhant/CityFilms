@@ -66,6 +66,12 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.EditPartnerInfo(model);
             return Ok(serviceResponse);
         }
+        [HttpGet("get-company-profile")]
+        public async Task<IActionResult> GetCompanyProfile()
+        {
+            var serviceResponse = await _actionServices.GetCompanyProfile();
+            return Ok(serviceResponse);
+        }
         [HttpPost("edit-company-profile")]
         public async Task<IActionResult> EditCompanyProfile([FromForm] CompanyProfileModel model)
         {

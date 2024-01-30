@@ -5,6 +5,31 @@
             {{ item.imageName }}
         </li>
     </ul>
+
+    <div>
+        Update Company Profile:
+        <div class="form-row">
+            <label for="companyname">Company Name:</label>
+            <input id="companyname" type="text" name="companyname" v-model="page.partner.partnerName" placeholder="Company's Name" required>
+        </div>
+        <div class="form-row">
+            <label for="companyaddress">Company Address:</label>
+            <input id="companyaddress" type="text" name="companyaddress" v-model="page.partner.partnerName" placeholder="Company's Address" required>
+        </div>
+        <div class="form-row">
+            <label for="companyphone">Company Phone:</label>
+            <input id="companyphone" type="text" name="companyphone" v-model="page.partner.partnerName" placeholder="Company's Phone" required>
+        </div>
+        <div class="form-row">
+            <label for="companymail">Company Mail:</label>
+            <input id="companymail" type="text" name="companymail" v-model="page.partner.partnerName" placeholder="Company's Mail" required>
+        </div>
+        <div class="form-row">
+            <label for="companytagline">Company Tagline:</label>
+            <input id="companytagline" type="text" name="companytagline" v-model="page.partner.partnerName" placeholder="Company's Tagline" required>
+        </div>
+    </div>
+
     <div>
         Change Logo:
         <div>
@@ -21,7 +46,7 @@
     </div>
 
     <div class="container mt-3" style="background-color:darkgoldenrod">
-      
+
         Select Background Cover:
         <div class="row">
             <div class="col-sm-6 image-box" v-for="(image, index) in page.imageList" :key="index">
@@ -31,8 +56,9 @@
             </div>
 
         </div>
-        
+
     </div>
+
     <div class="mt-2 mb-2">
         New Partners Profile Entry:
         <div>
@@ -107,17 +133,41 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-dismiss="modal" @click="updatePartnerInfo(page.selectedPartner.partnerId)">Update</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <!-- Add additional buttons as needed -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
+
 
             <!-- Modal -->
-            
+
         </div>
+    </div>
+
+    <div>
+        Edit Company's Profile:
+        <div class="form-row">
+            <label for="companyname">Company's Name:</label>
+            <input id="companyname" type="text" name="companyname" v-model="page.companyProfile.companyName" placeholder="Company's Name" required>
+        </div>
+        <div class="form-row">
+            <label for="partneremail">Company's Email:</label>
+            <input id="companyemail" type="email" name="companyemail" v-model="page.companyProfile.companyMail" placeholder="Company's Email">
+        </div>
+        <div class="form-row">
+            <label for="companyphone">Company's Phone:</label>
+            <input id="companyphone" type="text" name="companyphone" v-model="page.companyProfile.companyPhone" placeholder="Company's Phone">
+        </div>
+        <div class="form-row">
+            <label for="companyaddress">Company's Address:</label>
+            <input id="companyaddress" type="text" name="companyaddress" v-model="page.companyProfile.companyAddress" placeholder="Company's Address">
+        </div>
+        <div class="form-row">
+            <label for="companywebsite">Company's Tagline:</label>
+            <input id="companytagline" type="text" name="companytagline" v-model="page.companyProfile.companyTagline" placeholder="Company's Tagline">
+        </div>
+        <button @click="updateCompanyProfile">Save Info</button>
     </div>
 </div>

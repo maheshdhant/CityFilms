@@ -11,6 +11,7 @@ class homeModel extends pageModel {
 
         });
         this.partnerInfo = [new partnerModel()];
+        this.companyProfile = new companyProfileModel();
     }
 }
 class adminDashboardModel {
@@ -109,7 +110,16 @@ Vue.component('home-component',
                         actionRequest.done(function (response) {
                             currentObj.page.partnerInfo = response.data
                         })
-                    }
+                    },
+                    getCompanyProfile: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlAdminUrl.getCompanyProfile)
+                        actionRequest.done(function (response) {
+                            if (typeof (response.data) != "string") {
+                                currentObj.page.companyProfile = response.data;
+                            }
+                        });
+                    },
                 },
                 mounted: function () {
                     getYear(),
@@ -272,13 +282,26 @@ Vue.component('admin-dashboard-component',
                             currentObj.page.selectedPartner.partnerImage.imageFile = null
                         })
                     },
+                    getCompanyProfile: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlAdminUrl.getCompanyProfile)
+                        actionRequest.done(function (response) {
+                            if (typeof (response.data) != "string") {
+                                currentObj.page.companyProfile = response.data;
+                            }
+                        });
+                    },
                     updateCompanyProfile: function () {
                         var currentObj = this;
                         var actionRequest = postRequest(apiControlAdminUrl.updateCompanyProfile, currentObj.page.companyProfile)
+                        actionRequest.done(function (response) {
+                            currentObj.page.companyProfile = response.data;
+                        });
                     }
                 },
                 mounted: function () {
                     this.getImageList();
+                    this.getCompanyProfile();
                     this.getPartnerInfo();
                 },
             })

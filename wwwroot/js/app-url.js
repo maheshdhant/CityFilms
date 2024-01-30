@@ -25,6 +25,7 @@ var apiControlAdminUrl = {
     addPartnerInfo: apiControlAdminBaseUrl + "add-partner-info/",
     getPartnerInfo: apiControlAdminBaseUrl + "get-partner-info/",
     editPartnerInfo: apiControlAdminBaseUrl + "edit-partner-info/",
+    getCompanyProfile: apiControlAdminBaseUrl + "get-company-profile/",
     updateCompanyProfile: apiControlAdminBaseUrl + "edit-company-profile/",
 }
 

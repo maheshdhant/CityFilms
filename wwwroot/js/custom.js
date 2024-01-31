@@ -45,6 +45,8 @@ function postRequest(url, data) {
     return $.ajax({
         url: url,
         type: "POST",
+        dataType: "json",
+        contentType: "application/json",
         data: data,
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ": " + errorThrown);

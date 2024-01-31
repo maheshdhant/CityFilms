@@ -26,12 +26,13 @@ class adminDashboardModel {
     }
 }
 class companyProfileModel{
-    constructor(){
-        this.companyName = 'Company Name';
-        this.companyAddress= 'Company Address';
-        this.companyMail = 'Company Mail';
-        this.companyPhone = 'Company Phone';
-        this.companyTagline = 'Company Tagline';
+    constructor() {
+        this.companyProfileId = 0;
+        this.companyName = "Company Name";
+        this.companyAddress= "Company Address";
+        this.companyMail = "Company Mail";
+        this.companyPhone = "Company Phone";
+        this.companyTagline = "Company Tagline";
     }
 }
 class imageModel {
@@ -293,7 +294,7 @@ Vue.component('admin-dashboard-component',
                     },
                     updateCompanyProfile: function () {
                         var currentObj = this;
-                        var actionRequest = postRequest(apiControlAdminUrl.updateCompanyProfile, currentObj.page.companyProfile)
+                        var actionRequest = postRequest(apiControlAdminUrl.updateCompanyProfile, this.page.companyProfile)
                         actionRequest.done(function (response) {
                             currentObj.page.companyProfile = response.data;
                         });

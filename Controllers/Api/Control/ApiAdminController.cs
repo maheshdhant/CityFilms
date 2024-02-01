@@ -73,7 +73,7 @@ namespace CityFilms.Controllers.Api.Control
             return Ok(serviceResponse);
         }
         [HttpPost("edit-company-profile")]
-        public async Task<IActionResult> EditCompanyProfile([FromForm] CompanyProfileModel model)
+        public async Task<IActionResult> EditCompanyProfile([FromBody] CompanyProfileModel model)
         {
             var serviceResponse = await _actionServices.EditCompanyProfile(model);
             return Ok(serviceResponse);

@@ -3,6 +3,7 @@ function goToAdmin () {
 }
 function goToHome () {
     window.location = "/#index";
+    window.location.reload();
 }
 function goToPartners () {
     window.location = "/#partners";

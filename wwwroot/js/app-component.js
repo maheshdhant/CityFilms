@@ -66,7 +66,8 @@ Vue.component('home-component',
                 template: res,
                 data: function () {
                     return {
-                        page: new homeModel()
+                        page: new homeModel(),
+                        backgroundImage: '',
                     };
                 },
                 methods: {
@@ -102,7 +103,7 @@ Vue.component('home-component',
                         var currentObj = this;
                         var actionRequest = getRequest(apiControlHomeUrl.currentBackground);
                         actionRequest.done(function (response) {
-                            currentObj.page.currentBackground = response.data.imageLocation;
+                            currentObj.backgroundImage = response.data;
                         })
                     },
                     getPartnerInfo: function () {
@@ -123,11 +124,10 @@ Vue.component('home-component',
                     },
                 },
                 mounted: function () {
-                    getYear(),
+                    getYear();
                     this.getCompanyLogo();
                     this.getCurrentBackground();
                     this.getPartnerInfo();
-
                 },
             })
         })
@@ -146,6 +146,7 @@ Vue.component('admin-dashboard-component',
                 methods: {
                     goToHome: function () {
                         window.location = "/#index";
+                        window.location.reload();
                     },
                     getImageList: function () {
                         let currentObj = this;

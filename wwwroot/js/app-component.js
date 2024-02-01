@@ -25,6 +25,31 @@ class adminDashboardModel {
         this.companyProfile = new companyProfileModel();
     }
 }
+class partnerMenuModel extends pageModel {
+    constructor() {
+        super({});
+    }
+}
+class aboutModel extends pageModel {
+    constructor() {
+        super({});
+    }
+}
+class bookingModel extends pageModel {
+    constructor() {
+        super({});
+    }
+}
+class contactModel extends pageModel {
+    constructor() {
+        super({});
+    }
+}
+class serviceModel extends pageModel {
+    constructor() {
+        super({});
+    }
+}
 class companyProfileModel{
     constructor() {
         this.companyProfileId = 0;
@@ -317,7 +342,7 @@ Vue.component('partners-component',
                 template: res,
                 data: function () {
                     return {
-
+                        page: new partnerMenuModel(),
                     };
                 },
                 methods: {
@@ -338,10 +363,17 @@ Vue.component('partners-component',
                     },
                     goToBooking: function () {
                         window.location = "/#booking";
-                    }
+                    },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                 },
                 mounted: function () {
-
+                    this.getCompanyLogo()
                 },
                 created: function () {
 
@@ -357,7 +389,7 @@ Vue.component('about-component',
                 template: res,
                 data: function () {
                     return {
-
+                        page: new aboutModel(),
                     };
                 },
                 methods: {
@@ -378,10 +410,17 @@ Vue.component('about-component',
                     },
                     goToBooking: function () {
                         window.location = "/#booking";
-                    }
+                    },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                 },
                 mounted: function () {
-
+                    this.getCompanyLogo();
                 },
                 created: function () {
 
@@ -397,7 +436,7 @@ Vue.component('service-component',
                 template: res,
                 data: function () {
                     return {
-
+                        page: new serviceModel(),
                     };
                 },
                 methods: {
@@ -418,10 +457,17 @@ Vue.component('service-component',
                     },
                     goToBooking: function () {
                         window.location = "/#booking";
-                    }
+                    },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                 },
                 mounted: function () {
-
+                    this.getCompanyLogo()
                 },
                 created: function () {
 
@@ -437,7 +483,7 @@ Vue.component('contact-component',
                 template: res,
                 data: function () {
                     return {
-
+                        page: new contactModel(),
                     };
                 },
                 methods: {
@@ -458,10 +504,17 @@ Vue.component('contact-component',
                     },
                     goToBooking: function () {
                         window.location = "/#booking";
-                    }
+                    },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                 },
                 mounted: function () {
-
+                    this.getCompanyLogo()
                 },
                 created: function () {
 
@@ -477,7 +530,7 @@ Vue.component('booking-component',
                 template: res,
                 data: function () {
                     return {
-
+                        page: new bookingModel(),
                     };
                 },
                 methods: {
@@ -498,10 +551,17 @@ Vue.component('booking-component',
                     },
                     goToBooking: function () {
                         window.location = "/#booking";
-                    }
+                    },
+                    getCompanyLogo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.logo);
+                        actionRequest.done(function (response) {
+                            currentObj.page.logoLocation = response.data;
+                        })
+                    },
                 },
                 mounted: function () {
-
+                    this.getCompanyLogo();
                 },
                 created: function () {
 

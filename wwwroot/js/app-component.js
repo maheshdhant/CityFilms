@@ -12,6 +12,7 @@ class homeModel extends pageModel {
         });
         this.partnerInfo = [new partnerModel()];
         this.companyProfile = new companyProfileModel();
+        this.mail = new emailModel();
     }
 }
 class adminDashboardModel {
@@ -33,6 +34,7 @@ class partnerMenuModel extends pageModel {
 class aboutModel extends pageModel {
     constructor() {
         super({});
+        this.mail = new emailModel();
     }
 }
 class bookingModel extends pageModel {
@@ -81,6 +83,15 @@ class partnerModel {
         this.partnerWebsite = '';
         this.partnerImage = new imageModel();
         this.partnerImageLocation = '';
+    }
+}
+class emailModel {
+    constructor() {
+        this.firstName = '';
+        this.lastName = '';
+        this.email = '';
+        this.phone = '';
+        this.message = '';
     }
 }
 
@@ -153,6 +164,7 @@ Vue.component('home-component',
                     this.getCompanyLogo();
                     this.getCurrentBackground();
                     this.getPartnerInfo();
+                    this.getCompanyProfile();
                 },
             })
         })

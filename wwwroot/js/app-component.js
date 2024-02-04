@@ -45,6 +45,7 @@ class bookingModel extends pageModel {
 class contactModel extends pageModel {
     constructor() {
         super({});
+        this.mail = new emailModel();
     }
 }
 class serviceModel extends pageModel {
@@ -524,6 +525,9 @@ Vue.component('contact-component',
                             currentObj.page.logoLocation = response.data;
                         })
                     },
+                    emailSender: function () {
+                        currentObj = this;
+                    }
                 },
                 mounted: function () {
                     this.getCompanyLogo()

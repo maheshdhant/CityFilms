@@ -17,7 +17,7 @@ namespace CityFilms.Services.Control.EmailServices
                 Credentials = new NetworkCredential(mail, pw),
                 EnableSsl = true,
             };
-            client.Send(mail, model.Email, model.Subject, model.Body);
+            client.Send(mail, model.To, model.Subject, model.Body);
             return new ServiceResponse<dynamic>()
             {
                 Data = "Booking Success!!"

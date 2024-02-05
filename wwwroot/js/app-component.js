@@ -90,9 +90,9 @@ class emailModel {
     constructor() {
         this.firstName = '';
         this.lastName = '';
-        this.email = '';
+        this.to = '';
         this.phone = '';
-        this.message = '';
+        this.body = '';
     }
 }
 
@@ -159,6 +159,14 @@ Vue.component('home-component',
                             }
                         });
                     },
+                    sendEmail: function () {
+                        debugger
+                        var currentObj = this;
+                        var actionRequest = postRequest(apiControlHomeUrl.sendEmail, currentObj.page.mail);
+                        actionRequest.done(function (response) {
+                            currentObj.page.mail = new emailModel();
+                        })
+                    }
                 },
                 mounted: function () {
                     getYear();

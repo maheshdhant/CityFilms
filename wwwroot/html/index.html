@@ -404,14 +404,14 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input type="email" name="To" v-model="page.mail.email" class="form-control" placeholder="Email" />
+                                    <input type="email" name="Email" v-model="page.mail.to" class="form-control" placeholder="Email" />
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" name="Phone" v-model="page.mail.phone" class="form-control" placeholder="Phone Number" />
                                 </div>
                             </div>
                             <div class="form-group ">
-                                <input type="text" name="Body" v-model="page.mail.message" class="message-box" placeholder="Message" />
+                                <input type="text" name="Message" v-model="page.mail.body" class="message-box" placeholder="Message" />
                             </div>
                             <div class="btn-box">
                                 <button type="submit" @click="sendEmail">Submit</button>

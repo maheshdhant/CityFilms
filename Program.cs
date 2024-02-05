@@ -1,6 +1,7 @@
 using CityFilms.Entity;
 using CityFilms.Models;
 using CityFilms.Services.Control.AdminServices;
+using CityFilms.Services.Control.EmailServices;
 using CityFilms.Services.Control.HomeServices;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,7 @@ options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 // Services configuration
 builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection("EmailConfig"));
 

@@ -34,6 +34,7 @@ var apiControlHomeUrl = {
     currentBackground: apiControlHomeBaseUrl + "current-bg",
     logo: apiControlHomeBaseUrl + "company-logo",
     partnerInfo: apiControlHomeBaseUrl + "partner-info",
+    sendEmail: apiControlHomeBaseUrl + "send-email",
 }
 
 

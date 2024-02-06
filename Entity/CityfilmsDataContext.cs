@@ -17,9 +17,13 @@ public partial class CityfilmsDataContext : DbContext
 
     public virtual DbSet<CompanyProfile> CompanyProfiles { get; set; }
 
+    public virtual DbSet<ContactLog> ContactLogs { get; set; }
+
     public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<ImageType> ImageTypes { get; set; }
+
+    public virtual DbSet<MailLog> MailLogs { get; set; }
 
     public virtual DbSet<Partner> Partners { get; set; }
 
@@ -52,6 +56,28 @@ public partial class CityfilmsDataContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<ContactLog>(entity =>
+        {
+            entity.HasKey(e => e.ContactLogId).HasName("PK__ContactL__BCDA0461836269D0");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Message)
+                .HasMaxLength(1000)
+                .IsUnicode(false);
+            entity.Property(e => e.Phone)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Image>(entity =>
         {
             entity.Property(e => e.DateUpdated).HasColumnType("datetime");
@@ -70,6 +96,22 @@ public partial class CityfilmsDataContext : DbContext
 
             entity.Property(e => e.ImageTypeName)
                 .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<MailLog>(entity =>
+        {
+            entity.HasKey(e => e.MailLogId).HasName("PK__MailLogs__6D9B35E5B94A3C6E");
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.SentBy)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.SentTo)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Subject)
+                .HasMaxLength(100)
                 .IsUnicode(false);
         });
 

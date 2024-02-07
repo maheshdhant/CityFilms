@@ -90,9 +90,10 @@ class emailModel {
     constructor() {
         this.firstName = '';
         this.lastName = '';
-        this.to = '';
+        this.email = '';
         this.phone = '';
-        this.body = '';
+        this.subject = '';
+        this.message = '';
     }
 }
 

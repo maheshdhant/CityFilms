@@ -38,7 +38,7 @@ namespace CityFilms.Controllers.Api.Control
             return Ok(serviceResponse);
         }
         [HttpPost("send-email")]
-        public async Task<IActionResult> SendEmail([FromBody] EmailModel model)
+        public async Task<IActionResult> SendEmail([FromBody] ContactLogModel model)
         {
             var serviceResponse = await _emailSender.SendEmail(model);
             return Ok(serviceResponse);

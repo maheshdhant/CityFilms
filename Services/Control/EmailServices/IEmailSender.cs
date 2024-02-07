@@ -5,6 +5,6 @@ namespace CityFilms.Services.Control.EmailServices
 {
     public interface IEmailSender
     {
-        Task<ServiceResponse<dynamic>> SendEmail(EmailModel model);
+        Task<ServiceResponse<dynamic>> SendEmail(ContactLogModel model);
     }
 }

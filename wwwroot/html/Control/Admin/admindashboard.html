@@ -8,36 +8,46 @@
 
     <div>
         Update Company Profile:
-        <div class="form-row">
-            <label for="companyname">Company Name:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyname">Company Name:</label>
+            </div>
             <input id="companyname" type="text" name="companyname" v-model="page.partner.partnerName" placeholder="Company's Name" required>
         </div>
-        <div class="form-row">
-            <label for="companyaddress">Company Address:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyaddress">Company Address:</label>
+            </div>
             <input id="companyaddress" type="text" name="companyaddress" v-model="page.partner.partnerName" placeholder="Company's Address" required>
         </div>
-        <div class="form-row">
-            <label for="companyphone">Company Phone:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyphone">Company Phone:</label>
+            </div>
             <input id="companyphone" type="text" name="companyphone" v-model="page.partner.partnerName" placeholder="Company's Phone" required>
         </div>
-        <div class="form-row">
-            <label for="companymail">Company Mail:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companymail">Company Mail:</label>
+            </div>
             <input id="companymail" type="text" name="companymail" v-model="page.partner.partnerName" placeholder="Company's Mail" required>
         </div>
-        <div class="form-row">
-            <label for="companytagline">Company Tagline:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companytagline">Company Tagline:</label>
+            </div>
             <input id="companytagline" type="text" name="companytagline" v-model="page.partner.partnerName" placeholder="Company's Tagline" required>
         </div>
     </div>
 
-    <div>
+    <div class="mb-2">
         Change Logo:
         <div>
             <input id="logo" type="file" ref="fileInput" @change="handleLogoUpload" accept="image/*">
             <button @click="uploadLogo">Upload Image</button>
         </div>
     </div>
-    <div>
+    <div class="mb-2">
         Upload Background Cover:
         <div>
             <input id="background" type="file" ref="fileInput" @change="handleBackgroundUpload" accept="image/*">
@@ -62,28 +72,40 @@
     <div class="mt-2 mb-2">
         New Partners Profile Entry:
         <div>
-            <div class="form-row">
-                Upload Partners Logo:
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="companyname">Upload Partners Logo:</label>
+                </div>
                 <input id="partnerimage" type="file" ref="fileInput" @change="handlePartnerImageUpload" accept="image/*">
             </div>
-            <div class="form-row">
-                <label for="partnername">Partner Name:</label>
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="partnername">Partner Name:</label>
+                </div>
                 <input id="partnername" type="text" name="partnername" v-model="page.partner.partnerName" placeholder="Partner's Name" required>
             </div>
-            <div class="form-row">
-                <label for="partneremail">Partner's Email:</label>
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="partneremail">Partner's Email:</label>
+                </div>
                 <input id="partneremail" type="email" name="partneremail" v-model="page.partner.partnerEmail" placeholder="Partner's Email">
             </div>
-            <div class="form-row">
-                <label for="partnerphone">Partner's Phone:</label>
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="partnerphone">Partner's Phone:</label>
+                </div>
                 <input id="partnerphone" type="text" name="partnerphone" v-model="page.partner.partnerPhone" placeholder="Partner's Phone">
             </div>
-            <div class="form-row">
-                <label for="partnerdescription">Partner's Description:</label>
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="partnerdescription">Partner's Description:</label>
+                </div>
                 <textarea id="partnerdescription" type="text" name="partnerdescription" v-model="page.partner.partnerDescription" placeholder="Partner's Description" required></textarea>
             </div>
-            <div class="form-row">
-                <label for="partnerwebsite">Partner's Website:</label>
+            <div class="form-row mb-2">
+                <div class="col-sm-2">
+                    <label for="partnerwebsite">Partner's Website:</label>
+                </div>
                 <input id="partnerwebsite" type="text" name="partnerwebsite" v-model="page.partner.partnerWebsite" placeholder="Partner's Website" required>
             </div>
 
@@ -148,24 +170,34 @@
 
     <div>
         Edit Company's Profile:
-        <div class="form-row">
-            <label for="companyname">Company's Name:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyname">Company's Name:</label>
+            </div>
             <input id="companyname" type="text" name="CompanyName" v-model="page.companyProfile.companyName" placeholder="Company's Name" required>
         </div>
-        <div class="form-row">
-            <label for="companymail">Company's Email:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companymail">Company's Email:</label>
+            </div>
             <input id="companyemail" type="email" name="CompanyMail" v-model="page.companyProfile.companyMail" placeholder="Company's Email">
         </div>
-        <div class="form-row">
-            <label for="companyphone">Company's Phone:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyphone">Company's Phone:</label>
+            </div>
             <input id="companyphone" type="text" name="CompanyPhone" v-model="page.companyProfile.companyPhone" placeholder="Company's Phone">
         </div>
-        <div class="form-row">
-            <label for="companyaddress">Company's Address:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companyaddress">Company's Address:</label>
+            </div>
             <input id="companyaddress" type="text" name="CompanyAddress" v-model="page.companyProfile.companyAddress" placeholder="Company's Address">
         </div>
-        <div class="form-row">
-            <label for="companywebsite">Company's Tagline:</label>
+        <div class="form-row mb-2">
+            <div class="col-sm-2">
+                <label for="companywebsite">Company's Tagline:</label>
+            </div>
             <input id="companytagline" type="text" name="CompanyTagline" v-model="page.companyProfile.companyTagline" placeholder="Company's Tagline">
         </div>
         <button @click="updateCompanyProfile">Save Info</button>

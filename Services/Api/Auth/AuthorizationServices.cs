@@ -1,6 +1,7 @@
 ﻿using CityFilms.Entity;
 using CityFilms.Models;
 using CityFilms.Models.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace CityFilms.Services.Api.Auth
 {
@@ -48,18 +49,18 @@ namespace CityFilms.Services.Api.Auth
             var hashPass = pass.GetHmac(password, salt);
             var userId = Guid.NewGuid();
 
-            var user = new User()
+            var user = new UrUser()
             {
                 Password = hashPass,
                 PasswordSalt = salt,
-                IsActive = false,
+                IsActive = true,
                 IsLockedOut = false,
-                CreateDate = DateTime.UtcNow,
+                CreatedDate = DateTime.UtcNow,
                 FailedPasswordAttemptCount = 0,
                 UserId = userId,
                 UserTypeId = null,
             };
-            ent.Users.Add(user);
+            ent.UrUsers.Add(user);
 
             var profile = new UserProfile()
             {

@@ -1,6 +1,6 @@
 ﻿using CityFilms.Entity;
 using CityFilms.Models;
-using CityFilms.Services.Control.AdminServices;
+using CityFilms.Services.Api.Control.AdminServices;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.Mime.MediaTypeNames;
 

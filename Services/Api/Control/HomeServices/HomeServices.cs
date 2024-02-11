@@ -6,9 +6,9 @@ using System.Net.Mail;
 using System.Net;
 using Microsoft.Extensions.Options;
 
-namespace CityFilms.Services.Control.HomeServices
+namespace CityFilms.Services.Api.Control.HomeServices
 {
-    public class HomeServices: IHomeServices
+    public class HomeServices : IHomeServices
     {
         private readonly CityfilmsDataContext _context;
         private readonly EmailConfig _mailSettings;
@@ -28,7 +28,7 @@ namespace CityFilms.Services.Control.HomeServices
         }
         public async Task<ServiceResponse<dynamic>> GetCurrentBackground()
         {
-            var bgImage = await _context.Images.Where(x => x.ImageTypeId == 2 && x.IsSelected == true).Select(x => new ImageModel() { ImageName = x.ImageName}).FirstOrDefaultAsync();
+            var bgImage = await _context.Images.Where(x => x.ImageTypeId == 2 && x.IsSelected == true).Select(x => new ImageModel() { ImageName = x.ImageName }).FirstOrDefaultAsync();
             var imageLocation = "../uploads/images/background/" + bgImage.ImageName;
             return new ServiceResponse<dynamic>()
             {

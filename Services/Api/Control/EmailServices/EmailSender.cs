@@ -4,7 +4,7 @@ using CityFilms.Models.Response;
 using System.Net;
 using System.Net.Mail;
 
-namespace CityFilms.Services.Control.EmailServices
+namespace CityFilms.Services.Api.Control.EmailServices
 {
     public class EmailSender : IEmailSender
     {

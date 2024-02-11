@@ -2,7 +2,7 @@
 using CityFilms.Models.Response;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CityFilms.Services.Control.AdminServices
+namespace CityFilms.Services.Api.Control.AdminServices
 {
     public interface IAdminServices
     {

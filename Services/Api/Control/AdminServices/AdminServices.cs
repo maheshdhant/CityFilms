@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
-namespace CityFilms.Services.Control.AdminServices
+namespace CityFilms.Services.Api.Control.AdminServices
 {
-    public class AdminServices:IAdminServices
+    public class AdminServices : IAdminServices
     {
         private readonly CityfilmsDataContext _context;
         public AdminServices(CityfilmsDataContext context)
@@ -139,12 +139,12 @@ namespace CityFilms.Services.Control.AdminServices
             var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();
             if (imgToRemove != null)
             {
-                if(imgToRemove.IsSelected != true)
+                if (imgToRemove.IsSelected != true)
                 {
                     if (imgToRemove.ImageName != null)
                     {
                         var filePath = Path.Combine("wwwroot", "uploads", "images", "background", imgToRemove.ImageName); ;
-                        System.IO.File.Delete(filePath);
+                        File.Delete(filePath);
                     }
                     _context.Images.RemoveRange(imgToRemove);
                     await _context.SaveChangesAsync();
@@ -173,7 +173,7 @@ namespace CityFilms.Services.Control.AdminServices
         {
             using var ent = new CityfilmsDataContext();
             Image obj = new Image();
-            
+
             // deselect previous background
             obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
             if (obj != null)
@@ -183,10 +183,10 @@ namespace CityFilms.Services.Control.AdminServices
             }
 
             // select background
-            obj= await ent.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
+            obj = await ent.Images.Where(x => x.ImageId == Id).FirstOrDefaultAsync();
             if (obj != null)
             {
-                if(obj.IsSelected != true)
+                if (obj.IsSelected != true)
                 {
                     obj.IsSelected = true;
                     await ent.SaveChangesAsync();
@@ -268,7 +268,7 @@ namespace CityFilms.Services.Control.AdminServices
                 PartnerName = x.PartnerName,
                 PartnerDescription = x.ParnterDescription,
                 PartnerWebsite = x.PartnerWebsite,
-                PartnerPhone= x.PartnerPhone,
+                PartnerPhone = x.PartnerPhone,
                 PartnerEmail = x.PartnerEmail,
                 PartnerImageId = x.PartnerImageId,
                 PartnerImageLocation = x.PartnerImage.ImageLocation,

@@ -1,7 +1,7 @@
 ﻿using CityFilms.Models;
 using CityFilms.Models.Response;
 
-namespace CityFilms.Services.Control.HomeServices
+namespace CityFilms.Services.Api.Control.HomeServices
 {
     public interface IHomeServices
     {

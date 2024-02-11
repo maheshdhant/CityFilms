@@ -1,7 +1,7 @@
 ﻿using CityFilms.Entity;
 using CityFilms.Models;
-using CityFilms.Services.Control.EmailServices;
-using CityFilms.Services.Control.HomeServices;
+using CityFilms.Services.Api.Control.EmailServices;
+using CityFilms.Services.Api.Control.HomeServices;
 using Microsoft.AspNetCore.Mvc;
 using static System.Net.Mime.MediaTypeNames;
 

@@ -27,6 +27,12 @@ public partial class CityfilmsDataContext : DbContext
 
     public virtual DbSet<Partner> Partners { get; set; }
 
+    public virtual DbSet<UrUser> UrUsers { get; set; }
+
+    public virtual DbSet<UserProfile> UserProfiles { get; set; }
+
+    public virtual DbSet<UserType> UserTypes { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-RI2D4VO;Database=CITYFILMS_DATA;user=sa;password=1234;TrustServerCertificate=True");
@@ -139,6 +145,60 @@ public partial class CityfilmsDataContext : DbContext
                 .HasForeignKey(d => d.PartnerImageId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Partners_Images");
+        });
+
+        modelBuilder.Entity<UrUser>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__UrUser__1788CC4CC9A89179");
+
+            entity.ToTable("UrUser");
+
+            entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Password)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.PasswordSalt)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.UserType).WithMany(p => p.UrUsers)
+                .HasForeignKey(d => d.UserTypeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_UrUser_UserType");
+        });
+
+        modelBuilder.Entity<UserProfile>(entity =>
+        {
+            entity.HasKey(e => e.UserProfileId).HasName("PK__UserProf__9E267F62DB66F571");
+
+            entity.ToTable("UserProfile");
+
+            entity.Property(e => e.UserProfileId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.UserName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserProfiles)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__UserProfi__UserI__19DFD96B");
+        });
+
+        modelBuilder.Entity<UserType>(entity =>
+        {
+            entity.HasKey(e => e.UserTypeId).HasName("PK__UserType__40D2D8160C1175C1");
+
+            entity.ToTable("UserType");
+
+            entity.Property(e => e.UserTypeId).ValueGeneratedNever();
+            entity.Property(e => e.UserType1)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("UserType");
         });
 
         OnModelCreatingPartial(modelBuilder);

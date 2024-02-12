@@ -1,6 +1,6 @@
 ﻿namespace CityFilms.Services
 {
-    public interface IBaseServices
+    public interface IBaseService
     {
         Task GetCurrentUser();
     }

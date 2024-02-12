@@ -1,6 +1,7 @@
 ﻿using CityFilms.Entity;
 using CityFilms.Models;
 using CityFilms.Models.Response;
+using CityFilms.Services.Helper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,8 +16,10 @@ namespace CityFilms.Services.Api.Auth
         private readonly string _secret;
         private readonly string _expDate;
         private IConfiguration _config;
-        public AuthorizationServices(IConfiguration config) 
+        public IWebHelper _webHelper;
+        public AuthorizationServices(IConfiguration config, IWebHelper webHelper) 
         {
+            _webHelper = webHelper;
             _config = config;
             _secret = config.GetSection("JwtConfig").GetSection("Secret").Value;
             _expDate = config.GetSection("JwtConfig").GetSection("ExpirationInMinutes").Value;
@@ -145,7 +148,6 @@ namespace CityFilms.Services.Api.Auth
                         user.User.IsLockedOut = true;
                         user.User.LastLockoutDate = DateTime.UtcNow;
                     }
-                    user.User.FailedPasswordAttemptWindowStart = DateTime.UtcNow;
                     user.User.LastActivityDate = DateTime.UtcNow;
                     await ent.SaveChangesAsync();
                 }

@@ -6,5 +6,6 @@ namespace CityFilms.Services.Api.Auth
     public interface IAuthorizationServices
     {
         Task<ServiceResponse<string>> RegisterUser(NewUserRegisterModel model);
+        Task<ServiceResponse<dynamic>> Login(LoginModel model);
     }
 }

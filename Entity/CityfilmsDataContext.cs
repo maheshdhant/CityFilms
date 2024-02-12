@@ -155,6 +155,9 @@ public partial class CityfilmsDataContext : DbContext
 
             entity.Property(e => e.UserId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.LastActivityDate).HasColumnType("datetime");
+            entity.Property(e => e.LastLockoutDate).HasColumnType("datetime");
+            entity.Property(e => e.LastLoginDate).HasColumnType("datetime");
             entity.Property(e => e.Password)
                 .HasMaxLength(100)
                 .IsUnicode(false);

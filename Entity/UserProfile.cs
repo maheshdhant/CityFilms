@@ -13,5 +13,7 @@ public partial class UserProfile
 
     public string? Email { get; set; }
 
+    public bool IsDeleted { get; set; }
+
     public virtual UrUser User { get; set; } = null!;
 }

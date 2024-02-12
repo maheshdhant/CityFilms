@@ -11,15 +11,21 @@ public partial class UrUser
 
     public string? PasswordSalt { get; set; }
 
-    public bool? IsLockedOut { get; set; }
+    public bool IsLockedOut { get; set; }
 
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     public int? FailedPasswordAttemptCount { get; set; }
 
     public DateTime? CreatedDate { get; set; }
 
     public int? UserTypeId { get; set; }
+
+    public DateTime? LastActivityDate { get; set; }
+
+    public DateTime? LastLoginDate { get; set; }
+
+    public DateTime? LastLockoutDate { get; set; }
 
     public virtual ICollection<UserProfile> UserProfiles { get; set; } = new List<UserProfile>();
 

@@ -11,6 +11,11 @@ var htmlPublicBaseUrl = htmlBaseUrl + "public/";
 var htmlPublicUrl = {
     
 }
+var htmlAuthBaseUrl = htmlBaseUrl + "Auth/";
+var htmlAuthUrl = {
+    login : htmlAuthBaseUrl + "login.html",
+
+}
 var htmlControlAdminBaseUrl = htmlBaseUrl + "control/admin/";
 var htmlControlAdminUrl = {
     adminDashboard: htmlControlAdminBaseUrl + "admindashboard.html"

@@ -53,6 +53,13 @@ class serviceModel extends pageModel {
         super({});
     }
 }
+class registerModel {
+    constructor() {
+        this.userName = "";
+        this.email = "";
+        this.password = "";
+    }
+}
 class companyProfileModel{
     constructor() {
         this.companyProfileId = 0;

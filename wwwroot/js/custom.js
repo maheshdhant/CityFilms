@@ -32,6 +32,7 @@ function getRequest(url) {
         type: "GET",
         dataType: "json",
         contentType: "application/json",
+        headers: getAuthHeader(),
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ":" + errorThrown);
         }
@@ -48,6 +49,7 @@ function postRequest(url, data) {
         dataType: "json",
         contentType: "application/json",
         data: data,
+        headers: getAuthHeader(),
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ": " + errorThrown);
         }
@@ -62,8 +64,21 @@ function postFileRequest(url, data) {
         data: data,
         processData: false,
         contentType: false,
+        headers: getAuthHeader(),
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus + ": " + errorThrown);
         }
     });
+}
+
+function getAuthHeader() {
+    var token = "";
+    $(document.cookie.split(';')).each(function (index, item) {
+        if (item.split('=')[0].trim() === "pgwToken") {
+            token = item.split('=')[1];
+        }
+    })
+    return {
+        'Authorization': token
+    }
 }

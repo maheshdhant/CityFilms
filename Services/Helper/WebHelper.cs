@@ -2,7 +2,7 @@
 
 namespace CityFilms.Services.Helper
 {
-    public class WebHelper
+    public class WebHelper : IWebHelper
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         public void SetAuthorization(string Authorization)

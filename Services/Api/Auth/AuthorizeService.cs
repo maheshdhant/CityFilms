@@ -10,14 +10,14 @@ using System.Text;
 
 namespace CityFilms.Services.Api.Auth
 {
-    public class AuthorizationServices : IAuthorizationServices
+    public class AuthorizeService : IAuthorizeService
     {
 
         private readonly string _secret;
         private readonly string _expDate;
         private IConfiguration _config;
         public IWebHelper _webHelper;
-        public AuthorizationServices(IConfiguration config, IWebHelper webHelper) 
+        public AuthorizeService(IConfiguration config, IWebHelper webHelper) 
         {
             _webHelper = webHelper;
             _config = config;

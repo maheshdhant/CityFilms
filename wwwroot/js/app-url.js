@@ -20,6 +20,11 @@ var htmlControlAdminBaseUrl = htmlBaseUrl + "control/admin/";
 var htmlControlAdminUrl = {
     adminDashboard: htmlControlAdminBaseUrl + "admindashboard.html"
 }
+
+var apiAuthBaseUrl = apiBaseUrl + "auth/";
+var apiAuthUrl = {
+    registerUser : apiAuthBaseUrl + "register"
+}
 var apiControlAdminBaseUrl = apiBaseUrl + "control/admin/"
 var apiControlAdminUrl = {
     imageList: apiControlAdminBaseUrl + "images-list",

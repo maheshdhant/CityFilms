@@ -12,9 +12,9 @@ namespace CityFilms.Controllers.Api.Auth
     {
         public readonly IWebHelper _webHelper;
         private IConfiguration _config;
-        private IAuthorizeService _authorizationService;
+        private IAuthorizeServices _authorizationService;
 
-        public ApiAuthController(IConfiguration config, IAuthorizeService authorizationService, IWebHelper webHelper)
+        public ApiAuthController(IConfiguration config, IAuthorizeServices authorizationService, IWebHelper webHelper)
         {
             _webHelper = webHelper;
             _authorizationService = authorizationService;

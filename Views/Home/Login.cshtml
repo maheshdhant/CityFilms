@@ -24,13 +24,15 @@
                 },
                 methods: {
                     registerUser() {
-                        var request = postRequest(apiAuthUrl.registerUser, this.page.mData)
+                        var request = postRequest(apiAuthUrl.registerUser, this.page)
                     },
                 }
             })
         });
 
         function register() {
+            console.log(vApp.page)
+            var request = postRequest(apiAuthUrl.registerUser, vApp.page)
 
         }
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CityFilms.Services
 {
-    public class BaseService
+    public class BaseService: IBaseService
     {
         public IWebHelper _webHelper;
         public CurrentUserModel User { get; set; }

@@ -3,7 +3,7 @@ using CityFilms.Models;
 
 namespace CityFilms.Services.Api.Auth
 {
-    public interface IAuthorizeService
+    public interface IAuthorizeServices
     {
         Task<ServiceResponse<string>> RegisterUser(NewUserRegisterModel model);
         Task<ServiceResponse<dynamic>> Login(LoginModel model);

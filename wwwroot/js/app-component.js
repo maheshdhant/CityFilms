@@ -117,7 +117,7 @@ Vue.component('home-component',
                 },
                 methods: {
                     goToAdmin: function () {
-                        window.location = "/#admin/dashboard";
+                        window.location = "/home/login";
                     },
                     goToHome: function () {
                         window.location = "/#index";

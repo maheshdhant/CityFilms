@@ -1,8 +1,11 @@
 using CityFilms.Entity;
 using CityFilms.Models;
+using CityFilms.Services;
+using CityFilms.Services.Api.Auth;
 using CityFilms.Services.Api.Control.AdminServices;
 using CityFilms.Services.Api.Control.EmailServices;
 using CityFilms.Services.Api.Control.HomeServices;
+using CityFilms.Services.Helper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +21,9 @@ options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IWebHelper, WebHelper>();
+builder.Services.AddTransient<IBaseService, BaseService>();
+builder.Services.AddScoped<IAuthorizeServices, AuthorizeServices>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection("EmailConfig"));
 

@@ -4,12 +4,33 @@ namespace CityFilms.Services.Helper
 {
     public class WebHelper : IWebHelper
     {
+        public enum CookiesNameValue
+        {
+            Token = 0
+        }
         private readonly IHttpContextAccessor _httpContextAccessor;
+        public WebHelper(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
         public void SetAuthorization(string Authorization)
         {
-            var option = new CookieOptions { Expires = DateTime.Now.AddDays(1) };
-            Authorization = "Bearer " + Authorization;
-            _httpContextAccessor.HttpContext.Response.Cookies.Append("0", Authorization, option);
+            try
+            {
+                var option = new CookieOptions
+                {
+                    Expires = DateTime.Now.AddDays(1),
+                    Secure = true,
+                    IsEssential = true,
+                    HttpOnly = false
+                };
+                Authorization = "Bearer " + Authorization;
+                _httpContextAccessor.HttpContext.Response.Cookies.Append(CookiesNameValue.Token.ToString(), Authorization, option);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+            }
         }
         public string GetUserNameFromJwt()
         {

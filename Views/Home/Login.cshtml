@@ -20,7 +20,7 @@
             vApp = new Vue({
                 el: '#app',
                 data: {
-                    page: new registerModel(),
+                    page: new authModel(),
                 },
                 methods: {
                     registerUser() {
@@ -31,9 +31,17 @@
         });
 
         function register() {
-            console.log(vApp.page)
-            var request = postRequest(apiAuthUrl.registerUser, vApp.page)
+            var request = postRequest(apiAuthUrl.registerUser, vApp.page.register);
+            request.done(function (response) {
+                vApp.page.register = new registerModel();
 
+            })
+        }
+        function login() {
+            var request = postRequest(apiAuthUrl.login, vApp.page.login);
+            request.done(function (response) {
+                console.log("hello");
+            })
         }
 
     </script>

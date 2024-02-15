@@ -18,6 +18,12 @@ builder.Services.AddDbContext<CityfilmsDataContext>(options =>
 options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
 // Services configuration
+
+
+builder.Services.AddMvc();
+builder.Services.AddOptions();
+builder.Services.AddMemoryCache();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();

@@ -1,6 +1,32 @@
-﻿<div class="container">
-    <input v-model="page.userName"/>
-    <input v-model="page.email"/>
-    <input v-model="page.password"/>
-    <button onclick="register()">Login</button>
+﻿<div>
+    <div class="container pt-2 pb-2">
+        <div>
+            <label>Username:</label>
+            <input v-model="page.login.userName" />
+
+        </div>
+        <div>
+            <label>Password:</label>
+            <input v-model="page.login.password" />
+        </div>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div class="container mt-3 pt-2 pb-2">
+        <div>
+            <label>Username:</label>
+            <input v-model="page.register.userName" />
+
+        </div>
+        <div>
+            <label>Email:</label>
+            <input v-model="page.register.email" />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input v-model="page.register.password" />
+        </div>
+        
+        <button onclick="register()">Register</button>
+    </div>
 </div>

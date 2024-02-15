@@ -23,7 +23,8 @@ var htmlControlAdminUrl = {
 
 var apiAuthBaseUrl = apiBaseUrl + "auth/";
 var apiAuthUrl = {
-    registerUser : apiAuthBaseUrl + "register"
+    registerUser : apiAuthBaseUrl + "register",
+    login : apiAuthBaseUrl + "login"
 }
 var apiControlAdminBaseUrl = apiBaseUrl + "control/admin/"
 var apiControlAdminUrl = {

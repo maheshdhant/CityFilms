@@ -53,13 +53,6 @@ class serviceModel extends pageModel {
         super({});
     }
 }
-class registerModel {
-    constructor() {
-        this.userName = "";
-        this.email = "";
-        this.password = "";
-    }
-}
 class companyProfileModel{
     constructor() {
         this.companyProfileId = 0;
@@ -103,7 +96,25 @@ class emailModel {
         this.message = '';
     }
 }
-
+class authModel {
+    constructor() {
+        this.register = new registerModel();
+        this.login = new loginModel();
+    }
+}
+class loginModel {
+    constructor() {
+        this.userName = "";
+        this.password = "";
+    }
+}
+class registerModel {
+    constructor() {
+        this.userName = "";
+        this.email = "";
+        this.password = "";
+    }
+}
 Vue.component('home-component',
     function (resolve, reject) {
         $.get('./html/index.html').then(function (res) {

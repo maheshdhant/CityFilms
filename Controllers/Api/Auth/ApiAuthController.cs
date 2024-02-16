@@ -33,5 +33,11 @@ namespace CityFilms.Controllers.Api.Auth
             var serviceResponse = await _authorizationService.RegisterUser(model);
             return Ok(serviceResponse);
         }
+        [HttpPost("logout-user")]
+        public async Task<IActionResult> LogoutUser([FromBody] NewUserRegisterModel model)
+        {
+            var serviceResponse = await _authorizationService.ClearCookie(model);
+            return Ok(serviceResponse);
+        }
     }
 }

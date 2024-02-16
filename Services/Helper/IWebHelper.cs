@@ -4,5 +4,6 @@
     {
         void SetAuthorization(string Authorization);
         string GetUserNameFromJwt();
+        void ClearCookie();
     }
 }

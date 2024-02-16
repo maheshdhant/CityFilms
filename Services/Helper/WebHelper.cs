@@ -8,6 +8,23 @@ namespace CityFilms.Services.Helper
         {
             Token = 0
         }
+        protected virtual bool IsRequestAvailable()
+        {
+            if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
+                return false;
+
+            try
+            {
+                if (_httpContextAccessor.HttpContext.Request == null)
+                    return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
         private readonly IHttpContextAccessor _httpContextAccessor;
         public WebHelper(IHttpContextAccessor httpContextAccessor)
         {
@@ -45,6 +62,11 @@ namespace CityFilms.Services.Helper
                 strUserName = userName.Value;
             }
             return strUserName;
+        }
+        public void ClearCookie()
+        {
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("Token");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("pgwToken");
         }
     }
 }

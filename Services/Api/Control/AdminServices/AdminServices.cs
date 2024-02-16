@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace CityFilms.Services.Api.Control.AdminServices
 {
-    public class AdminServices : IAdminServices
+    public class AdminServices : BaseService, IAdminServices
     {
         private readonly CityfilmsDataContext _context;
         public AdminServices(CityfilmsDataContext context)
@@ -17,6 +17,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> GetImages()
         {
+            await GetCurrentUser();
 
             var logoLocation = await _context.Images.Where(x => x.ImageTypeId == 2 || x.ImageTypeId == 1).OrderBy(x => x.DateUpdated).Select(x => new ImageModel()
             {
@@ -30,6 +31,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> GetBackgroundImages()
         {
+            await GetCurrentUser();
             var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
             {
                 ImageLocation = x.ImageLocation,

@@ -188,5 +188,9 @@ namespace CityFilms.Services.Api.Auth
             _webHelper.SetAuthorization(jwtToken);
             return new ServiceResponse<dynamic>() { Data = loginDetail };
         }
+        public void ClearCookie()
+        {
+            _webHelper.ClearCookie();
+        }
     }
 }

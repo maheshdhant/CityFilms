@@ -1,5 +1,14 @@
 ﻿<div class="container align-content-center">
-    <button @click="goToHome">Go to Home</button>
+    <div class="row">
+        <div class="col-2">
+            <button @click="goToHome">Go to Home</button>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-2">
+            <button @click="logout">Logout</button>
+        </div>
+    </div>
+    
     <ul>
         <li v-for="(item, index) in page.imageList" :key="index">
             {{ item.imageName }}

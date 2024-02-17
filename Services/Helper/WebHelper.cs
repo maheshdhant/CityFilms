@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Primitives;
+using Microsoft.Net.Http.Headers;
 
 namespace CityFilms.Services.Helper
 {
@@ -37,9 +38,6 @@ namespace CityFilms.Services.Helper
                 var option = new CookieOptions
                 {
                     Expires = DateTime.Now.AddDays(1),
-                    Secure = true,
-                    IsEssential = true,
-                    HttpOnly = false
                 };
                 Authorization = "Bearer " + Authorization;
                 _httpContextAccessor.HttpContext.Response.Cookies.Append(CookiesNameValue.Token.ToString(), Authorization, option);
@@ -51,7 +49,7 @@ namespace CityFilms.Services.Helper
         }
         public string GetUserNameFromJwt()
         {
-            _httpContextAccessor.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues authToken);
+            _httpContextAccessor.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out StringValues authToken);
             var strUserName = string.Empty;
             if (string.IsNullOrEmpty(authToken)) return strUserName;
             var strToken = authToken.ToString().Substring(7);

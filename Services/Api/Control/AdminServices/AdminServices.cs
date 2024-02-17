@@ -1,6 +1,7 @@
 ﻿using CityFilms.Entity;
 using CityFilms.Models;
 using CityFilms.Models.Response;
+using CityFilms.Services.Helper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +12,9 @@ namespace CityFilms.Services.Api.Control.AdminServices
     public class AdminServices : BaseService, IAdminServices
     {
         private readonly CityfilmsDataContext _context;
-        public AdminServices(CityfilmsDataContext context)
+        public AdminServices(CityfilmsDataContext context, IWebHelper webHelper)
         {
+            _webHelper = webHelper;
             _context = context;
         }
         public async Task<ServiceResponse<dynamic>> GetImages()

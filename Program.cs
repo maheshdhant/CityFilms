@@ -23,11 +23,11 @@ options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 builder.Services.AddMvc();
 builder.Services.AddOptions();
 builder.Services.AddMemoryCache();
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IWebHelper, WebHelper>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
-builder.Services.AddTransient<IWebHelper, WebHelper>();
 builder.Services.AddTransient<IBaseService, BaseService>();
 builder.Services.AddScoped<IAuthorizeServices, AuthorizeServices>();
 

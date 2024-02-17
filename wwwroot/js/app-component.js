@@ -364,6 +364,12 @@ Vue.component('admin-dashboard-component',
                         actionRequest.done(function (response) {
                             currentObj.page.companyProfile = response.data;
                         });
+                    },
+                    logout: function () {
+                        var request = getRequest(apiAuthUrl.logout);
+                        request.done(function (response) {
+                            alert("logged out! dang")
+                        })
                     }
                 },
                 mounted: function () {

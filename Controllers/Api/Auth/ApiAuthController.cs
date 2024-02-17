@@ -33,11 +33,11 @@ namespace CityFilms.Controllers.Api.Auth
             var serviceResponse = await _authorizationService.RegisterUser(model);
             return Ok(serviceResponse);
         }
-        [HttpPost("logout-user")]
-        public async Task<IActionResult> LogoutUser([FromBody] NewUserRegisterModel model)
+        [HttpGet("logout-user")]
+        public IActionResult LogoutUser()
         {
-            var serviceResponse = await _authorizationService.ClearCookie(model);
-            return Ok(serviceResponse);
+            _authorizationService.ClearCookie();
+            return Ok(DateTime.UtcNow.AddDays(-1).ToString("ddd, dd MMM yyyy hh:mm:ss") + " UTC");
         }
     }
 }

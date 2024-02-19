@@ -31,8 +31,8 @@
         });
 
         function register() {
-            if (isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.password)) {
-                alert("Fill all the required fields!")
+            if (isEmptyOrSpaces(vApp.page.register.userName) || isEmptyOrSpaces(vApp.page.register.userName) || isEmptyOrSpaces(vApp.page.register.password)) {
+                vApp.$toast.warning("Fill all the required fields!")
                 return
             }
             var request = postRequest(apiAuthUrl.registerUser, vApp.page.register);
@@ -43,13 +43,13 @@
         }
         function login() {
             if(isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.password)){
-                alert("Fill all the required fields!")
+                vApp.$toast.warning("Fill all the required fields!")
                 return
             }
             var request = postRequest(apiAuthUrl.login, vApp.page.login);
             request.done(function (response) {
                 if (response.data === false) {
-                    alert("Invalid Username or Password");
+                    vApp.$toast.error("Invalid Username or Password");
                     return;
                 }
                 var tokenCooki = "pgwToken=Bearer " + response.data.jwtToken + "; expires=" + response.data.tokenExpiry + "; path=/;";
@@ -57,12 +57,5 @@
                 window.location = "/#admin/dashboard";
             })
         }
-        function logout(){
-            var request = getRequest(apiAuthUrl.logout);
-            request.done(function(response){
-                alert("logged out! dang")
-            })
-        }
-
     </script>
 }

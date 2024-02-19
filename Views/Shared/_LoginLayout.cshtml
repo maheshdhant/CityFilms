@@ -40,9 +40,18 @@
 
     <script src="~/js/app-component.js"></script>
     <script src="~/js/nav-bar.js"></script>
+    <script src="~/js/vue-toastification/index.js"></script>
+    <link href="~/js/vue-toastification//index.css" rel="stylesheet">
     @await RenderSectionAsync("Scripts", required: false)
     <script>
         $(document).ready(function () {
+            const options = {
+                duration: 2000,
+                dismissible: true,
+                position: "top-right"
+            }
+
+            Vue.use(VueToast, options);
         })
     </script>
 </body>

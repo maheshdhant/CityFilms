@@ -31,7 +31,7 @@
                 actionRequest.done(function (response) {
                     if (!response.data) {
                         window.location = "/home/login";
-                        // alert("Access Denied!! Please login first!");
+                        vApp.$toast.error("Access Denied!! Please login first!");
                         return;
                     }
                 })

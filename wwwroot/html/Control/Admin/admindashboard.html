@@ -39,48 +39,14 @@
                         </div>
                     </div>
                     <div class="modal-footer" style="background-color:cadetblue">
-                        <button type="button" class="btn btn-success" @click="changePassword">Update</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" @click="changePassword" data-dismiss="modal">Update</button>
+                        <button type="button" id="closePwChangeModal" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!--Company Profile Update-->
-    <div class="mb-4">
-        Update Company Profile:
-        <div class="form-row mb-2">
-            <div class="col-sm-2">
-                <label for="companyname">Company Name:</label>
-            </div>
-            <input id="companyname" type="text" name="companyname" v-model="page.partner.partnerName" placeholder="Company's Name" required>
-        </div>
-        <div class="form-row mb-2">
-            <div class="col-sm-2">
-                <label for="companyaddress">Company Address:</label>
-            </div>
-            <input id="companyaddress" type="text" name="companyaddress" v-model="page.partner.partnerName" placeholder="Company's Address" required>
-        </div>
-        <div class="form-row mb-2">
-            <div class="col-sm-2">
-                <label for="companyphone">Company Phone:</label>
-            </div>
-            <input id="companyphone" type="text" name="companyphone" v-model="page.partner.partnerName" placeholder="Company's Phone" required>
-        </div>
-        <div class="form-row mb-2">
-            <div class="col-sm-2">
-                <label for="companymail">Company Mail:</label>
-            </div>
-            <input id="companymail" type="text" name="companymail" v-model="page.partner.partnerName" placeholder="Company's Mail" required>
-        </div>
-        <div class="form-row mb-2">
-            <div class="col-sm-2">
-                <label for="companytagline">Company Tagline:</label>
-            </div>
-            <input id="companytagline" type="text" name="companytagline" v-model="page.partner.partnerName" placeholder="Company's Tagline" required>
-        </div>
-    </div>
     
     <!--Logo Change-->
     <div class="mb-4">
@@ -215,6 +181,7 @@
         </div>
     </div>
 
+    <!--Edit Company Profile-->
     <div>
         Edit Company's Profile:
         <div class="form-row mb-2">

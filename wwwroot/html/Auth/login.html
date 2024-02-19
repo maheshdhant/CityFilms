@@ -1,32 +1,43 @@
 ﻿<div>
     <div class="container pt-2 pb-2">
         <div>
-            <label>Username:</label>
-            <input v-model="page.login.userName" />
-
+            <div class="form-row mb-2">
+                <div class="col-sm-1">
+                    <label for="username">Username:</label>
+                </div>
+                <input id="username" type="text" name="username" v-model="page.login.userName" placeholder="Username" required>
+            </div>
+            <div class="form-row mb-2">
+                <div class="col-sm-1">
+                    <label for="password">Password:</label>
+                </div>
+                <input id="password" type="password" name="password" v-model="page.login.password" placeholder="Password" required>
+            </div>
         </div>
-        <div>
-            <label>Password:</label>
-            <input v-model="page.login.password" />
-        </div>
-        <button onclick="login()">Login</button>
+        <button class="btn btn-success" onclick="login()">Login</button>
     </div>
 
     <div class="container mt-3 pt-2 pb-2">
         <div>
-            <label>Username:</label>
-            <input v-model="page.register.userName" />
-
+            <div class="form-row mb-2">
+                <div class="col-sm-1">
+                    <label for="username">Username:</label>
+                </div>
+                <input id="regusername" type="text" name="username" v-model="page.register.userName" placeholder="Username" required>
+            </div>
+            <div class="form-row mb-2">
+                <div class="col-sm-1">
+                    <label for="email">Email:</label>
+                </div>
+                <input id="regemail" type="email" name="email" v-model="page.register.email" placeholder="Email" required>
+            </div>
+            <div class="form-row mb-2">
+                <div class="col-sm-1">
+                    <label for="password">Password:</label>
+                </div>
+                <input id="regpassword" type="password" name="password" v-model="page.register.password" placeholder="Password" required>
+            </div>
         </div>
-        <div>
-            <label>Email:</label>
-            <input v-model="page.register.email" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input v-model="page.register.password" />
-        </div>
-        
-        <button onclick="register()">Register</button>
+        <button class="btn btn-primary" onclick="register()">Register</button>
     </div>
 </div>

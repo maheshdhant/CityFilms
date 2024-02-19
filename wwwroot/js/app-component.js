@@ -368,7 +368,7 @@ Vue.component('admin-dashboard-component',
                     logout: function () {
                         var request = getRequest(apiAuthUrl.logout);
                         request.done(function (response) {
-                            alert("logged out! dang")
+                            window.location = "/#index"
                         })
                     }
                 },

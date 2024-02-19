@@ -14,7 +14,6 @@ namespace CityFilms.Services.Api.Auth
 {
     public class AuthorizeServices : BaseService, IAuthorizeServices
     {
-
         private readonly string _secret;
         private readonly string _expDate;
         private readonly IDataProtection _dataProtector;
@@ -216,6 +215,19 @@ namespace CityFilms.Services.Api.Auth
 
             _webHelper.SetAuthorization(jwtToken);
             return new ServiceResponse<dynamic>() { Data = loginDetail };
+        }
+
+        public async Task<ServiceResponse<dynamic>> CheckAuth()
+        {
+            try
+            {
+                await GetCurrentUser();
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<dynamic>() { Data = false };
+            }
+            return new ServiceResponse<dynamic>() { Data = true };
         }
         public void ClearCookie()
         {

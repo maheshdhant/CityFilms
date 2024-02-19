@@ -8,6 +8,7 @@ namespace CityFilms.Services.Api.Auth
         Task<ServiceResponse<string>> RegisterUser(NewUserRegisterModel model);
         Task<ServiceResponse<dynamic>> Login(LoginModel model);
         Task<ServiceResponse<dynamic>> ChangePassword(ChangePasswordModel model);
+        Task<ServiceResponse<dynamic>> CheckAuth();
         void ClearCookie();
     }
 }

@@ -52,5 +52,12 @@ namespace CityFilms.Controllers.Api.Auth
             };
             return Ok(response);    
         }
+        [Route("check-auth")]
+        [HttpGet]
+        public async Task<IActionResult> CheckAuth()
+        {
+            var serviceResponse = await _authorizationService.CheckAuth();
+            return Ok(serviceResponse);    
+        }
     }
 }

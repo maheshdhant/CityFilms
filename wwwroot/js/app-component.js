@@ -221,7 +221,7 @@ Vue.component('admin-dashboard-component',
                         window.location = "/#index";
                         window.location.reload();
                     },
-                    getImageList: function () {
+                    getBackgroundImageList: function () {
                         let currentObj = this;
                         var actionRequest = getRequest(apiControlAdminUrl.backgroundImageList);
 
@@ -231,7 +231,6 @@ Vue.component('admin-dashboard-component',
                     },
                     handleLogoUpload(event) {
                         let currentObj = this;
-                        // Get the selected file from the input
                         currentObj.page.logo.imageFile = event.target.files[0];
                     },
                     handleBackgroundUpload(event) {
@@ -253,7 +252,7 @@ Vue.component('admin-dashboard-component',
                         let currentObj = this;
                         currentObj.page.logo.imageTypeId = 1;
                         if (!currentObj.page.logo.imageFile) {
-                            alert('Please select a file.');
+                            currentObj.$toast.warning('Please select a file.');
                             return;
                         }
 
@@ -261,13 +260,21 @@ Vue.component('admin-dashboard-component',
                         const formData = new FormData();
                         formData.append('ImageFile', currentObj.page.logo.imageFile);
                         formData.append('ImageTypeId', currentObj.page.logo.imageTypeId);
-                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
+                        var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData);
+                        actionRequest.done(function (response) {
+                            if (response.data) {
+                                currentObj.$toast.success("Logo Uploaded!");
+                                currentObj.getBackgroundImageList();
+                                return;
+                            }
+                            currentObj.$toast.error("Logo Upload Failed!");
+                        })
                     },
                     uploadBackgroundImage: function () {
                         let currentObj = this;
                         currentObj.page.background.imageTypeId = 2;
                         if (!currentObj.page.background.imageFile) {
-                            alert('Please select a file.');
+                            currentObj.$toast.warning('Please select a file.');
                             return;
                         }
 
@@ -277,15 +284,24 @@ Vue.component('admin-dashboard-component',
                         formData.append('ImageTypeId', currentObj.page.background.imageTypeId);
                         var actionRequest = postFileRequest(apiControlAdminUrl.uploadImage, formData)
                         actionRequest.done(function (response) {
-                            currentObj.page.imageList = response.data
+                            if (response.data) {
+                                currentObj.$toast.success("Background Image Uploaded!");
+                                currentObj.getBackgroundImageList();
+                                return;
+                            }
+                            currentObj.$toast.error("Background Image Upload Failed!");
                         })
                     },
                     handleSelect: function (index) {
                         let currentObj = this;
                         var newSelectedBg = currentObj.page.imageList[index];
                         var actionRequest = postRequest(apiControlAdminUrl.selectBackground + newSelectedBg.imageId)
-                        actionRequest.done(function () {
-
+                        actionRequest.done(function (response) {
+                            if (!response.data) {
+                                currentObj.$toast.warning("Background already selected!"); 
+                                return;
+                            }
+                            currentObj.$toast.success("Background selected!"); 
                         });
                     },
                     deleteBackgroundImage: function (index) {
@@ -293,14 +309,19 @@ Vue.component('admin-dashboard-component',
                         var imgToDelete = currentObj.page.imageList[index];
                         var actionRequest = postRequest(apiControlAdminUrl.deleteBackground + imgToDelete.imageId)
                         actionRequest.done(function (response) {
-                            currentObj.page.imageList = response.data
+                            if (response.data) {
+                                currentObj.$toast.success("Background deleted!");
+                                currentObj.getBackgroundImageList();
+                                return;
+                            }
+                            currentObj.$toast.warning("Background in use! Image cannot be deleted!");
                         })
                     },
                     uploadPartnerInfo: function () {
                         let currentObj = this;
                         currentObj.page.partner.partnerImage.imageTypeId = 3;
                         if (!currentObj.page.partner.partnerImage.imageFile) {
-                            alert('Please select a file.');
+                            currentObj.$toast.warning('Please select a file.');
                             return;
                         }
 
@@ -314,6 +335,12 @@ Vue.component('admin-dashboard-component',
                         formData.append('PartnerWebsite', currentObj.page.partner.partnerWebsite);
                         var actionRequest = postFileRequest(apiControlAdminUrl.addPartnerInfo, formData)
                         actionRequest.done(function (response) {
+                            if (response.data) {
+                                currentObj.$toast.success("Partner Info Added!!");
+                                currentObj.getPartnerInfo()
+                            } else {
+                                currentObj.$toast.error("Access Denied!!");
+                            }
                             currentObj.page.partner.partnerImage.imageFile = null;
                             currentObj.page.partner = new partnerModel();
                         })
@@ -350,7 +377,12 @@ Vue.component('admin-dashboard-component',
                         debugger
                         var actionRequest = postFileRequest(apiControlAdminUrl.editPartnerInfo, formData)
                         actionRequest.done(function (response) {
-                            currentObj.page.partnerInfo = response.data
+                            if (response.data) {
+                                currentObj.$toast.success("Partner Info Updated!!");
+                                currentObj.getPartnerInfo();
+                            } else {
+                                currentObj.$toast.error("Access Denied!!");
+                            }
                             currentObj.page.partner.partnerImage.imageFile = null;
                             currentObj.page.partner = new partnerModel();
                             currentObj.page.selectedPartner = new partnerModel();
@@ -361,16 +393,22 @@ Vue.component('admin-dashboard-component',
                         var currentObj = this;
                         var actionRequest = getRequest(apiControlAdminUrl.getCompanyProfile)
                         actionRequest.done(function (response) {
-                            if (typeof (response.data) != "string") {
-                                currentObj.page.companyProfile = response.data;
+                            if (response.data === false) {
+                                currentObj.$toast.warning("Company Profile Not Set!!");
+                                return;
                             }
+                            currentObj.page.companyProfile = response.data;
                         });
                     },
                     updateCompanyProfile: function () {
                         var currentObj = this;
                         var actionRequest = postRequest(apiControlAdminUrl.updateCompanyProfile, this.page.companyProfile)
                         actionRequest.done(function (response) {
-                            currentObj.page.companyProfile = response.data;
+                            if (response.data) {
+                                currentObj.$toast.success("Company Profile Updated!!");
+                                return;
+                            }
+
                         });
                     },
                     logout: function () {
@@ -381,26 +419,29 @@ Vue.component('admin-dashboard-component',
                     },
                     changePassword() {
                         let currentObj = this;
-                        if (currentObj.page.changePassword.newPassword !== currentObj.page.changePassword.confirmPassword) {
-                            alert("Password confirmation invalid!");
+                        if (isEmptyOrSpaces(currentObj.page.changePassword.newPassword) || isEmptyOrSpaces(currentObj.page.changePassword.oldPassword) || isEmptyOrSpaces(currentObj.page.changePassword.confirmPassword)) {
+                            currentObj.$toast.warning("All the fields are required!");
                             return;
                         }
+                        if (currentObj.page.changePassword.newPassword !== currentObj.page.changePassword.confirmPassword) {
+                            currentObj.$toast.error("Password confirmation invalid!");
+                            return;
+                        }
+                       
                         var actionRequest = postRequest(apiAuthUrl.changeuserPw, currentObj.page.changePassword);
                         actionRequest.done(function (response) {
                             if (response.data === false) {
-                                alert("User doesn't exists!");
-                                return
+                                currentObj.$toast.error("User doesn't exists!");
                             } else if (response.data === true) {
-                                alert("Old password is incorrect!");
-                                return;
+                                currentObj.$toast.error("Old password is incorrect!");
                             } else {
-                                alert(response.data)
+                                currentObj.$toast.success(response.data)
                             }
                         })
                     }
                 },
                 mounted: function () {
-                    this.getImageList();
+                    this.getBackgroundImageList();
                     this.getCompanyProfile();
                     this.getPartnerInfo();
                 },

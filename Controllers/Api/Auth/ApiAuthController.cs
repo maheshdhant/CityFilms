@@ -33,9 +33,9 @@ namespace CityFilms.Controllers.Api.Auth
             var serviceResponse = await _authorizationService.RegisterUser(model);
             return Ok(serviceResponse);
         }
-        [Route("change-userpassword")]
+        [Route("change-password")]
         [HttpPost]
-        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordModel model)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
         {
             var serviceResponse = await _authorizationService.ChangePassword(model);
             return Ok(serviceResponse);

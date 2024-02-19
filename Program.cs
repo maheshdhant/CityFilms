@@ -29,6 +29,7 @@ builder.Services.AddScoped<IAdminServices, AdminServices>();
 builder.Services.AddScoped<IHomeServices, HomeServices>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IBaseService, BaseService>();
+builder.Services.AddTransient<IDataProtection, DataProtection>();
 builder.Services.AddScoped<IAuthorizeServices, AuthorizeServices>();
 
 builder.Services.Configure<EmailConfig>(builder.Configuration.GetSection("EmailConfig"));

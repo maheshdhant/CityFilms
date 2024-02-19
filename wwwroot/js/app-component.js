@@ -24,6 +24,14 @@ class adminDashboardModel {
         this.partnerInfo = [new partnerModel()];
         this.selectedPartner = new partnerModel();
         this.companyProfile = new companyProfileModel();
+        this.changePassword = new changePasswordModel();
+    }
+}
+class changePasswordModel {
+    constructor() {
+        this.oldPassword = "";
+        this.newPassword = "";
+        this.confirmPassword = "";
     }
 }
 class partnerMenuModel extends pageModel {
@@ -369,6 +377,25 @@ Vue.component('admin-dashboard-component',
                         var request = getRequest(apiAuthUrl.logout);
                         request.done(function (response) {
                             window.location = "/#index"
+                        })
+                    },
+                    changePassword() {
+                        let currentObj = this;
+                        if (currentObj.page.changePassword.newPassword !== currentObj.page.changePassword.confirmPassword) {
+                            alert("Password confirmation invalid!");
+                            return;
+                        }
+                        var actionRequest = postRequest(apiAuthUrl.changeuserPw, currentObj.page.changePassword);
+                        actionRequest.done(function (response) {
+                            if (response.data === false) {
+                                alert("User doesn't exists!");
+                                return
+                            } else if (response.data === true) {
+                                alert("Old password is incorrect!");
+                                return;
+                            } else {
+                                alert(response.data)
+                            }
                         })
                     }
                 },

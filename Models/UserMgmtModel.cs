@@ -13,7 +13,7 @@ namespace CityFilms.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "New Password")]
-        public string Password { get; set; }
+        public string NewPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

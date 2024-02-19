@@ -19,7 +19,6 @@ namespace CityFilms.Services.Api.Auth
         private readonly string _expDate;
         private readonly IDataProtection _dataProtector;
         private IConfiguration _config;
-        public IWebHelper _webHelper;
         public AuthorizeServices(IDataProtection dataProtector, IConfiguration config, IWebHelper webHelper) 
         {
             _dataProtector = dataProtector;
@@ -104,12 +103,11 @@ namespace CityFilms.Services.Api.Auth
             }
             var pass = new UserPassword();
             var hassPass = pass.GetHmac(model.OldPassword, user.User.PasswordSalt);
-            var pin = pass.GetHmac(model.Password);
             if (hassPass != user.User.Password)
             {
                 return new ServiceResponse<dynamic>() { Data = true };
             }
-            var newHassPass = pass.GetHmac(model.Password, user.User.PasswordSalt);
+            var newHassPass = pass.GetHmac(model.NewPassword, user.User.PasswordSalt);
             user.User.Password = newHassPass;
             await ent.SaveChangesAsync();
             return new ServiceResponse<dynamic>()

@@ -24,8 +24,11 @@ $(".owl-carousel").owlCarousel({
     }
 });
 
-//    end owl carousel script 
+//    end owl carousel script
 
+function isEmptyOrSpaces(str) {
+    return str === undefined || str === null || str.match(/^ *$/) !== null;
+}
 function getRequest(url) {
     return $.ajax({
         url: url,

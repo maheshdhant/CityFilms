@@ -31,6 +31,10 @@
         });
 
         function register() {
+            if (isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.password)) {
+                alert("Fill all the required fields!")
+                return
+            }
             var request = postRequest(apiAuthUrl.registerUser, vApp.page.register);
             request.done(function (response) {
                 vApp.page.register = new registerModel();
@@ -38,12 +42,18 @@
             })
         }
         function login() {
+            if(isEmptyOrSpaces(vApp.page.login.userName) || isEmptyOrSpaces(vApp.page.login.password)){
+                alert("Fill all the required fields!")
+                return
+            }
             var request = postRequest(apiAuthUrl.login, vApp.page.login);
             request.done(function (response) {
+                if (response.data === false) {
+                    alert("Invalid Username or Password");
+                    return;
+                }
                 var tokenCooki = "pgwToken=Bearer " + response.data.jwtToken + "; expires=" + response.data.tokenExpiry + "; path=/;";
                 document.cookie = tokenCooki;
-                console.log("hello");
-                alert("login success")
                 window.location = "/#admin/dashboard";
             })
         }

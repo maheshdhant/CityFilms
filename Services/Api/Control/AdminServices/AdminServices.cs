@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Diagnostics;
 
 namespace CityFilms.Services.Api.Control.AdminServices
 {
@@ -89,7 +90,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
                     }
                     return new ServiceResponse<dynamic>()
                     {
-                        Data = "Upload successfull!"
+                        Data = true,
                     };
                 }
                 // for background cover
@@ -121,22 +122,15 @@ namespace CityFilms.Services.Api.Control.AdminServices
                     _context.Images.Add(imageDetails);
                     await _context.SaveChangesAsync();
 
-                    var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
-                    {
-                        ImageLocation = x.ImageLocation,
-                        ImageId = x.ImageId,
-                        IsSelected = x.IsSelected,
-                    }).ToListAsync();
-
                     return new ServiceResponse<dynamic>()
                     {
-                        Data = backgroundImages
+                        Data = true
                     };
                 }
             }
             return new ServiceResponse<dynamic>()
             {
-                Data = "Upload failed!"
+                Data = false
             };
         }
         public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId)
@@ -159,20 +153,14 @@ namespace CityFilms.Services.Api.Control.AdminServices
                 {
                     return new ServiceResponse<dynamic>()
                     {
-                        Data = "Current background image cannot be deleted!"
+                        Data = false,
                     };
                 }
             }
-            var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
-            {
-                ImageLocation = x.ImageLocation,
-                ImageId = x.ImageId,
-                IsSelected = x.IsSelected,
-            }).ToListAsync();
 
             return new ServiceResponse<dynamic>()
             {
-                Data = backgroundImages
+                Data = true,
             };
         }
         public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id)
@@ -181,7 +169,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
             using var ent = new CityfilmsDataContext();
 
             // deselect previous background
-            var obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
+            var obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2 && x.ImageId != Id).FirstOrDefaultAsync();
             if (obj != null)
             {
                 obj.IsSelected = false;
@@ -201,25 +189,26 @@ namespace CityFilms.Services.Api.Control.AdminServices
                 {
                     return new ServiceResponse<dynamic>()
                     {
-                        Data = "Already selected!"
+                        Data = false
                     };
                 }
             }
-            var backgroundImages = await _context.Images.Where(x => x.ImageTypeId == 2).OrderByDescending(x => x.DateUpdated).Select(x => new ImageModel()
-            {
-                ImageLocation = x.ImageLocation,
-                ImageId = x.ImageId,
-                IsSelected = x.IsSelected,
-            }).ToListAsync();
+
 
             return new ServiceResponse<dynamic>()
             {
-                Data = backgroundImages
+                Data = true,
             };
         }
         public async Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model)
         {
-            await GetCurrentUser();
+            try
+            {
+                await GetCurrentUser();
+            }catch (Exception ex)
+            {
+                return new ServiceResponse<dynamic>() { Data = false };
+            }
             var fileName = model.PartnerImage.FileName;
             var filePath = "";
             filePath = Path.Combine("wwwroot", "uploads", "images", "partners");
@@ -262,7 +251,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
 
             return new ServiceResponse<dynamic>()
             {
-                Data = "Partner's Info Uploaded Successfully!",
+                Data = true,
             };
         }
         public async Task<ServiceResponse<dynamic>> GetPartnerInfo()
@@ -288,7 +277,15 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> EditPartnerInfo(PartnerModel model)
         {
-            await GetCurrentUser();
+            try
+            {
+                await GetCurrentUser();
+            }
+            catch (Exception ex)
+            {
+                return new ServiceResponse<dynamic>() { Data = false };
+            }
+
             using var ent = new CityfilmsDataContext();
 
             var partnerId = model.PartnerId;
@@ -306,8 +303,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
                 await ent.SaveChangesAsync();
             };
             partnerImageId = await ent.Partners.Where(x => x.PartnerId == model.PartnerId).Select(x => x.PartnerImageId).FirstOrDefaultAsync();
-            Image obj = new Image();
-
+            
             if (model.PartnerImage != null)
             {
                 var fileName = model.PartnerImage.FileName;
@@ -323,7 +319,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
                     await model.PartnerImage.CopyToAsync(stream);
                 }
 
-                obj = await ent.Images.Where(x => x.ImageId == partnerImageId).FirstOrDefaultAsync();
+                var obj = await ent.Images.Where(x => x.ImageId == partnerImageId).FirstOrDefaultAsync();
                 if (obj != null)
                 {
                     obj.DateUpdated = DateTime.Now;
@@ -333,27 +329,14 @@ namespace CityFilms.Services.Api.Control.AdminServices
                 }
             }
 
-            List<PartnerModel> partnerInfo = new List<PartnerModel>();
-            partnerInfo = await ent.Partners.Include(x => x.PartnerImage).Select(x => new PartnerModel
-            {
-                PartnerId = x.PartnerId,
-                PartnerName = x.PartnerName,
-                PartnerDescription = x.ParnterDescription,
-                PartnerWebsite = x.PartnerWebsite,
-                PartnerPhone = x.PartnerPhone,
-                PartnerEmail = x.PartnerEmail,
-                PartnerImageId = x.PartnerImageId,
-                PartnerImageLocation = x.PartnerImage.ImageLocation,
-            }).ToListAsync();
             return new ServiceResponse<dynamic>()
             {
-                Data = partnerInfo,
+                Data = true,
             };
         }
 
         public async Task<ServiceResponse<dynamic>> GetCompanyProfile()
         {
-            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
             var profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
             if (profile != null)
@@ -365,13 +348,14 @@ namespace CityFilms.Services.Api.Control.AdminServices
             }
             return new ServiceResponse<dynamic>()
             {
-                Data = "Company Profile not set!",
+                Data = false,
             };
         }
         public async Task<ServiceResponse<dynamic>> EditCompanyProfile(CompanyProfileModel model)
         {
             await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
+
             var profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
             if (profile == null)
             {
@@ -395,7 +379,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
             }
             return new ServiceResponse<dynamic>()
             {
-                Data = profile,
+                Data = true,
             };
         }
 

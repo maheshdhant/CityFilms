@@ -27,6 +27,14 @@
                 vApp.page.currentComponent = 'home-component'; document.title = "Home";
             }
             else if (aurl === hashValue.adminDashboard) {
+                var actionRequest = getRequest(apiAuthUrl.checkAuth);
+                actionRequest.done(function (response) {
+                    if (!response.data) {
+                        window.location = "/home/login";
+                        // alert("Access Denied!! Please login first!");
+                        return;
+                    }
+                })
                 vApp.page.currentComponent = 'admin-dashboard-component'; document.title = "Admin";
             }
             else if (aurl === hashValue.partners) {

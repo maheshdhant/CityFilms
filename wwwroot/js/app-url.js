@@ -26,7 +26,8 @@ var apiAuthUrl = {
     registerUser : apiAuthBaseUrl + "register",
     login : apiAuthBaseUrl + "login",
     logout : apiAuthBaseUrl + "logout-user",
-    changeuserPw: apiAuthBaseUrl + "change-password",
+    changeuserPw : apiAuthBaseUrl + "change-password",
+    checkAuth : apiAuthBaseUrl + "check-auth",
 }
 var apiControlAdminBaseUrl = apiBaseUrl + "control/admin/"
 var apiControlAdminUrl = {

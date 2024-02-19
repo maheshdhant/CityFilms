@@ -36,42 +36,49 @@ namespace CityFilms.Controllers.Api.Control
             var serviceResponse = await _actionServices.UploadImages(model);
             return Ok(serviceResponse);
         }
+
         [HttpPost("select-bg-image/{Id}")]
         public async Task<IActionResult> SelectBackgroundImage(int Id)
         {
             var serviceResponse = await _actionServices.SelectBackgroundImage(Id);
             return Ok(serviceResponse);
         }
+
         [HttpPost("delete-bg-image/{Id}")]
         public async Task<IActionResult> DeleteBackgroundImage(int Id)
         {
             var serviceResponse = await _actionServices.DeleteBackgroundImage(Id);
             return Ok(serviceResponse);
         }
+
         [HttpPost("add-partner-info")]
         public async Task<IActionResult> AddPartnerInfo([FromForm]PartnerModel model)
         {
             var serviceResponse = await _actionServices.AddPartnerInfo(model);
             return Ok(serviceResponse);
         }
+
         [HttpGet("get-partner-info")]
         public async Task<IActionResult> GetPartnerInfo()
         {
             var serviceResponse = await _actionServices.GetPartnerInfo();
             return Ok(serviceResponse);
         }
+
         [HttpPost("edit-partner-info")]
         public async Task<IActionResult> EditPartnerInfo([FromForm] PartnerModel model)
         {
             var serviceResponse = await _actionServices.EditPartnerInfo(model);
             return Ok(serviceResponse);
         }
+
         [HttpGet("get-company-profile")]
         public async Task<IActionResult> GetCompanyProfile()
         {
             var serviceResponse = await _actionServices.GetCompanyProfile();
             return Ok(serviceResponse);
         }
+
         [HttpPost("edit-company-profile")]
         public async Task<IActionResult> EditCompanyProfile([FromBody] CompanyProfileModel model)
         {

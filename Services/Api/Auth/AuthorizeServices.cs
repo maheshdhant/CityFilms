@@ -2,23 +2,27 @@
 using CityFilms.Models;
 using CityFilms.Models.Response;
 using CityFilms.Services.Helper;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace CityFilms.Services.Api.Auth
 {
-    public class AuthorizeServices : IAuthorizeServices
+    public class AuthorizeServices : BaseService, IAuthorizeServices
     {
 
         private readonly string _secret;
         private readonly string _expDate;
+        private readonly IDataProtection _dataProtector;
         private IConfiguration _config;
         public IWebHelper _webHelper;
-        public AuthorizeServices(IConfiguration config, IWebHelper webHelper) 
+        public AuthorizeServices(IDataProtection dataProtector, IConfiguration config, IWebHelper webHelper) 
         {
+            _dataProtector = dataProtector;
             _webHelper = webHelper;
             _config = config;
             _secret = config.GetSection("JwtConfig").GetSection("Secret").Value;
@@ -84,6 +88,33 @@ namespace CityFilms.Services.Api.Auth
             return new ServiceResponse<string>()
             {
                 Data = "Registration completed!",
+            };
+        }
+
+        public async Task<ServiceResponse<dynamic>> ChangePassword(ChangePasswordModel model)
+        {
+
+            using var ent = new CityfilmsDataContext();
+            await GetCurrentUser();
+
+            var user = ent.UserProfiles.Include(x => x.User).FirstOrDefault(x => x.UserId == User.UserId);
+            if (user == null)
+            {
+                return new ServiceResponse<dynamic>() { Data = false };
+            }
+            var pass = new UserPassword();
+            var hassPass = pass.GetHmac(model.OldPassword, user.User.PasswordSalt);
+            var pin = pass.GetHmac(model.Password);
+            if (hassPass != user.User.Password)
+            {
+                return new ServiceResponse<dynamic>() { Data = true };
+            }
+            var newHassPass = pass.GetHmac(model.Password, user.User.PasswordSalt);
+            user.User.Password = newHassPass;
+            await ent.SaveChangesAsync();
+            return new ServiceResponse<dynamic>()
+            {
+                Data = "Password changed successfully!",
             };
         }
         public async Task<ServiceResponse<dynamic>> Login(LoginModel model)

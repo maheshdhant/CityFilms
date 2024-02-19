@@ -33,11 +33,24 @@ namespace CityFilms.Controllers.Api.Auth
             var serviceResponse = await _authorizationService.RegisterUser(model);
             return Ok(serviceResponse);
         }
-        [HttpGet("logout-user")]
+        [Route("change-userpassword")]
+        [HttpPost]
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordModel model)
+        {
+            var serviceResponse = await _authorizationService.ChangePassword(model);
+            return Ok(serviceResponse);
+        }
+
+        [Route("logout-user")]
+        [HttpGet]
         public IActionResult LogoutUser()
         {
             _authorizationService.ClearCookie();
-            return Ok(DateTime.UtcNow.AddDays(-1).ToString("ddd, dd MMM yyyy hh:mm:ss") + " UTC");
+            var response = new
+            {
+                date = DateTime.UtcNow.AddDays(-1).ToString("ddd, dd MMM yyyy hh:mm:ss") + " UTC",
+            };
+            return Ok(response);    
         }
     }
 }

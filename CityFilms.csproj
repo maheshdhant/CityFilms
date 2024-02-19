@@ -11,6 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\vue-toastification\index.js" />
+    <None Include="wwwroot\js\vue-toastification\index.js.map" />
+    <None Include="wwwroot\js\vue-toastification\index.min.js" />
+    <None Include="wwwroot\js\vue-toastification\index.min.js.map" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.14">

@@ -48,6 +48,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> UploadImages(ImageModel model)
         {
+            await GetCurrentUser();
             var fileName = model.ImageFile.FileName;
             var filePath = "";
 
@@ -140,6 +141,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> DeleteBackgroundImage(int imageId)
         {
+            await GetCurrentUser();
             var imgToRemove = await _context.Images.Where(x => x.ImageId == imageId).FirstOrDefaultAsync();
             if (imgToRemove != null)
             {
@@ -175,11 +177,11 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> SelectBackgroundImage(int Id)
         {
+            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
-            Image obj = new Image();
 
             // deselect previous background
-            obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
+            var obj = await ent.Images.Where(x => x.IsSelected == true && x.ImageTypeId == 2).FirstOrDefaultAsync();
             if (obj != null)
             {
                 obj.IsSelected = false;
@@ -217,6 +219,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> AddPartnerInfo(PartnerModel model)
         {
+            await GetCurrentUser();
             var fileName = model.PartnerImage.FileName;
             var filePath = "";
             filePath = Path.Combine("wwwroot", "uploads", "images", "partners");
@@ -264,9 +267,9 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> GetPartnerInfo()
         {
+            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
-            List<PartnerModel> model = new List<PartnerModel>();
-            var partnerInfo = await ent.Partners.Include(x => x.PartnerImage).Select(x => new PartnerModel
+            var model = await ent.Partners.Include(x => x.PartnerImage).Select(x => new PartnerModel
             {
                 PartnerId = x.PartnerId,
                 PartnerName = x.PartnerName,
@@ -277,7 +280,7 @@ namespace CityFilms.Services.Api.Control.AdminServices
                 PartnerImageId = x.PartnerImageId,
                 PartnerImageLocation = x.PartnerImage.ImageLocation,
             }).ToListAsync();
-            model = partnerInfo;
+
             return new ServiceResponse<dynamic>()
             {
                 Data = model,
@@ -285,14 +288,14 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> EditPartnerInfo(PartnerModel model)
         {
+            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
 
             var partnerId = model.PartnerId;
             var filePath = "";
             int? partnerImageId = 0;
 
-            Partner partner = new Partner();
-            partner = await ent.Partners.Where(x => x.PartnerId == model.PartnerId).FirstOrDefaultAsync();
+            var partner = await ent.Partners.Where(x => x.PartnerId == model.PartnerId).FirstOrDefaultAsync();
             if (partner != null)
             {
                 partner.PartnerName = model.PartnerName;
@@ -350,9 +353,9 @@ namespace CityFilms.Services.Api.Control.AdminServices
 
         public async Task<ServiceResponse<dynamic>> GetCompanyProfile()
         {
+            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
-            CompanyProfile profile = new CompanyProfile();
-            profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
+            var profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
             if (profile != null)
             {
                 return new ServiceResponse<dynamic>()
@@ -367,9 +370,9 @@ namespace CityFilms.Services.Api.Control.AdminServices
         }
         public async Task<ServiceResponse<dynamic>> EditCompanyProfile(CompanyProfileModel model)
         {
+            await GetCurrentUser();
             using var ent = new CityfilmsDataContext();
-            CompanyProfile profile = new CompanyProfile();
-            profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
+            var profile = await ent.CompanyProfiles.FirstOrDefaultAsync();
             if (profile == null)
             {
                 CompanyProfile newProfile = new CompanyProfile();

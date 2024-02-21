@@ -104,7 +104,7 @@
                                     <input type="text" v-model="page.mail.message" class="message-box" placeholder="Message" />
                                 </div>
                                 <div class="btn-box">
-                                    <button type="submit">Submit</button>
+                                    <button @click="sendEmail" type="submit">Submit</button>
                                 </div>
                             </form>
                         </div>

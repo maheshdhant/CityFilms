@@ -187,7 +187,6 @@ Vue.component('home-component',
                         });
                     },
                     sendEmail: function () {
-                        debugger
                         var currentObj = this;
                         var actionRequest = postRequest(apiControlHomeUrl.sendEmail, currentObj.page.mail);
                         actionRequest.done(function (response) {
@@ -374,7 +373,6 @@ Vue.component('admin-dashboard-component',
                         formData.append('PartnerEmail', currentObj.page.selectedPartner.partnerEmail);
                         formData.append('PartnerWebsite', currentObj.page.selectedPartner.partnerWebsite);
                         formData.append('PartnerId', id);
-                        debugger
                         var actionRequest = postFileRequest(apiControlAdminUrl.editPartnerInfo, formData)
                         actionRequest.done(function (response) {
                             if (response.data) {
@@ -626,8 +624,12 @@ Vue.component('contact-component',
                             currentObj.page.logoLocation = response.data;
                         })
                     },
-                    emailSender: function () {
-                        currentObj = this;
+                    sendEmail: function () {
+                        var currentObj = this;
+                        var actionRequest = postRequest(apiControlHomeUrl.sendEmail, currentObj.page.mail);
+                        actionRequest.done(function (response) {
+                            currentObj.page.mail = new emailModel();
+                        })
                     }
                 },
                 mounted: function () {

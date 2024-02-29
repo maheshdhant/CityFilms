@@ -10,7 +10,7 @@ class homeModel extends pageModel {
         super({
 
         });
-        this.partnerInfo = [new partnerModel()];
+        this.partnerInfo = [];
         this.companyProfile = new companyProfileModel();
         this.mail = new emailModel();
     }
@@ -37,6 +37,7 @@ class changePasswordModel {
 class partnerMenuModel extends pageModel {
     constructor() {
         super({});
+        this.partnerInfo = [];
     }
 }
 class aboutModel extends pageModel {
@@ -483,12 +484,19 @@ Vue.component('partners-component',
                             currentObj.page.logoLocation = response.data;
                         })
                     },
+                    getPartnerInfo: function () {
+                        var currentObj = this;
+                        var actionRequest = getRequest(apiControlHomeUrl.partnerInfo)
+                        actionRequest.done(function (response) {
+                            currentObj.page.partnerInfo = response.data
+                        })
+                    },
                 },
                 mounted: function () {
                     this.getCompanyLogo()
                 },
                 created: function () {
-
+                    this.getPartnerInfo();
                 }
             })
         })
